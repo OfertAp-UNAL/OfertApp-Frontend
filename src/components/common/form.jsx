@@ -61,11 +61,12 @@ class Form extends Component {
   };
 
   handleChange = (event) => {
-    // this.handleErrors(event);
+    this.handleErrors(event);
     this.handleData(event);
   };
 
   handleErrors = ({ currentTarget: input }) => {
+    debugger;
     const errors = { ...this.state.errors };
     const errorMessage = this.validateProperty(input);
     if (errorMessage) errors[input.name] = errorMessage;
