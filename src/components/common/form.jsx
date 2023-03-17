@@ -23,7 +23,6 @@ class Form extends Component {
 
   validateProperty = ({ name, value }) => {
     const obj = { [name]: value };
-    console.log("Obj is", obj);
     const schema = { [name]: this.schema[name] };
     const { error } = Joi.validate(obj, schema);
     return error ? error.details[0].message : null;
@@ -66,7 +65,6 @@ class Form extends Component {
   };
 
   handleErrors = ({ currentTarget: input }) => {
-    debugger;
     const errors = { ...this.state.errors };
     const errorMessage = this.validateProperty(input);
     if (errorMessage) errors[input.name] = errorMessage;

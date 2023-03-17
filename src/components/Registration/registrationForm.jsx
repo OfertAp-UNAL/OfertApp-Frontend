@@ -57,12 +57,33 @@ class RegisterForm extends Form {
 
   schema = {
     id: Joi.number().required().label("Cédula"),
+    name: Joi.string().required().label("Nombre"),
+    username: Joi.string().required().label("Nombre de usuario"),
+    password: Joi.string().required().label("Contraseña"),
+    confirmPassword: Joi.string()
+      .required()
+      .options({
+        language: {
+          any: {
+            allowOnly: "Las contraseñas deben coincidir",
+          },
+        },
+      })
+      .label("Confirmar contraseña"),
+    email: Joi.string().email().required().label("Correo electrónico"),
+    phone: Joi.number().required().label("Teléfono"),
     department: Joi.string()
       .valid(...this.state.allDepartmentsList)
       .required()
       .label("Departamento"),
     city: Joi.string().required().label("Ciudad"),
+    address: Joi.string().required().label("Dirección"),
+    paymentAccountType: Joi.string().required().label("Tipo de cuenta de pago"),
+    paymentAccountNumber: Joi.string()
+      .required()
+      .label("Número de cuenta de pago"),
   };
+
   render() {
     return (
       <div>
@@ -70,7 +91,7 @@ class RegisterForm extends Form {
         <form onSubmit={this.handleSubmit} style={{ display: "flex" }}>
           <div style={{ flex: 1, marginRight: "1em" }}>
             {this.renderInput("id", "Cédula", "number")}
-            {this.renderInput("name", "Cédula")}
+            {this.renderInput("name", "Nombre")}
             {this.renderInput("username", "Nombre de usuario")}
             {this.renderInput("password", "Contraseña", "password")}
             {this.renderInput(
