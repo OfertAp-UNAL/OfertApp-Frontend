@@ -29,6 +29,11 @@ class RegisterForm extends Form {
         <form onSubmit={this.handleSubmit} style={{ display: "flex" }}>
           <div style={{ flex: 1, marginRight: "1em" }}>
             {this.renderInput("id", "Cédula", "number")}
+            {this.renderAutosuggest(
+              "department",
+              "Departamento",
+              this.state.allStatesList
+            )}
           </div>
           <div style={{ flex: 1, marginLeft: "1em" }}>
             {this.renderButton("Save")}

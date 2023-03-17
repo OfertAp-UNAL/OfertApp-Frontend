@@ -61,7 +61,7 @@ class Form extends Component {
   };
 
   handleChange = (event) => {
-    this.handleErrors(event);
+    // this.handleErrors(event);
     this.handleData(event);
   };
 
@@ -83,7 +83,7 @@ class Form extends Component {
     const { data } = this.state;
 
     const inputProps = {
-      placeholder: label,
+      placeholder: "Escribe aquí",
       value: data[name],
       onChange: this.handleData,
       name,
@@ -93,27 +93,30 @@ class Form extends Component {
     const suggestions = this.fetchAutosuggestSuggestions(data[name], options);
 
     return (
-      <Autosuggest
-        inputProps={inputProps}
-        onSuggestionSelected={(event, { suggestion }) => {
-          // Handle the selected suggestion here
-          console.log("Selected suggestion:", suggestion);
-          this.handleAutosuggestSelection(suggestion, name);
-        }}
-        suggestions={suggestions}
-        getSuggestionValue={(suggestion) => suggestion}
-        renderSuggestion={(suggestion) => <div>{suggestion}</div>}
-        onSuggestionsFetchRequested={({ value }) =>
-          this.fetchAutosuggestSuggestions(value, options)
-        }
-        highlightFirstSuggestion
-        onSuggestionsClearRequested={() => {}}
-        renderSuggestionsContainer={({ containerProps, children, query }) => (
-          <div {...containerProps}>
-            <ul className="suggestion-list">{children}</ul>
-          </div>
-        )}
-      />
+      <div>
+        <label htmlFor={name}>{label}</label>
+        <Autosuggest
+          id={name}
+          inputProps={inputProps}
+          onSuggestionSelected={(event, { suggestion }) => {
+            // Handle the selected suggestion here
+            this.handleAutosuggestSelection(suggestion, name);
+          }}
+          suggestions={suggestions}
+          getSuggestionValue={(suggestion) => suggestion}
+          renderSuggestion={(suggestion) => <div>{suggestion}</div>}
+          onSuggestionsFetchRequested={({ value }) =>
+            this.fetchAutosuggestSuggestions(value, options)
+          }
+          highlightFirstSuggestion
+          onSuggestionsClearRequested={() => {}}
+          renderSuggestionsContainer={({ containerProps, children, query }) => (
+            <div {...containerProps}>
+              <ul className="suggestion-list">{children}</ul>
+            </div>
+          )}
+        />
+      </div>
     );
   }
 
