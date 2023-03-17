@@ -5,7 +5,7 @@ const NavBar = ({ user }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <Link className="navbar-brand" to="/">
-        Laboratorio 0
+        OfertApp
       </Link>
       <button
         className="navbar-toggler"
@@ -19,17 +19,7 @@ const NavBar = ({ user }) => {
         <span className="navbar-toggler-icon" />
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div className="navbar-nav">
-          <NavLink className="nav-item nav-link" to="/habitantes">
-            Habitantes
-          </NavLink>
-          <NavLink className="nav-item nav-link" to="/municipios">
-            Municipios
-          </NavLink>
-          <NavLink className="nav-item nav-link" to="/viviendas">
-            Viviendas
-          </NavLink>
-        </div>
+        <div className="navbar-nav"></div>
       </div>
     </nav>
   );
