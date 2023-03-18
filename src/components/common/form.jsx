@@ -120,25 +120,18 @@ class Form extends Component {
   }
 
   renderButton(label) {
+    /* General use button. If the form has a check T&C button, it will only 
+    be active if they're accepted. If the form doesn't have T&C it will be active only with the JOI validation*/
+    let termsConditionsAccepted = true;
+    if (this.state.acceptedTermsConditions !== "undefined")
+      termsConditionsAccepted = this.state.acceptedTermsConditions;
     return (
-      <button disabled={this.validate()} className="btn btn-primary">
+      <button
+        disabled={this.validate() && termsConditionsAccepted}
+        className="btn btn-primary"
+      >
         {label}
       </button>
-    );
-  }
-
-  renderSelect(name, label, options) {
-    const { data, errors } = this.state;
-
-    return (
-      <Select
-        name={name}
-        value={data[name]}
-        label={label}
-        options={options}
-        onChange={this.handleChange}
-        error={errors[name]}
-      />
     );
   }
 
@@ -188,6 +181,25 @@ class Form extends Component {
           ))}
         </ul>
       </div>
+    );
+  }
+
+  handleCheckboxChange = (event) => {};
+
+  renderTermsConditionsCheckbox() {
+    return (
+      <label>
+        <input
+          type="checkbox"
+          onChange={() => {
+            debugger;
+            this.setState({
+              acceptedTermsConditions: !this.state.acceptedTermsConditions,
+            });
+          }}
+        />
+        I accept the terms and conditions
+      </label>
     );
   }
 

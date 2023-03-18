@@ -53,6 +53,7 @@ class RegisterForm extends Form {
     ],
     citiesExample: ["Bogota", "Zipa", "Chia"],
     errors: {},
+    acceptedTermsConditions: false,
   };
 
   schema = {
@@ -118,6 +119,8 @@ class RegisterForm extends Form {
             {this.renderInput("address", "Dirección")}
             {this.renderInput("paymentAccountType", "Método de pago")}
             {this.renderInput("paymentAccountNumber", "Número de cuenta")}
+
+            {this.renderTermsConditionsCheckbox()}
             {this.renderButton("Save")}
           </div>
         </form>
