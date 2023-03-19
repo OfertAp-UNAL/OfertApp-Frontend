@@ -4,29 +4,19 @@ import Pagination from "../common/pagination";
 import withRouter from "../../services/withRouter";
 import SearchBox from "../common/searchBox";
 import { paginate } from "../../utils/paginate";
+import { getProducts } from "../../services/productService";
 
 class MainPage extends Component {
   state = {
-    publications: [
-      "Juan",
-      "María",
-      "Pedro",
-      "Lucía",
-      "Carlos",
-      "Ana",
-      "Miguel",
-      "Sofía",
-      "Luis",
-      "Laura",
-    ],
+    publications: [],
     currentPage: 1,
     pageSize: 4,
     searchQuery: "",
   };
 
-  async componenliidMount() {
-    // const { data: houses } = await getHouses();
-    // this.setState({ houses });
+  async componentDidMount() {
+    const { data: publications } = await getProducts();
+    this.setState({ publications });
   }
 
   handlePageChange = (page) => {
@@ -39,7 +29,7 @@ class MainPage extends Component {
     let filtered = publications;
     if (searchQuery) {
       filtered = publications.filter((publication) =>
-        publication.toLowerCase().startsWith(searchQuery.toLowerCase())
+        publication.title.toLowerCase().startsWith(searchQuery.toLowerCase())
       );
     }
 
@@ -63,10 +53,20 @@ class MainPage extends Component {
         <div className="col">
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <ul>
-            {publications.map((publications) => (
-              <li>{publications}</li>
+            {publications.map((publication) => (
+              <div
+                key={publication.id}
+                style={{
+                  border: "1px solid red",
+                  margin: "10px 0",
+                  padding: "5px",
+                }}
+              >
+                <li style={{ color: "black" }}>{publication.title}</li>
+              </div>
             ))}
           </ul>
+
           <Pagination
             itemsCount={totalCount}
             pageSize={pageSize}
