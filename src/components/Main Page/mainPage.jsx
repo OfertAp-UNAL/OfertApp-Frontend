@@ -5,6 +5,7 @@ import withRouter from "../../services/withRouter";
 import SearchBox from "../common/searchBox";
 import { paginate } from "../../utils/paginate";
 import { getProducts } from "../../services/productService";
+import PublicationListView from "./publicationListView";
 
 class MainPage extends Component {
   state = {
@@ -52,20 +53,22 @@ class MainPage extends Component {
         <div className="col-3"></div>
         <div className="col">
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
-          <ul>
-            {publications.map((publication) => (
-              <div
-                key={publication.id}
-                style={{
-                  border: "1px solid red",
-                  margin: "10px 0",
-                  padding: "5px",
-                }}
-              >
-                <li style={{ color: "black" }}>{publication.title}</li>
-              </div>
-            ))}
-          </ul>
+
+          <div className="card" style={{ width: "18rem" }}>
+            <ul className="list-group list-group-flush">
+              {publications.map((publication) => (
+                <li key={publication.id} className="list-group-item">
+                  {publication.title}
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        '<svg viewBox="0 0 24 24"><path d="M20,13H12V20A2,2 0 0,1 10,22H4A2,2 0 0,1 2,20V4C2,2.89 2.89,2 4,2H10A2,2 0 0,1 12,4V11H20A2,2 0 0,1 22,13V17H20V13M12,6.5A1.5,1.5 0 0,0 10.5,8A1.5,1.5 0 0,0 12,9.5A1.5,1.5 0 0,0 13.5,8A1.5,1.5 0 0,0 12,6.5Z"/></svg>',
+                    }}
+                  ></span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <Pagination
             itemsCount={totalCount}
