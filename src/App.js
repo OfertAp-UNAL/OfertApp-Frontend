@@ -7,6 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import RegisterForm from "./components/Registration/registrationForm";
 
+import MainPage from "./components/Main Page/mainPage";
+
 class App extends Component {
   state = {};
 
@@ -18,6 +20,7 @@ class App extends Component {
         <main className="container">
           <Routes>
             <Route path="/register" element={<RegisterForm />} />
+            <Route path="/homepage" element={<MainPage />} />
             <Route path="/not-found" element={<NotFound />} />
             <Route path="/" element={<Navigate to="/not-found" replace />} />
           </Routes>
