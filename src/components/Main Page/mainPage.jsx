@@ -6,6 +6,7 @@ import SearchBox from "../common/searchBox";
 import { paginate } from "../../utils/paginate";
 import { getProducts } from "../../services/productService";
 import PublicationListView from "./publicationListView";
+import PriceRangeFilter from "./priceRangeFilter";
 
 class MainPage extends Component {
   state = {
@@ -13,6 +14,8 @@ class MainPage extends Component {
     currentPage: 1,
     pageSize: 4,
     searchQuery: "",
+    minPriceFilter: 0,
+    maxPriceFilter: 10000000,
   };
 
   async componentDidMount() {
@@ -25,15 +28,31 @@ class MainPage extends Component {
   };
 
   getPagedData = () => {
-    const { pageSize, currentPage, publications, searchQuery } = this.state;
+    const {
+      pageSize,
+      currentPage,
+      publications,
+      searchQuery,
+      minPriceFilter,
+      maxPriceFilter,
+    } = this.state;
 
+    // All the publications
     let filtered = publications;
+
+    // First filter by search query
     if (searchQuery) {
       filtered = publications.filter((publication) =>
         publication.title.toLowerCase().startsWith(searchQuery.toLowerCase())
       );
     }
 
+    // Then filter by price
+    filtered = publications.filter((publication) =>
+      _.inRange(publication.minOffer, minPriceFilter, maxPriceFilter)
+    );
+
+    // With the filtered data get the paginated items
     const paginatedData = paginate(filtered, currentPage, pageSize);
 
     return { totalCount: filtered.length, data: paginatedData };
@@ -44,28 +63,30 @@ class MainPage extends Component {
   };
 
   render() {
-    const { pageSize, currentPage, searchQuery } = this.state;
+    const {
+      pageSize,
+      currentPage,
+      searchQuery,
+      minPriceFilter,
+      maxPriceFilter,
+    } = this.state;
 
     const { totalCount, data: publications } = this.getPagedData();
 
     return (
       <div className="row">
-        <div className="col-3"></div>
-        <div className="col">
+        <div className="col-3">
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
-
-          <div className="card" style={{ width: "18rem" }}>
+          <PriceRangeFilter
+            valueMin={minPriceFilter}
+            valueMax={maxPriceFilter}
+          />
+        </div>
+        <div className="col">
+          <div className="card">
             <ul className="list-group list-group-flush">
               {publications.map((publication) => (
-                <li key={publication.id} className="list-group-item">
-                  {publication.title}
-                  <span
-                    dangerouslySetInnerHTML={{
-                      __html:
-                        '<svg viewBox="0 0 24 24"><path d="M20,13H12V20A2,2 0 0,1 10,22H4A2,2 0 0,1 2,20V4C2,2.89 2.89,2 4,2H10A2,2 0 0,1 12,4V11H20A2,2 0 0,1 22,13V17H20V13M12,6.5A1.5,1.5 0 0,0 10.5,8A1.5,1.5 0 0,0 12,9.5A1.5,1.5 0 0,0 13.5,8A1.5,1.5 0 0,0 12,6.5Z"/></svg>',
-                    }}
-                  ></span>
-                </li>
+                <PublicationListView publication={publication} />
               ))}
             </ul>
           </div>
