@@ -38,24 +38,24 @@ class MainPage extends Component {
     } = this.state;
 
     // All the publications
-    let filtered = publications;
+    let queryFiltered = publications;
 
     // First filter by search query
     if (searchQuery) {
-      filtered = publications.filter((publication) =>
+      queryFiltered = publications.filter((publication) =>
         publication.title.toLowerCase().startsWith(searchQuery.toLowerCase())
       );
     }
 
-    // Then filter by price
-    filtered = publications.filter((publication) =>
+    // Then filter by price, the last filter
+    const filterResult = queryFiltered.filter((publication) =>
       _.inRange(publication.minOffer, minPriceFilter, maxPriceFilter)
     );
 
     // With the filtered data get the paginated items
-    const paginatedData = paginate(filtered, currentPage, pageSize);
+    const paginatedData = paginate(filterResult, currentPage, pageSize);
 
-    return { totalCount: filtered.length, data: paginatedData };
+    return { totalCount: filterResult.length, data: paginatedData };
   };
 
   handleSearch = (query) => {
