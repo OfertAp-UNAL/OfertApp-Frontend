@@ -62,6 +62,10 @@ class MainPage extends Component {
     this.setState({ searchQuery: query, currentPage: 1 });
   };
 
+  handlePriceRangeChange = (valueMin, valueMax) => {
+    this.setState({ minPriceFilter: valueMin, maxPriceFilter: valueMax });
+  };
+
   render() {
     const {
       pageSize,
@@ -80,13 +84,17 @@ class MainPage extends Component {
           <PriceRangeFilter
             valueMin={minPriceFilter}
             valueMax={maxPriceFilter}
+            onChange={this.handlePriceRangeChange}
           />
         </div>
         <div className="col">
           <div className="card">
             <ul className="list-group list-group-flush">
               {publications.map((publication) => (
-                <PublicationListView publication={publication} />
+                <PublicationListView
+                  key={publication.id}
+                  publication={publication}
+                />
               ))}
             </ul>
           </div>
