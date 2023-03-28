@@ -4,7 +4,7 @@ import Pagination from "../common/pagination";
 import withRouter from "../../services/withRouter";
 import SearchBox from "../common/searchBox";
 import { paginate } from "../../utils/paginate";
-import { getProducts } from "../../services/productService";
+import { getProducts } from "../../services/publicationService";
 import PublicationListView from "./publicationListView";
 import PriceRangeFilter from "./priceRangeFilter";
 
@@ -15,12 +15,12 @@ class MainPage extends Component {
     pageSize: 4,
     searchQuery: "",
     minPriceFilter: 0,
-    maxPriceFilter: 10000000,
+    maxPriceFilter: 100000000000000000000000000000,
   };
 
   async componentDidMount() {
-    const { data: publications } = await getProducts();
-    this.setState({ publications });
+    const { data } = await getProducts();
+    this.setState({ publications: data["data"] });
   }
 
   handlePageChange = (page) => {
@@ -39,6 +39,7 @@ class MainPage extends Component {
 
     // All the publications
     let queryFiltered = publications;
+    debugger;
 
     // First filter by search query
     if (searchQuery) {
