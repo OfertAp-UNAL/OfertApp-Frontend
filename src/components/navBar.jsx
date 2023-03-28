@@ -7,7 +7,7 @@ const NavBar = ({ user }) => {
   return (
     <nav className="navbar navbar-expand-lg">
       <Link className="navbar-brand" to="/">
-        <img src={logo} alt="Nope" style={{ width: "25%" }} />
+        <img className="navbar-logo" src={logo} alt="Nope" />
       </Link>
       <button
         className="navbar-toggler"
@@ -27,11 +27,9 @@ const NavBar = ({ user }) => {
           </NavLink>
         </div>
       </div>
-      <div>
-        <button className="login-button" type="button">
-          Iniciar sesion
-        </button>
-      </div>
+      <button className="green-button" type="button">
+        Iniciar sesion
+      </button>
     </nav>
   );
 };

@@ -6,6 +6,7 @@ import NotFound from "./components/common/notFound";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import RegisterForm from "./components/Registration/registrationForm";
+import LoginForm from "./components/login/loginForm";
 
 import MainPage from "./components/Main Page/mainPage";
 
@@ -19,6 +20,7 @@ class App extends Component {
         <NavBar user={this.state.user} />
         <main className="container">
           <Routes>
+            <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/homepage" element={<MainPage />} />
             <Route path="/not-found" element={<NotFound />} />
