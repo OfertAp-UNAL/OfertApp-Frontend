@@ -32,6 +32,7 @@ export function getFakePublication(id) {
             user: {
                 id: "1234567",
                 firstName: "Edgar",
+                profilePicture: "profile_pictures/abstract-fractal-julia-set-simple-wallpaper-preview_1_fyRZcFZ.jpg",
                 lastName: "Gonzalez",
                 email: "edgonzalezdi@unal.edu.co",
                 username: "Ola",

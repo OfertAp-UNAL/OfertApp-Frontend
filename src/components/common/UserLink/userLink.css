@@ -41,3 +41,34 @@
     font-family: 'Inter';
     font-style: "normal";
 }
+
+.ofertapp-user-info-tooltip>.tooltip-inner {
+    border-style: solid;
+    border-color: #000;
+    background-color: #00BF63;
+    border-radius: 10px;
+}
+
+.ofertapp-user-info-tooltip>.tooltip-arrow {}
+
+.ofertapp-user-info-tooltip .ofertapp-user-info-profile-picture {
+    border-radius: 10px;
+    background-color: #fff;
+    max-width: 100% !important;
+    max-height: 200px !important;
+
+    padding: 1px;
+    z-index: 0;
+}
+
+.ofertapp-user-info-tooltip .ofertapp-user-info-text {
+    font-size: 12px;
+    font-weight: 600;
+    background-color: #000;
+    color: #fff;
+    border-style: solid;
+    border-color: #00BF63;
+    text-align: center;
+    z-index: 1;
+    margin: auto;
+}
