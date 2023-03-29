@@ -2,9 +2,9 @@ import http from "./httpService";
 import config from "../config.json";
 const apiUrl = config.apiUrl;
 
-const apiEndpoint = apiUrl + "/publications/";
+const apiEndpoint = apiUrl + "publications/";
 
-function productUrl(id) {
+function publicationUrl(id) {
     return `${apiEndpoint}${id}/`;
 }
 
@@ -12,8 +12,11 @@ export function getPublications() {
     return http.get(apiEndpoint);
 }
 
+export function getPublication(publicationId) {
+    return http.get(publicationUrl(publicationId));
+}
+
 export function getFakePublication(id) {
-    //return http.get(productUrl(id));
     return {
         data: {
             title: "Super computador de la NASA",
@@ -229,4 +232,16 @@ export function getFakePublication(id) {
             ]
         }
     }
+}
+
+export function createPublication(publication) {
+    return http.post(apiEndpoint, publication);
+}
+
+export function updatePublication(publication) {
+    return http.put(publicationUrl(publication.id), publication);
+}
+
+export function deletePublication(publicationId) {
+    return http.delete(publicationUrl(publicationId));
 }

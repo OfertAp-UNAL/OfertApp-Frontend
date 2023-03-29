@@ -192,7 +192,6 @@ class Form extends Component {
         <input
           type="checkbox"
           onChange={() => {
-            debugger;
             this.setState({
               acceptedTermsConditions: !this.state.acceptedTermsConditions,
             });
