@@ -1,0 +1,43 @@
+.ofertapp-link-base {
+    margin: auto;
+}
+
+.ofertapp-link-common {
+    align-self: center;
+    margin: auto;
+}
+
+.ofertapp-link-base a {
+    padding: 0px !important;
+    color: #000;
+    text-decoration: none;
+    font-size: var(--fontSize);
+    font-weight: 600;
+    align-self: center;
+
+    font-family: 'Inter';
+    font-style: "normal";
+}
+
+.ofertapp-link-common a {
+    padding: 0px !important;
+    color: #2AC11D;
+    text-decoration: none;
+    font-size: var(--fontSize);
+    font-weight: 600;
+
+    font-family: 'Inter';
+    font-style: "normal";
+}
+
+.ofertapp-reputation {
+    background-color: rgb(var(--reputationR),
+            var(--reputationG),
+            0) !important;
+    color: #fff;
+    font-size: var(--fontSize);
+    border-radius: 10px;
+
+    font-family: 'Inter';
+    font-style: "normal";
+}

@@ -1,0 +1,62 @@
+.ofertapp-offer-base {
+    background-color: #fff;
+    border-radius: 10px;
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.ofertapp-offer-main {
+    background-color: #00BF63;
+    border-radius: 10px;
+}
+
+.ofertapp-offer-container {
+    margin-bottom: 10px;
+    border-style: solid;
+    border-color: #000;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.ofertapp-offer-text {
+    font-size: 20px;
+    line-height: 39px;
+    color: #000;
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: 'Inter';
+    font-style: "normal";
+}
+
+.ofertapp-offer-price {
+    font-size: 20px;
+    line-height: 39px;
+    color: #000;
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: 'Inter';
+    font-style: "normal";
+}
+
+.ofertapp-offer-time {
+    font-size: 20px;
+    line-height: 29px;
+    color: rgba(0, 0, 0, 0.6);
+    text-align: right;
+    font-family: 'Inter';
+    font-style: "normal";
+}
+
+.ofertapp-offer-main-text {
+    font-size: 24px;
+    line-height: 29px;
+    color: #fff;
+    text-align: left;
+    font-family: 'Inter';
+    font-style: "normal";
+    font-weight: 600;
+    margin-top: 10px;
+}

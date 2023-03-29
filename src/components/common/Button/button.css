@@ -1,0 +1,17 @@
+.ofertapp-button-primary {
+    background-color: #00BF63 !important;
+    color: #fff !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.ofertapp-button-report {
+    background-color: red !important;
+    color: #fff !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
