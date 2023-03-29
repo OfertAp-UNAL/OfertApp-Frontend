@@ -4,7 +4,7 @@ import Pagination from "../common/pagination";
 import withRouter from "../../services/withRouter";
 import SearchBox from "../common/searchBox";
 import { paginate } from "../../utils/paginate";
-import { getProducts } from "../../services/publicationService";
+import { getPublications } from "../../services/publicationService";
 import PublicationListView from "./publicationListView";
 import PriceRangeFilter from "./priceRangeFilter";
 
@@ -19,7 +19,7 @@ class MainPage extends Component {
   };
 
   async componentDidMount() {
-    const { data } = await getProducts();
+    const { data } = await getPublications();
     this.setState({ publications: data["data"] });
   }
 
@@ -39,7 +39,6 @@ class MainPage extends Component {
 
     // All the publications
     let queryFiltered = publications;
-    debugger;
 
     // First filter by search query
     if (searchQuery) {
