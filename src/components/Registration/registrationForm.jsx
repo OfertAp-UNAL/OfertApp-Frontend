@@ -1,6 +1,7 @@
 import Joi from "joi-browser";
 import withRouter from "../../services/withRouter";
 import Form from "../common/form";
+import { getDepartments } from "../../services/municipioDepartamentosService";
 class RegisterForm extends Form {
   state = {
     data: {
@@ -17,44 +18,17 @@ class RegisterForm extends Form {
       paymentAccountType: "",
       paymentAccountNumber: "",
     },
-    allDepartmentsList: [
-      "Amazonas",
-      "Antioquia",
-      "Arauca",
-      "Atlántico",
-      "Bolívar",
-      "Boyacá",
-      "Caldas",
-      "Caquetá",
-      "Casanare",
-      "Cauca",
-      "Cesar",
-      "Chocó",
-      "Córdoba",
-      "Cundinamarca",
-      "Guainía",
-      "Guaviare",
-      "Huila",
-      "La Guajira",
-      "Magdalena",
-      "Meta",
-      "Nariño",
-      "Norte de Santander",
-      "Putumayo",
-      "Quindío",
-      "Risaralda",
-      "San Andrés y Providencia",
-      "Santander",
-      "Sucre",
-      "Tolima",
-      "Valle del Cauca",
-      "Vaupés",
-      "Vichada",
-    ],
+    departments: [],
     citiesExample: ["Bogota", "Zipa", "Chia"],
     errors: {},
     acceptedTermsConditions: false,
   };
+
+  async componentDidMount() {
+    const { data } = await getDepartments();
+    const departments = data.map((e) => e.departamento);
+    this.setState({ departments });
+  }
 
   schema = {
     id: Joi.number().required().label("Cédula"),
@@ -74,7 +48,7 @@ class RegisterForm extends Form {
     email: Joi.string().email().required().label("Correo electrónico"),
     phone: Joi.number().required().label("Teléfono"),
     department: Joi.string()
-      .valid(...this.state.allDepartmentsList)
+      .valid(...this.state.departments)
       .required()
       .label("Departamento"),
     city: Joi.string().required().label("Ciudad"),
@@ -108,13 +82,9 @@ class RegisterForm extends Form {
             {this.renderAutosuggest(
               "department",
               "Departamento",
-              this.state.allDepartmentsList
+              this.state.departments
             )}
-            {this.renderAutosuggest(
-              "city",
-              "Ciudad",
-              this.state.allDepartmentsList
-            )}
+            {this.renderAutosuggest("city", "Ciudad", this.state.departments)}
 
             {this.renderInput("address", "Dirección")}
             {this.renderInput("paymentAccountType", "Método de pago")}
