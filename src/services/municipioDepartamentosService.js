@@ -5,3 +5,11 @@ export function getDepartments() {
     "https://www.datos.gov.co/resource/xdk5-pm3f.json?$select=departamento&$group=departamento"
   );
 }
+
+export function getMunicipalitiesByDepartment(departmentName) {
+  return http.get(
+    "http://localhost:8000/api/v1/municipalities/department/" +
+      departmentName +
+      "/"
+  );
+}

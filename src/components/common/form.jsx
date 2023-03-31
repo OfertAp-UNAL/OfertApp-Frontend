@@ -28,16 +28,6 @@ class Form extends Component {
     return error ? error.details[0].message : null;
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-
-    const errors = this.validate();
-    this.setState({ errors: errors || {} });
-    if (errors) return;
-
-    this.doSubmit();
-  };
-
   fetchAutosuggestSuggestions = (value, options) => {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
@@ -51,17 +41,6 @@ class Form extends Component {
           );
 
     return suggestions;
-  };
-
-  handleAutosuggestSelection = (suggestionValue, name) => {
-    const { data } = this.state;
-    data[name] = suggestionValue;
-    this.setState({ data });
-  };
-
-  handleChange = (event) => {
-    this.handleErrors(event);
-    this.handleData(event);
   };
 
   handleErrors = ({ currentTarget: input }) => {
@@ -78,7 +57,12 @@ class Form extends Component {
     this.setState({ data });
   };
 
-  renderAutosuggest(name, label, options) {
+  handleChange = (event) => {
+    this.handleErrors(event);
+    this.handleData(event);
+  };
+
+  renderAutosuggest(name, label, options, onSelect) {
     const { data } = this.state;
 
     const inputProps = {
@@ -98,8 +82,7 @@ class Form extends Component {
           id={name}
           inputProps={inputProps}
           onSuggestionSelected={(event, { suggestion }) => {
-            // Handle the selected suggestion here
-            this.handleAutosuggestSelection(suggestion, name);
+            onSelect(suggestion); // Call the function defined specifically for handling this selection
           }}
           suggestions={suggestions}
           getSuggestionValue={(suggestion) => suggestion}
