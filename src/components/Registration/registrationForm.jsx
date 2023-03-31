@@ -7,6 +7,7 @@ class RegisterForm extends Form {
     data: {
       id: 0,
       name: "",
+      surname: "",
       username: "",
       password: "",
       confirmPassword: "",
@@ -32,7 +33,8 @@ class RegisterForm extends Form {
 
   schema = {
     id: Joi.number().required().label("Cédula"),
-    name: Joi.string().required().label("Nombre"),
+    name: Joi.string().required().label("Nombres"),
+    surname: Joi.string().required().label("Apellidos"),
     username: Joi.string().required().label("Nombre de usuario"),
     password: Joi.string().required().label("Contraseña"),
     confirmPassword: Joi.string()
@@ -59,6 +61,8 @@ class RegisterForm extends Form {
       .label("Número de cuenta de pago"),
   };
 
+  doSubmit() {}
+
   render() {
     return (
       <div>
@@ -66,7 +70,8 @@ class RegisterForm extends Form {
         <form onSubmit={this.handleSubmit} style={{ display: "flex" }}>
           <div style={{ flex: 1, marginRight: "1em" }}>
             {this.renderInput("id", "Cédula", "number")}
-            {this.renderInput("name", "Nombre")}
+            {this.renderInput("name", "Nombres")}
+            {this.renderInput("surname", "Apellidos")}
             {this.renderInput("username", "Nombre de usuario")}
             {this.renderInput("password", "Contraseña", "password")}
             {this.renderInput(
@@ -91,6 +96,7 @@ class RegisterForm extends Form {
             {this.renderInput("paymentAccountNumber", "Número de cuenta")}
 
             {this.renderTermsConditionsCheckbox()}
+            <br />
             {this.renderButton("Save")}
           </div>
         </form>
