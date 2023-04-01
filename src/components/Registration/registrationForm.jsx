@@ -70,7 +70,9 @@ class RegisterForm extends Form {
       (m) => m["name"] === data.municipality
     ).id;
     const user = { ...data, municipalityId };
-    await registerUser(user);
+    const response = await registerUser(user);
+    localStorage.setItem("token", response.data.token); // Save JWT in client browser
+    this.props.navigate("/homepage");
   };
 
   handleSubmit = (e) => {

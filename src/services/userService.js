@@ -15,7 +15,7 @@ export function registerUser(user) {
     birthdate: user.birthdate,
     phone: user.phone,
     address: user.address,
-    townId: user.townId,
+    townId: user.municipalityId,
     password: user.password,
     paymentAccountType: user.paymentAccountType,
     paymentAccountNumber: user.paymentAccountNumber,
