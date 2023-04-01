@@ -106,7 +106,7 @@ class Form extends Component {
     /* General use button. If the form has a check T&C button, it will only 
     be active if they're accepted. If the form doesn't have T&C it will be active only with the JOI validation*/
     let termsConditionsAccepted = true;
-    if (this.state.acceptedTermsConditions !== "undefined") {
+    if (this.state.acceptedTermsConditions) {
       termsConditionsAccepted = this.state.acceptedTermsConditions;
     }
     return (

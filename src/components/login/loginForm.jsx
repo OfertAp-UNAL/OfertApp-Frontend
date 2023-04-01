@@ -1,4 +1,5 @@
 import Form from "../common/form";
+import Joi from "joi-browser";
 import withRouter from "../../services/withRouter";
 import { login } from "../../services/userService";
 import "../../App.css";
@@ -12,21 +13,25 @@ class LoginForm extends Form {
     errors: {},
   };
 
+  schema = {
+    username: Joi.string().required().label("Nombre de usuario"),
+    password: Joi.string().required().label("Contraseña"),
+  };
+
   doSubmit = () => {
-    login(this.state.data);
+    const { data } = this.state;
+    login(data.email, data.password);
   };
 
   render() {
     return (
-      <div className="form-div">
-        <form onSubmit={this.handleSubmit} style={{ display: "flex" }}>
-          <div style={{ flex: 1, marginRight: "1em", marginLeft: "1em" }}>
-            <h1>Inicio de sesion</h1>
-            {this.renderInput("username", "Nombre de usuario")}
-            {this.renderInput("password", "Contraseña", "password")}
-          </div>
-        </form>
-      </div>
+      <form onSubmit={this.handleSubmit} style={{ display: "flex" }}>
+        <div style={{ flex: 1, marginRight: "1em" }}>
+          {this.renderInput("username", "Nombre de usuario")}
+          {this.renderInput("password", "Contraseña", "password")}
+          {this.renderButton("Save")}
+        </div>
+      </form>
     );
   }
 }
