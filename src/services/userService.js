@@ -6,8 +6,9 @@ const apiUrl = config.apiUrl;
 const apiEndpoint = apiUrl + "auth/";
 
 export function registerUser(user) {
+  debugger;
   return http.post(apiEndpoint + "register/", {
-    id: user.id,
+    id: 300,
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
@@ -15,9 +16,9 @@ export function registerUser(user) {
     birthdate: "2020-10-10",
     phone: user.phone,
     address: user.address,
-    townId: user.townId,
+    townId: user.municipalityId,
     password: user.password,
-    paymentAccountType: user.paymentAccountType,
+    paymentAccountType: "NQ",
     paymentAccountNumber: user.paymentAccountNumber,
     idenIdType: "CC",
   });

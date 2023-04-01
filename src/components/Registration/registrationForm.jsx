@@ -7,19 +7,19 @@ import { getMunicipalitiesByDepartment } from "../../services/municipioDepartame
 class RegisterForm extends Form {
   state = {
     data: {
-      id: 0,
-      firstName: "",
-      lastName: "",
-      email: "",
-      username: "",
-      password: "",
-      confirmPassword: "",
-      phone: "",
+      id: 12,
+      firstName: "Jose",
+      lastName: "Avila",
+      email: "jose@mail.com",
+      username: "fdsaf",
+      password: "asdf",
+      confirmPassword: "asdf",
+      phone: "123",
       department: "",
       municipality: "",
-      address: "",
-      paymentAccountType: "",
-      paymentAccountNumber: "",
+      address: "fadf",
+      paymentAccountType: "asdf",
+      paymentAccountNumber: "132",
     },
     departments: [],
 
@@ -52,10 +52,7 @@ class RegisterForm extends Form {
       .label("Confirmar contraseña"),
     email: Joi.string().email().required().label("Correo electrónico"),
     phone: Joi.number().required().label("Teléfono"),
-    department: Joi.string()
-      .valid(...this.state.departments)
-      .required()
-      .label("Departamento"),
+    department: Joi.string().required().label("Departamento"),
     municipality: Joi.string().required().label("Municipio"),
     address: Joi.string().required().label("Dirección"),
     paymentAccountType: Joi.string().required().label("Tipo de cuenta de pago"),
@@ -64,7 +61,15 @@ class RegisterForm extends Form {
       .label("Número de cuenta de pago"),
   };
 
-  doSubmit() {}
+  doSubmit = async () => {
+    const { data, municipalitiesInDepartment } = this.state;
+    debugger;
+    const municipalityId = municipalitiesInDepartment.find(
+      (m) => m["name"] === data.municipality
+    ).id;
+    const user = { ...data, municipalityId };
+    await registerUser(user);
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
