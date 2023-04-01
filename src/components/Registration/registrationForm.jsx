@@ -12,6 +12,7 @@ class RegisterForm extends Form {
       lastName: "Avila",
       email: "jose@mail.com",
       username: "fdsaf",
+      birthdate: "",
       password: "asdf",
       confirmPassword: "asdf",
       phone: "123",
@@ -51,6 +52,7 @@ class RegisterForm extends Form {
       })
       .label("Confirmar contraseña"),
     email: Joi.string().email().required().label("Correo electrónico"),
+    birthdate: Joi.any(),
     phone: Joi.number().required().label("Teléfono"),
     department: Joi.string().required().label("Departamento"),
     municipality: Joi.string().required().label("Municipio"),
@@ -77,7 +79,7 @@ class RegisterForm extends Form {
     const errors = this.validate();
     this.setState({ errors: errors || {} });
     if (errors) return;
-
+    debugger;
     this.doSubmit();
   };
 
@@ -122,6 +124,7 @@ class RegisterForm extends Form {
               "password"
             )}
             {this.renderInput("email", "Email", "email")}
+            {this.renderInput("birthdate", "Fecha de Nacimiento", "date")}
           </div>
           <div style={{ flex: 1, marginLeft: "1em" }}>
             {this.renderInput("phone", "Teléfono", "number")}
