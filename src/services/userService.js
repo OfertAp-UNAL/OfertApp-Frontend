@@ -23,6 +23,6 @@ export function registerUser(user) {
   });
 }
 
-export function login(username, password) {
-  return http.post(apiEndpoint + "login/", { username, password });
+export function login(user, password) {
+  return http.post(apiEndpoint + "login/", { user, password });
 }

@@ -7,20 +7,22 @@ import "../../App.css";
 class LoginForm extends Form {
   state = {
     data: {
-      username: "",
+      user: "",
       password: "",
     },
     errors: {},
   };
 
   schema = {
-    username: Joi.string().required().label("Nombre de usuario"),
+    user: Joi.string().required().label("Nombre de usuario o correo"),
     password: Joi.string().required().label("Contraseña"),
   };
 
   doSubmit = async () => {
     const { data } = this.state;
-    await login(data.email, data.password);
+    const response = await login(data.user, data.password);
+    localStorage.setItem("token", response.data.token); // Save JWT in client browser
+    this.props.navigate("/homepage");
   };
 
   handleSubmit = (e) => {
@@ -36,7 +38,7 @@ class LoginForm extends Form {
     return (
       <form onSubmit={this.handleSubmit} style={{ display: "flex" }}>
         <div style={{ flex: 1, marginRight: "1em" }}>
-          {this.renderInput("username", "Nombre de usuario")}
+          {this.renderInput("user", "Nombre de usuario")}
           {this.renderInput("password", "Contraseña", "password")}
           {this.renderButton("Save")}
         </div>
