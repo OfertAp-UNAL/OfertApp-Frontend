@@ -5,6 +5,8 @@ function PublicationListView({ publication }) {
   return (
     <li key={id} className="list-group-item">
       <div>
+        <img src="https://picsum.photos/200" alt="Random 200x200 image" />
+
         {title}
         <br />
         {description}
