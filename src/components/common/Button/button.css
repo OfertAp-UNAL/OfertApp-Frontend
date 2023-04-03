@@ -5,6 +5,8 @@
     font-weight: 600 !important;
     border-radius: 10px;
     margin-bottom: 10px;
+    width: 50% !important;
+    margin: auto !important;
 }
 
 .ofertapp-button-report {

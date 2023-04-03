@@ -26,6 +26,8 @@
     background-color: #fff;
 
     font-size: 14px !important;
+
+    overflow-wrap: break-word !important;
 }
 
 .ofertapp-comment-text {

@@ -8,7 +8,7 @@ class PublicationViewPrice extends Component {
             <div className = "row text-center">
                 <h3 className = "ofertapp-label">Oferta mínima*</h3>
                 <div className = "ofertapp-min-offer">
-                    COP $ {publication.minOffer.toLocaleString()}
+                    COP $ {publication.minOffer.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
                 </div>
                 <p>*Recuerda que las ofertas de posibles compradores serán todas mayores o iguales a éste precio</p>
             </div>

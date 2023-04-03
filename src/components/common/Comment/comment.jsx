@@ -54,9 +54,9 @@ class Comment extends Component {
                                 <p className = "ofertapp-comment-text ofertapp-comment-contents">
                                     En respuesta a:&nbsp;
                                     <strong 
-                                        className = "text-truncate"
+                                        className = "ofertapp-comment-contents"
                                         style = {{
-                                            "display": "inline-block", "maxWidth": "80%",
+                                            "maxWidth": "80%",
                                             "borderBottom": "1px solid #000"
                                         }}
                                     >{
@@ -65,10 +65,10 @@ class Comment extends Component {
                                 </p>
                             </div>
                         }
-                        <div className = "col-12 col-md-6 text-center">
+                        <div className = "col-12 col-lg-6 text-center">
                             <UserLink user = {user} base = {false} fontSize = {16} />
                         </div>
-                        <div className = "col-12 col-md-6">
+                        <div className = "col-12 col-lg-6">
                             <p className = "ofertapp-comment-text text-center">
                                 <strong>comentó:</strong>
                             </p>
@@ -92,8 +92,8 @@ class Comment extends Component {
                         </div>
                     </div>
                 </div>
-                <div className = "col-12 col-md-2 text-center">
-                    <div className = "row">
+                <div className = "col-12 col-md-2">
+                    <div className = "row text-center">
                         <div className = "col-12 ofertapp-reaction-container" onClick = { () => this.handleReactionChange("LIKE")} >
                             <strong>▲&nbsp;{comment.reactionsCount.LIKE}</strong>
                         </div>

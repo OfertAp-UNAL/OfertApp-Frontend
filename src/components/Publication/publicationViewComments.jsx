@@ -43,7 +43,11 @@ class PublicationViewComments extends Component {
                 </div>
                 Haz click sobre un comentario para responder.
                 <input 
-                    className = "form-control mb-3" placeholder = "Escribe tu comentario" 
+                    className = "form-control mb-3" placeholder = "Escribe un título para tu comentario" 
+                    type = "text"
+                />
+                <input 
+                    className = "form-control mb-3" placeholder = "Puedes agregar una descripción si lo deseas" 
                     type = "text"
                 />
                 {

@@ -29,6 +29,8 @@
     text-align: center;
     font-family: 'Inter';
     font-style: "normal";
+
+    overflow-wrap: break-word !important;
 }
 
 .ofertapp-offer-price {
@@ -39,6 +41,8 @@
     text-align: center;
     font-family: 'Inter';
     font-style: "normal";
+
+    overflow-wrap: break-word !important;
 }
 
 .ofertapp-offer-time {
