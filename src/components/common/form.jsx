@@ -4,6 +4,7 @@ import Input from "./input";
 import Select from "./select";
 import { Link } from "react-router-dom";
 import Autosuggest from "react-autosuggest";
+import "../../App.css";
 
 class Form extends Component {
   state = {
@@ -112,7 +113,7 @@ class Form extends Component {
     return (
       <button
         disabled={this.validate() && !termsConditionsAccepted}
-        className="btn btn-primary"
+        className="btn btn-form mt-2"
       >
         {label}
       </button>
