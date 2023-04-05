@@ -55,7 +55,7 @@
 }
 
 .form-div {
-  width: 500px;
+  width: max(500px, 40vw);
   height: 3000px;
   border-width: 0px 10px 0px 10px;
   border-image: repeating-linear-gradient(90deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.05) 2%, rgba(0,0,0,0.5) 4%);
@@ -64,4 +64,34 @@
   position: relative;
   left: 50%;
   transform: translate(-50%, 0%);
+}
+
+.form-label {
+  font-family: 'Inter';
+  font-weight: bold;
+  font-size: large;
+}
+
+.form-control {
+  border-radius: 50px !important;
+  border-style: solid !important;
+  border-color: black !important;
+}
+
+.btn-form {
+  background-color: #00BF63 !important;
+  font-family: 'Inter' !important;
+  font-weight: bold !important;
+  font-size: x-large !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 10px !important;
+  max-width: 200px !important;
+}
+
+.login-title {
+  font-family: 'Inter' !important;
+  font-weight: bolder !important;
+  color: #bdbdbd !important;
+  font-size: 60px !important;
 }

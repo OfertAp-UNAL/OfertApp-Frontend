@@ -2,6 +2,7 @@ import Form from "../common/form";
 import Joi from "joi-browser";
 import withRouter from "../../services/withRouter";
 import { login } from "../../services/userService";
+import logo from "../../images/OfertappGrande.png";
 import "../../App.css";
 
 class LoginForm extends Form {
@@ -35,12 +36,29 @@ class LoginForm extends Form {
   };
 
   render() {
-    return (
-      <form onSubmit={this.handleSubmit} style={{ display: "flex" }}>
-        <div style={{ flex: 1, marginRight: "1em" }}>
-          {this.renderInput("user", "Nombre de usuario")}
-          {this.renderInput("password", "Contraseña", "password")}
-          {this.renderButton("Save")}
+    return ( 
+      <form onSubmit={this.handleSubmit}>
+        <div className="container">
+          <div className="form-div">
+            <div class="row align-middle">
+              <img className="login-logo pb-2" src={logo} alt="Nope" />
+              <div class="offset-1 col-10">
+                <h5 className="login-title ps-2">
+                  Inicio de
+                </h5>
+                <h5 className="login-title ps-2 pb-3">
+                  sesión
+                </h5>
+                {this.renderInput("user", "Nombre de usuario")}
+                {this.renderInput("password", "Contraseña", "password")}
+                <div class="row justify-content-center">
+                  {this.renderButton("Save")}
+                </div>
+                
+              </div>
+            </div>
+      
+          </div>
         </div>
       </form>
     );
