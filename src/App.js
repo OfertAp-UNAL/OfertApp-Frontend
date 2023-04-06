@@ -31,11 +31,14 @@ class App extends Component {
               path="/askResetPassword"
               element={<AskResetPasswordForm />}
             />
-            <Route path="/resetPassword" element={<NewPasswordForm />} />
+            <Route
+              path="/reset-password/:token/:user/"
+              element={<NewPasswordForm />}
+            />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/homepage" element={<MainPage />} />
             <Route path="/publication/:id" element={<PublicationView />} />
-            <Route path="/verify/:token/:userid" element={<Verify />} />
+            <Route path="/verify/:token/:user" element={<Verify />} />
             <Route path="/not-found" element={<NotFound />} />
             <Route path="/" element={<Navigate to="/not-found" replace />} />
           </Routes>

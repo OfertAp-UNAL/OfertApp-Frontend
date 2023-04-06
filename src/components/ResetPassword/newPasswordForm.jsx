@@ -2,9 +2,10 @@ import Form from "../common/form";
 import Joi from "joi-browser";
 import withRouter from "../../services/withRouter";
 import logo from "../../images/OfertappGrande.png";
+import { resetPassword } from "../../services/resetPasswordService";
 import "../../App.css";
 
-class askResetPasswordForm extends Form {
+class newPasswordForm extends Form {
   state = {
     data: {
       password: "",
@@ -19,7 +20,10 @@ class askResetPasswordForm extends Form {
   };
 
   doSubmit = async () => {
-    alert("Se ha recuperado la contraseña");
+    const { token, user } = this.props.params;
+    const { password } = this.state.data;
+    await resetPassword(token, user, password);
+    this.props.navigate("/login");
   };
 
   handleSubmit = (e) => {
@@ -59,4 +63,4 @@ class askResetPasswordForm extends Form {
   }
 }
 
-export default withRouter(askResetPasswordForm);
+export default withRouter(newPasswordForm);
