@@ -13,6 +13,8 @@ import RegisterForm from "./components/Registration/registrationForm";
 import LoginForm from "./components/login/loginForm";
 
 import MainPage from "./components/Main Page/mainPage";
+import AskResetPasswordForm from "./components/ResetPassword/askResetPasswordForm";
+import NewPasswordForm from "./components/ResetPassword/newPasswordForm";
 
 class App extends Component {
   state = {};
@@ -25,6 +27,11 @@ class App extends Component {
         <main className="container">
           <Routes>
             <Route path="/login" element={<LoginForm />} />
+            <Route
+              path="/askResetPassword"
+              element={<AskResetPasswordForm />}
+            />
+            <Route path="/resetPassword" element={<NewPasswordForm />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/homepage" element={<MainPage />} />
             <Route path="/publication/:id" element={<PublicationView />} />
