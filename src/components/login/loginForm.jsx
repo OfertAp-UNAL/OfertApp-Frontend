@@ -4,6 +4,7 @@ import withRouter from "../../services/withRouter";
 import { login } from "../../services/userService";
 import logo from "../../images/OfertappGrande.png";
 import "../../App.css";
+import { Link } from "react-router-dom";
 
 class LoginForm extends Form {
   state = {
@@ -36,28 +37,23 @@ class LoginForm extends Form {
   };
 
   render() {
-    return ( 
+    return (
       <form onSubmit={this.handleSubmit}>
         <div className="container">
           <div className="form-div">
             <div class="row align-middle">
               <img className="login-logo pb-2" src={logo} alt="Nope" />
               <div class="offset-1 col-10">
-                <h5 className="login-title ps-2">
-                  Inicio de
-                </h5>
-                <h5 className="login-title ps-2 pb-3">
-                  sesión
-                </h5>
+                <h5 className="login-title ps-2">Inicio de</h5>
+                <h5 className="login-title ps-2 pb-3">sesión</h5>
                 {this.renderInput("user", "Nombre de usuario")}
                 {this.renderInput("password", "Contraseña", "password")}
+                <Link to="/askResetPassword">Recuperar contraseña</Link>
                 <div class="row justify-content-center">
                   {this.renderButton("Save")}
                 </div>
-                
               </div>
             </div>
-      
           </div>
         </div>
       </form>
