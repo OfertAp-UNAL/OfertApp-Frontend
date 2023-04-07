@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
+import config from '../../config';
 import './publicationView.css';
+
+const { mediaUrl } = config;
 
 class PublicationViewMedia extends Component {
     
     render() {
+        
         const { publication } = this.props;
-
+        
         // Useful variables
         let carouselActiveAssigned = false;
 
@@ -23,15 +27,28 @@ class PublicationViewMedia extends Component {
                                     key = {support.id}
                                     className = {"carousel-item ofertapp-item text-center" + (
                                         () => {
-                                        // Assign active class to first item
-                                        const toReturn = carouselActiveAssigned ? "" : " active";
-                                        carouselActiveAssigned = true;
-                                        return toReturn;
+                                            console.log(
+                                                mediaUrl + support.data
+                                            );
+                                            // Assign active class to first item
+                                            const toReturn = carouselActiveAssigned ? "" : " active";
+                                            carouselActiveAssigned = true;
+                                            return toReturn;
                                         }
                                     )()}>
-                                    <img className = "ofertapp-media" 
-                                    src = {support.data}
-                                    />
+                                    {
+                                        support.type === "IMAGE" ?
+                                        // Image
+                                        <img className = "ofertapp-media"
+                                            src = {mediaUrl + support.data}
+                                        />
+                                        :
+                                        // Video
+                                        <video className = "ofertapp-media"
+                                            controls
+                                            src = {mediaUrl + support.data}
+                                        />
+                                    }
                                     <div>
                                         <p className="ofertapp-description">{support.description}</p>
                                     </div>

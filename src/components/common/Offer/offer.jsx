@@ -35,10 +35,10 @@ class Offer extends Component {
                 </p>
             }
             <div className = "row align-middle ofertapp-offer-container">
-                <div className = "col-12 col-md-3 text-center">
+                <div className = "col-12 col-sm-6 col-md-3 text-center">
                     <UserLink user = {user} base = {false} fontSize={20}/>
                 </div>
-                <div className = "col-12 col-md-4 text-center">
+                <div className = "col-12 col-sm-6 col-md-4 text-center">
                     <p className = "ofertapp-offer-text">
                         hizo una oferta de
                     </p>
@@ -46,7 +46,7 @@ class Offer extends Component {
                 
                 <div className = "col-12 col-md-5 text-center">
                     <p className = "ofertapp-offer-price">
-                        COP $ {offer.amount.toLocaleString()}
+                        COP $ {offer.amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
                     </p>
                 </div>
                 <div className = "col-12 text-center">

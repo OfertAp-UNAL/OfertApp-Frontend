@@ -24,7 +24,7 @@ class PublicationViewOffers extends Component {
                 <h3 className = "ofertapp-label">Ofertas</h3>
                 <div 
                     className = "col-12 ofertapp-overflow"
-                    style = {{"--height": "425px"}}
+                    style = {{"--height": "480px"}}
                 >
                 {
                     this.state.offers.map( offer => (

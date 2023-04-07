@@ -1,7 +1,7 @@
 //import Joi from "joi-browser";
 import withRouter from "../../services/withRouter";
-import React, { Component } from "react";
-import { getFakePublication } from "../../services/publicationService";
+import React, { Component, useEffect } from "react";
+import { getPublication } from "../../services/publicationService";
 
 import PublicationViewHeader from "./publicationViewHeader";
 import PublicationViewMedia from "./publicationViewMedia";
@@ -11,6 +11,8 @@ import PublicationViewOffers from "./publicationViewOffers";
 import PublicationViewComments from "./publicationViewComments";
 
 import CustomButton from "../common/Button/button";
+
+import useUpdateTitle from "./../../utils/updateTitle";
 
 import "./publicationView.css";
 
@@ -22,9 +24,21 @@ class PublicationView extends Component {
   };
 
   async componentDidMount() {
+
     try{
-      const { data: publication } = await getFakePublication(this.props.params.id);
-      this.setState({ publication });
+      // Getting publication data from server
+      const { data } = await getPublication(this.props.params.id);
+
+      // A custom success message will be send by server
+      const { status, data : publication } = data;
+      
+      if( status === "success" ){
+        this.setState({ publication });
+      }
+      else{
+        toast.error("Error al cargar la publicación: Bad Status");
+      }
+        
     } catch (ex) {
       console.log(ex);
       toast.error("Error al cargar la publicación");
@@ -47,11 +61,11 @@ class PublicationView extends Component {
             />)
         }
         <h2 className = "ofertapp-base-subtitle">{
-          publication ? (
-            <React.Fragment>
-              {publication.title} &nbsp;
+          publication ? (    
+            <p className = "align-middle" style={{"margin" : "auto"}}>
+              {(publication.priority ? "👑" : "") + publication.title} &nbsp;
               <span className = "badge bg-primary ofertapp-category"> {publication.category.name} </span>
-            </React.Fragment>
+            </p>
           ) : "Cargando..."
         }</h2>
         
