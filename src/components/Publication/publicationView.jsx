@@ -1,6 +1,6 @@
 //import Joi from "joi-browser";
 import withRouter from "../../services/withRouter";
-import React, { Component, useEffect } from "react";
+import React, { Component } from "react";
 import { getPublication } from "../../services/publicationService";
 
 import PublicationViewHeader from "./publicationViewHeader";
@@ -11,8 +11,6 @@ import PublicationViewOffers from "./publicationViewOffers";
 import PublicationViewComments from "./publicationViewComments";
 
 import CustomButton from "../common/Button/button";
-
-import useUpdateTitle from "./../../utils/updateTitle";
 
 import "./publicationView.css";
 

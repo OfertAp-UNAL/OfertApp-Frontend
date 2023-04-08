@@ -26,3 +26,19 @@ export function registerUser(user) {
 export function login(user, password) {
   return http.post(apiEndpoint + "login/", { user, password });
 }
+
+export function logout(token) {
+  return http.get(apiEndpoint + "logout/", {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+}
+
+export function getUserInfo(token) {
+  return http.get(apiUrl + "userinfo/", {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+}

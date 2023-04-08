@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-import config from "./../../../config.json";
 import UserLink from "../UserLink/userLink";
 import { getTimeLeft } from "./../../../utils/getTime";
 import "./offer.css";
-
-const apiUrl = config.apiUrl;
 
 // user: object
 // base: boolean

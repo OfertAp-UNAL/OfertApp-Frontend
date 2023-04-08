@@ -1,0 +1,44 @@
+.ofertapp-publication-card {
+    background-color: #00BF63 !important;
+    color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    font-family: 'Inter';
+    font-style: "normal";
+    margin: 5px;
+    cursor: pointer;
+}
+
+.ofertapp-pub-card-support {
+    max-width: 300px;
+    max-height: 400px;
+    padding: 0;
+    margin: 0;
+}
+
+.ofertapp-pub-card-support-media {
+    width: 100%;
+    height: 100%;
+}
+
+.ofertapp-pub-card-info {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px;
+    font-family: 'Inter';
+    font-style: "normal";
+    margin-top: 5% !important;
+}
+
+.ofertapp-pub-card-info-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.ofertapp-pub-filter-divider {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #00BF63;
+    padding: 10px;
+    margin: 10px;
+}

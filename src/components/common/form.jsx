@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
 import Input from "./input";
-import Select from "./select";
 import { Link } from "react-router-dom";
 import Autosuggest from "react-autosuggest";
 import "../../App.css";
@@ -78,7 +77,7 @@ class Form extends Component {
 
     return (
       <div>
-        <label htmlFor={name}>{label}</label>
+        <label className = "form-label" htmlFor={name}>{label}</label>
         <Autosuggest
           id={name}
           inputProps={inputProps}

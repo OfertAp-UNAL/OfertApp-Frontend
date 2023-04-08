@@ -4,7 +4,7 @@ import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import "./userLink.css";
 
-const { mediaUrl, apiUrl } = config;
+const { mediaUrl } = config;
 
 // user: object
 // base: boolean
@@ -54,6 +54,7 @@ class UserLink extends Component {
     const user = this.props.user;
     const base = this.props.base;
     const fontSize = this.props.fontSize ? parseInt(this.props.fontSize) : null;
+    const fontColor = this.props.fontColor ? this.props.fontColor : "#000";
 
     return (
       // Conditional class name
@@ -64,7 +65,8 @@ class UserLink extends Component {
         >
           <p className ={"ofertapp-link-" + ( base ? "base" : "common")}
             style = {
-              {"--fontSize": fontSize ? fontSize + "px" : "32px"}
+              {"--fontSize": fontSize ? fontSize + "px" : "32px",
+              "--fontColor": fontColor}
             }
           >
             {user.username} &nbsp;&nbsp;

@@ -1,6 +1,6 @@
 .ofertapp-link-base {
     padding: 0px !important;
-    color: #000;
+    color: var(--fontColor);
     text-decoration: none;
     font-size: var(--fontSize);
     font-weight: 600;

@@ -8,12 +8,14 @@ function publicationUrl(id) {
     return `${apiEndpoint}${id}/`;
 }
 
-export function getPublications() {
-    return http.get(apiEndpoint);
+export function getPublications(params) {
+    return http.get(apiEndpoint, { params });
 }
 
 export function getPublication(publicationId) {
-    return http.get(publicationUrl(publicationId));
+    return http.get(
+        publicationUrl(publicationId)
+    );
 }
 
 export function createPublication(publication) {

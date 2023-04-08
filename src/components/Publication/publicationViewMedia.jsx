@@ -41,6 +41,7 @@ class PublicationViewMedia extends Component {
                                         // Image
                                         <img className = "ofertapp-media"
                                             src = {mediaUrl + support.data}
+                                            alt='Publication support'
                                         />
                                         :
                                         // Video

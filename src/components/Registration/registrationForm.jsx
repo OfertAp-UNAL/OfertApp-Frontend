@@ -4,6 +4,8 @@ import Form from "../common/form";
 import { getDepartments } from "../../services/municipioDepartamentosService";
 import { registerUser } from "../../services/userService";
 import { getMunicipalitiesByDepartment } from "../../services/municipioDepartamentosService";
+import { toast } from "react-toastify";
+
 class RegisterForm extends Form {
   state = {
     data: {
@@ -70,9 +72,20 @@ class RegisterForm extends Form {
       (m) => m["name"] === data.municipality
     ).id;
     const user = { ...data, municipalityId };
-    const response = await registerUser(user);
-    localStorage.setItem("token", response.data.token); // Save JWT in client browser
-    this.props.navigate("/homepage");
+    try{
+      const response = await registerUser(user);
+      const{ token, status } = response.data;
+      if(status === "success" ){
+        toast.success("Usuario registrado exitosamente");
+        localStorage.setItem("token", token); // Save JWT in client browser
+        this.props.navigate("/homepage");
+      } else {
+        toast.error("Error registrando usuario, verifique los campos digitados");
+      }
+    } catch( e ) {
+      toast.error("Error registrando usuario, verifique los campos digitados");
+    }
+    
   };
 
   handleSubmit = (e) => {
@@ -151,7 +164,7 @@ class RegisterForm extends Form {
 
             {this.renderTermsConditionsCheckbox()}
             <br />
-            {this.renderButton("Save")}
+            {this.renderButton("Registrar")}
           </div>
         </form>
       </div>

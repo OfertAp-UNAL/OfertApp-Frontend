@@ -40,9 +40,9 @@ class newPasswordForm extends Form {
       <form onSubmit={this.handleSubmit}>
         <div className="container">
           <div className="form-div">
-            <div class="row align-middle">
+            <div className="row align-middle">
               <img className="login-logo pb-2" src={logo} alt="Nope" />
-              <div class="offset-1 col-10">
+              <div className="offset-1 col-10">
                 <h5 className="login-title ps-2">Recuperación de</h5>
                 <h5 className="login-title ps-2 pb-3">contraseña</h5>
                 {this.renderInput("password", "Contraseña", "password")}
@@ -51,7 +51,7 @@ class newPasswordForm extends Form {
                   "Confirmar Contraseña",
                   "password"
                 )}
-                <div class="row justify-content-center">
+                <div className="row justify-content-center">
                   {this.renderButton("Enviar")}
                 </div>
               </div>

@@ -11,10 +11,22 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import RegisterForm from "./components/Registration/registrationForm";
 import LoginForm from "./components/login/loginForm";
+import Logout from "./components/logout";
 
 import MainPage from "./components/Main Page/mainPage";
 import AskResetPasswordForm from "./components/ResetPassword/askResetPasswordForm";
 import NewPasswordForm from "./components/ResetPassword/newPasswordForm";
+
+class JointComponentWithNavbar extends Component {
+  render() {
+    return (
+      <React.Fragment>
+        <NavBar user={this.props.user} />
+        {this.props.children}
+      </React.Fragment>
+    );
+  }
+}
 
 class App extends Component {
   state = {};
@@ -23,23 +35,41 @@ class App extends Component {
     return (
       <React.Fragment>
         <ToastContainer />
-        <NavBar user={this.state.user} />
         <main className="container">
           <Routes>
             <Route path="/login" element={<LoginForm />} />
             <Route
               path="/askResetPassword"
-              element={<AskResetPasswordForm />}
+              element={<JointComponentWithNavbar children={<AskResetPasswordForm />} />}
             />
             <Route
               path="/reset-password/:token/:user/"
-              element={<NewPasswordForm />}
+              element={<JointComponentWithNavbar children={<NewPasswordForm />} />}
             />
-            <Route path="/register" element={<RegisterForm />} />
-            <Route path="/homepage" element={<MainPage />} />
-            <Route path="/publication/:id" element={<PublicationView />} />
-            <Route path="/verify/:token/:user" element={<Verify />} />
-            <Route path="/not-found" element={<NotFound />} />
+            <Route
+              path="/register"
+              element={<JointComponentWithNavbar children={<RegisterForm />} />}
+            />
+            <Route
+              path="/homepage"
+              element={<JointComponentWithNavbar children={<MainPage />} />}
+            />
+            <Route
+              path="/publication/:id"
+              element={<JointComponentWithNavbar children={<PublicationView />} />}
+            />
+            <Route
+              path="/verify/:token/:user"
+              element={<JointComponentWithNavbar children={<Verify />} />}
+            />
+            <Route
+              path="/not-found"
+              element={<JointComponentWithNavbar children={<NotFound />} />}
+            />
+            <Route
+              path="/logout"
+              element={<Logout />}
+            />
             <Route path="/" element={<Navigate to="/not-found" replace />} />
           </Routes>
         </main>
