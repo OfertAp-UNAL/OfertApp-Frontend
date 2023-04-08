@@ -4,6 +4,7 @@ import Form from "../common/form";
 import { getDepartments } from "../../services/municipioDepartamentosService";
 import { registerUser } from "../../services/userService";
 import { getMunicipalitiesByDepartment } from "../../services/municipioDepartamentosService";
+import FileUpload from "../common/fileUpload";
 import { toast } from "react-toastify";
 
 class RegisterForm extends Form {
@@ -23,6 +24,7 @@ class RegisterForm extends Form {
       address: "fadf",
       paymentAccountType: "asdf",
       paymentAccountNumber: "132",
+      profilePicture: null,
     },
     departments: [],
 
@@ -63,6 +65,7 @@ class RegisterForm extends Form {
     paymentAccountNumber: Joi.string()
       .required()
       .label("Número de cuenta de pago"),
+    profilePicture: Joi.any(),
   };
 
   doSubmit = async () => {
@@ -118,6 +121,12 @@ class RegisterForm extends Form {
     this.setState({ data });
   };
 
+  handleProfileImageSelection = async (file) => {
+    const { data } = this.state;
+    data["profilePicture"] = file;
+    this.setState({ data });
+  }
+
   render() {
     const { departments, municipalitiesInDepartment } = this.state;
     const municipalitiesNames = municipalitiesInDepartment.map(
@@ -140,10 +149,13 @@ class RegisterForm extends Form {
             )}
             {this.renderInput("email", "Email", "email")}
             {this.renderInput("birthdate", "Fecha de Nacimiento", "date")}
+            {this.renderInput("phone", "Teléfono", "number")}
           </div>
           <div style={{ flex: 1, marginLeft: "1em" }}>
-            {this.renderInput("phone", "Teléfono", "number")}
-
+            <FileUpload 
+              label = "Imagen de perfil" type = "image"
+              onChange = {this.handleProfileImageSelection}
+            />
             {this.renderAutosuggest(
               "department",
               "Departamento",
