@@ -39,7 +39,7 @@ class askResetPasswordForm extends Form {
               <div className="offset-1 col-10">
                 <h5 className="login-title ps-2">Recuperación de</h5>
                 <h5 className="login-title ps-2 pb-3">contraseña</h5>
-                {this.renderInput("user", "Nombre de usuario")}
+                {this.renderInput("user", "Tu correo:")}
                 <div className="row justify-content-center">
                   {this.renderButton("Save")}
                 </div>

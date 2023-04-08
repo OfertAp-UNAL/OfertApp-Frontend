@@ -81,6 +81,7 @@ class RegisterForm extends Form {
       if(status === "success" ){
         toast.success("Usuario registrado exitosamente");
         localStorage.setItem("token", token); // Save JWT in client browser
+        
         this.props.navigate("/homepage");
       } else {
         toast.error("Error registrando usuario, verifique los campos digitados");
@@ -97,7 +98,6 @@ class RegisterForm extends Form {
     const errors = this.validate();
     this.setState({ errors: errors || {} });
     if (errors) return;
-    debugger;
     this.doSubmit();
   };
 

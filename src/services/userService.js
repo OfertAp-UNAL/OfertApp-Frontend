@@ -24,13 +24,12 @@ export function registerUser(user) {
 
   if (user.profilePicture != null) {
     formData.append("profilePicture", user.profilePicture);
-
-    return http.post(apiEndpoint + "register/", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
   }
+  return http.post(apiEndpoint + "register/", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 }
 
 export function login(user, password) {
