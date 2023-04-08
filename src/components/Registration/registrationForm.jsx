@@ -4,7 +4,7 @@ import Form from "../common/form";
 import { getDepartments } from "../../services/municipioDepartamentosService";
 import { registerUser } from "../../services/userService";
 import { getMunicipalitiesByDepartment } from "../../services/municipioDepartamentosService";
-import FileUpload from "../common/fileUpload";
+import FileUpload from "./../common/FileUpload/fileUpload"
 import { toast } from "react-toastify";
 
 class RegisterForm extends Form {
@@ -135,8 +135,12 @@ class RegisterForm extends Form {
     return (
       <div>
         <h1>Regístrate</h1>
-        <form onSubmit={this.handleSubmit} style={{ display: "flex" }}>
-          <div style={{ flex: 1, marginRight: "1em" }}>
+        <form 
+          onSubmit={this.handleSubmit} className="row text-center"
+          >
+          <div className="col-12 col-md-6" style={{
+            paddingRight: "5%",
+          }}>
             {this.renderInput("id", "Cédula", "number")}
             {this.renderInput("firstName", "Nombres")}
             {this.renderInput("lastName", "Apellidos")}
@@ -151,7 +155,9 @@ class RegisterForm extends Form {
             {this.renderInput("birthdate", "Fecha de Nacimiento", "date")}
             {this.renderInput("phone", "Teléfono", "number")}
           </div>
-          <div style={{ flex: 1, marginLeft: "1em" }}>
+          <div className="col-12 col-md-6"
+           style={{paddingRight: "5%"}}
+          >
             <FileUpload 
               label = "Imagen de perfil" type = "image"
               onChange = {this.handleProfileImageSelection}
@@ -176,7 +182,7 @@ class RegisterForm extends Form {
 
             {this.renderTermsConditionsCheckbox()}
             <br />
-            {this.renderButton("Registrar")}
+            {this.renderButton("Registrarse")}
           </div>
         </form>
       </div>
