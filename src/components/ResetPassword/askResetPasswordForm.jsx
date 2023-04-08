@@ -2,6 +2,7 @@ import Form from "../common/form";
 import Joi from "joi-browser";
 import withRouter from "../../services/withRouter";
 import logo from "../../images/OfertappGrande.png";
+import { sendResetPasswordEmail } from "../../services/resetPasswordService";
 import "../../App.css";
 
 class askResetPasswordForm extends Form {
@@ -13,11 +14,18 @@ class askResetPasswordForm extends Form {
   };
 
   schema = {
-    user: Joi.string().required().label("Nombre de usuario o correo"),
+    user: Joi.string().required().label("Correo"),
   };
 
   doSubmit = async () => {
     alert("Se intentará recuperar la contaseña, mira tu correo");
+    try{
+      const { user } = this.state.data;
+      await sendResetPasswordEmail(user);
+    }
+    catch(ex){
+    }
+    this.props.navigate("/login");
   };
 
   handleSubmit = (e) => {

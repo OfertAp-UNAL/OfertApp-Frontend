@@ -3,7 +3,6 @@ import CustomButton from '../common/Button/button';
 import { verify } from './../../services/verificationService';
 import withRouter from '../../services/withRouter';
 import { toast } from 'react-toastify';
-import { redirect } from 'react-router-dom';
 
 class VerificationPage extends Component {
     state = {  }
@@ -16,6 +15,7 @@ class VerificationPage extends Component {
             if( data.status === "success" ){
                 // Redirect on successfull verification
                 toast.success("Cuenta verificada con éxito");
+                this.props.navigate("/homepage");
                 return;
             }
             

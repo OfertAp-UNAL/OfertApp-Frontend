@@ -59,7 +59,7 @@ class App extends Component {
               element={<JointComponentWithNavbar children={<PublicationView />} />}
             />
             <Route
-              path="/verify/:token/:user"
+              path="/verify/:token/:userid"
               element={<JointComponentWithNavbar children={<Verify />} />}
             />
             <Route

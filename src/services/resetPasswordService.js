@@ -9,3 +9,7 @@ export function resetPassword(token, user, newPassword) {
     password: newPassword,
   });
 }
+
+export function sendResetPasswordEmail(email) {
+  return http.post(apiUrl + "auth/recover-password/", { email: email });
+}
