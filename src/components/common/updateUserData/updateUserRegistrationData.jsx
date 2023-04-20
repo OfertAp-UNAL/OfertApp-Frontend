@@ -5,6 +5,7 @@ import { getDepartments } from "../../../services/municipioDepartamentosService.
 import { getMunicipalitiesByDepartment } from "../../../services/municipioDepartamentosService.js";
 import FileUpload from "../FileUpload/fileUpload";
 import "../../../App.css";
+import { getUserInfo } from "../../../services/userService";
 
 class UpdateUserDataForm extends Form {
   state = {
@@ -22,6 +23,12 @@ class UpdateUserDataForm extends Form {
     errors: {},
     departments: [],
     municipalitiesInDepartment: [],
+  };
+
+  fillData = async () => {
+    const token = localStorage.getItem("token");
+    const data = await getUserInfo(token);
+    this.setState({ data });
   };
 
   schema = {

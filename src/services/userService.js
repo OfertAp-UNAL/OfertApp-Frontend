@@ -6,7 +6,6 @@ const apiUrl = config.apiUrl;
 const apiEndpoint = apiUrl + "auth/";
 
 export function registerUser(user) {
-
   const formData = new FormData();
   formData.append("id", user.id);
   formData.append("firstName", user.firstName);
@@ -49,5 +48,15 @@ export function getUserInfo(token) {
     headers: {
       Authorization: "Bearer " + token,
     },
+  });
+}
+
+export function updateUserData(modifiedData) {
+  const token = localStorage.getItem("token");
+  return http.patch(apiUrl + "userinfo/", {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+    body: modifiedData,
   });
 }
