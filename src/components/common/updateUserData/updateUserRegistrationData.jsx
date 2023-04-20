@@ -4,7 +4,6 @@ import withRouter from "../../../services/withRouter";
 import { getDepartments } from "../../../services/municipioDepartamentosService.js";
 import { getMunicipalitiesByDepartment } from "../../../services/municipioDepartamentosService.js";
 import FileUpload from "../FileUpload/fileUpload";
-import logo from "../../../images/OfertappGrande.png";
 import "../../../App.css";
 
 class UpdateUserDataForm extends Form {
@@ -44,6 +43,32 @@ class UpdateUserDataForm extends Form {
     const departments = data.map((e) => e.departamento);
     this.setState({ departments });
   }
+
+  handleDepartmentSelection = async (departmentName) => {
+    // Update the selected department in the state
+    const { data } = this.state;
+    data["department"] = departmentName;
+    this.setState({ data });
+
+    // Now get the municipalities that are in this department. This items will be in the suggestions for the municipality field.
+    const { data: municipalities } = await getMunicipalitiesByDepartment(
+      departmentName
+    );
+    this.setState({ municipalitiesInDepartment: municipalities["data"] });
+  };
+
+  handleMunicipalitySelection = async (municipalityName) => {
+    // Update the selected department in the state
+    const { data } = this.state;
+    data["municipality"] = municipalityName;
+    this.setState({ data });
+  };
+
+  handleProfileImageSelection = async (file) => {
+    const { data } = this.state;
+    data["profilePicture"] = file;
+    this.setState({ data });
+  };
 
   doSubmit = async () => {
     alert("Llamada AJAX");
