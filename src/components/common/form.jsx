@@ -77,7 +77,9 @@ class Form extends Component {
 
     return (
       <div>
-        <label className = "form-label" htmlFor={name}>{label}</label>
+        <label className="form-label" htmlFor={name}>
+          {label}
+        </label>
         <Autosuggest
           id={name}
           inputProps={inputProps}

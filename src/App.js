@@ -16,6 +16,7 @@ import Logout from "./components/logout";
 import MainPage from "./components/Main Page/mainPage";
 import AskResetPasswordForm from "./components/ResetPassword/askResetPasswordForm";
 import NewPasswordForm from "./components/ResetPassword/newPasswordForm";
+import UpdateUserDataForm from "./components/common/updateUserData/updateUserRegistrationData";
 
 class JointComponentWithNavbar extends Component {
   render() {
@@ -40,11 +41,15 @@ class App extends Component {
             <Route path="/login" element={<LoginForm />} />
             <Route
               path="/askResetPassword"
-              element={<JointComponentWithNavbar children={<AskResetPasswordForm />} />}
+              element={
+                <JointComponentWithNavbar children={<AskResetPasswordForm />} />
+              }
             />
             <Route
               path="/reset-password/:token/:user/"
-              element={<JointComponentWithNavbar children={<NewPasswordForm />} />}
+              element={
+                <JointComponentWithNavbar children={<NewPasswordForm />} />
+              }
             />
             <Route
               path="/register"
@@ -55,8 +60,16 @@ class App extends Component {
               element={<JointComponentWithNavbar children={<MainPage />} />}
             />
             <Route
+              path="/updateUserData"
+              element={
+                <JointComponentWithNavbar children={<UpdateUserDataForm />} />
+              }
+            />
+            <Route
               path="/publication/:id"
-              element={<JointComponentWithNavbar children={<PublicationView />} />}
+              element={
+                <JointComponentWithNavbar children={<PublicationView />} />
+              }
             />
             <Route
               path="/verify/:token/:userid"
@@ -66,10 +79,7 @@ class App extends Component {
               path="/not-found"
               element={<JointComponentWithNavbar children={<NotFound />} />}
             />
-            <Route
-              path="/logout"
-              element={<Logout />}
-            />
+            <Route path="/logout" element={<Logout />} />
             <Route path="/" element={<Navigate to="/not-found" replace />} />
           </Routes>
         </main>
