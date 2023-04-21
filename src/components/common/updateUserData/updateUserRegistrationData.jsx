@@ -25,12 +25,6 @@ class UpdateUserDataForm extends Form {
     municipalitiesInDepartment: [],
   };
 
-  fillData = async () => {
-    const token = localStorage.getItem("token");
-    const data = await getUserInfo(token);
-    this.setState({ data });
-  };
-
   schema = {
     firstName: Joi.string().required().label("Nombres"),
     lastName: Joi.string().required().label("Apellidos"),
@@ -45,10 +39,49 @@ class UpdateUserDataForm extends Form {
     profilePicture: Joi.any(),
   };
 
-  async componentDidMount() {
+  mapToViewModel(user) {
+    return {
+      data: {
+        firstName: user.firstName ? user.firstName : "",
+        lastName: user.lastName ? user.lastName : "",
+        phone: user.phone ? user.phone : "",
+        department: user.department ? user.department : "",
+        municipality: user.municipality ? user.municipality : "",
+        address: user.address ? user.address : "",
+        paymentAccountType: user.paymentAccountType
+          ? user.paymentAccountType
+          : "",
+        paymentAccountNumber: user.paymentAccountNumber
+          ? user.paymentAccountNumber
+          : "",
+        profilePicture: user.profilePicture,
+      },
+    };
+  }
+
+  populateUserData = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const a = await getUserInfo(token);
+      const user = a["data"]["data"];
+      this.setState({
+        data: this.mapToViewModel(user).data,
+      });
+    } catch (ex) {
+      if (ex.response && ex.response.status === 404)
+        this.props.navigate("/not-found");
+    }
+  };
+
+  fillDepartments = async () => {
     const { data } = await getDepartments();
     const departments = data.map((e) => e.departamento);
     this.setState({ departments });
+  };
+
+  async componentDidMount() {
+    await this.populateUserData();
+    await this.fillDepartments();
   }
 
   handleDepartmentSelection = async (departmentName) => {
