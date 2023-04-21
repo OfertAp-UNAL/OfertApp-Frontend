@@ -39,7 +39,7 @@ class NavBar extends Component {
     return (
       <nav className="navbar navbar-expand-lg static-top" >
         <div className="container">
-          <Link className="navbar-brand" to="/">
+          <Link className="navbar-brand" to="/homepage">
             <img className="navbar-logo" src={logo} alt="OfertApp Logo" />
           </Link>
           <button
@@ -60,21 +60,31 @@ class NavBar extends Component {
                   Inicio
                 </Link>
               </li>
-              <li className="nav-item ofertapp-item">
-                <Link className="nav-link text-center" to="/homepage">
-                  Mis Reportes
-                </Link>
-              </li>
-              <li className="nav-item ofertapp-item">
-                <Link className="nav-link text-center" to="/homepage">
-                  Mis Transacciones
-                </Link>
-              </li>
-              <li className="nav-item ofertapp-item">
-                <Link className="nav-link text-center" to="/homepage">
-                  Mis Subastas
-                </Link>
-              </li>
+              {
+                this.state.userIsLoggedIn &&
+                <React.Fragment>
+                  <li className="nav-item ofertapp-item">
+                  <Link className="nav-link text-center" to="/homepage">
+                    Mis Reportes
+                  </Link>
+                </li>
+                <li className="nav-item ofertapp-item">
+                  <Link className="nav-link text-center" to="/transaction-history">
+                    Mis Transacciones
+                  </Link>
+                </li>
+                <li className="nav-item ofertapp-item">
+                  <Link className="nav-link text-center" to="/statistics">
+                    Mis Estadísticas
+                  </Link>
+                </li>
+                <li className="nav-item ofertapp-item">
+                  <Link className="nav-link text-center" to="/my-publications">
+                    Mis Subastas
+                  </Link>
+                </li>
+                </React.Fragment>
+              }
               <li className= {"nav-item flex-row text-center" + (
                 this.state.userIsLoggedIn ? " dropdown" : ""
               )}>
@@ -97,15 +107,21 @@ class NavBar extends Component {
                   data-bs-toggle="dropdown" 
                   aria-expanded="false"
                 >
-                  <img
-                    className="ofertapp-navbar-profile-picture"
-                    alt = "Avatar"
-                    src = {mediaUrl + this.state.user.profilePicture}
-                  />
-              
-                  <p className="ofertapp-navbar-profile-name">
-                    {this.state.user.username}
-                  </p>
+                  <div className="row align-middle">
+                    <div className="col-12 col-sm-6 text-center">
+                      <img
+                        className="img-responsive ofertapp-navbar-profile-picture"
+                        alt = "Avatar"
+                        src = {mediaUrl + this.state.user.profilePicture}
+                      />
+                    </div>
+                    
+                    <div className="col-12 col-sm-6 text-center">
+                      <p className="ofertapp-navbar-profile-name">
+                        {this.state.user.username}
+                      </p>
+                    </div>
+                  </div>
                 </a>
                 <ul
                   className="dropdown-menu"

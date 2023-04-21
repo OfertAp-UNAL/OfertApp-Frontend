@@ -51,7 +51,16 @@ const getExpirationFormatted = (date) => {
     const dateObj = new Date(miliseconds);
 
     return dateObj.toLocaleDateString(
-        "es-ES"
+        "en-US"
+    )
+}
+
+const getDatetimeFormatted = (date) => {
+    const miliseconds = typeof (date) == "string" ? Date.parse(date) : date;
+    const dateObj = new Date(miliseconds);
+
+    return dateObj.toLocaleString(
+        "en-US"
     )
 }
 
@@ -64,5 +73,6 @@ const getTimeLeft = (date, allowPast = true) => {
 export {
     getDatesDifference,
     getExpirationFormatted,
+    getDatetimeFormatted,
     getTimeLeft
 }

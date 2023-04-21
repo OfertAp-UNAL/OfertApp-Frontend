@@ -27,9 +27,6 @@ class PublicationViewMedia extends Component {
                                     key = {support.id}
                                     className = {"carousel-item ofertapp-item text-center" + (
                                         () => {
-                                            console.log(
-                                                mediaUrl + support.data
-                                            );
                                             // Assign active class to first item
                                             const toReturn = carouselActiveAssigned ? "" : " active";
                                             carouselActiveAssigned = true;
