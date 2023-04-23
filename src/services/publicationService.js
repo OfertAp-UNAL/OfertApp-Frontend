@@ -13,13 +13,12 @@ export function getPublications(params) {
 }
 
 export function getPublication(publicationId, token) {
-  const headers = token ? {
-    "Authorization": "Bearer " + token
-  } : {};
-  return http.get(
-    publicationUrl(publicationId),
-    { headers }
-  );
+  const headers = token
+    ? {
+        Authorization: "Bearer " + token,
+      }
+    : {};
+  return http.get(publicationUrl(publicationId), { headers });
 }
 
 export function createPublication(publication) {
@@ -44,4 +43,15 @@ export function updatePublication(publication) {
 
 export function deletePublication(publicationId) {
   return http.delete(publicationUrl(publicationId));
+}
+
+export function addComment(publicationId, comment) {
+  const token = localStorage.getItem("token");
+  const route = apiUrl + "comments/" + publicationId + "/";
+  debugger;
+  return http.post(route, comment, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
 }
