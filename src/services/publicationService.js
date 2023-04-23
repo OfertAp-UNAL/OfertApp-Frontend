@@ -1,6 +1,5 @@
 import http from "./httpService";
 import config from "../config.json";
-import { debug } from "util";
 const apiUrl = config.apiUrl;
 
 const apiEndpoint = apiUrl + "publications/";
