@@ -27,7 +27,7 @@
     margin: auto;
 }
 
-.ofertapp-base-subtitle {
+.ofertapp-statistics-subtitle {
     font-size: 36px;
     font-weight: bold;
     color: #00BF63;
@@ -46,9 +46,9 @@
 .ofertapp-label {
     font-style: normal;
     font-weight: 600;
-    font-size: 24px;
+    font-size: 20px;
     line-height: 39px;
-    color: #00BF63;
+    color: #000;
     margin-bottom: 10px;
     text-align: center;
     font-family: 'Inter';
@@ -61,120 +61,4 @@
     padding-bottom: 20px;
 
     margin-bottom: 20px;
-}
-
-.ofertapp-status-badge {
-    background-color: var(--color);
-    color: #fff;
-    font-size: 24px !important;
-    margin-bottom: 10px;
-    font-family: 'Inter';
-    font-style: "normal";
-}
-
-.ofertapp-media-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    border-style: solid;
-    border-color: #00BF63;
-    border-radius: 10px;
-    padding: 10px;
-}
-
-.ofertapp-item {
-    align-items: center;
-}
-
-.ofertapp-item .ofertapp-media {
-    height: 35vw;
-    width: 80%;
-    border-radius: 10px;
-}
-
-.ofertapp-item .ofertapp-description {
-    border-left-style: solid;
-    border-left-color: #00BF63;
-    margin-top: 20px;
-
-    font-family: 'Inter';
-    font-style: "normal";
-    font-size: 2vw !important;
-
-}
-
-.ofertapp-carousel-navigator {
-    vertical-align: middle;
-    background-color: #00BF63 !important;
-    margin: auto;
-    height: 20%;
-}
-
-.ofertapp-navigator-symbol {
-    font-size: 100px !important;
-    color: #fff !important;
-    font-family: 'Inter';
-    font-style: "normal";
-}
-
-.ofertapp-publication-description {
-    font-size: 1.5vw;
-    font-family: 'Inter';
-    font-style: "normal";
-
-    border-left: #00BF63;
-    border-left-style: solid;
-    border-left-width: 5px;
-
-    overflow-wrap: break-word !important;
-}
-
-.ofertapp-min-offer {
-    font-size: 24px;
-    font-family: 'Inter';
-    font-style: "normal";
-    border-style: solid;
-    border-radius: 10px;
-    align-self: center !important;
-    border-color: #00BF63;
-    color: #000000;
-
-    margin-top: 50px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-}
-
-.ofertapp-offer {
-    font-size: 24px;
-    font-family: 'Inter';
-    font-style: "normal";
-    border-style: solid;
-    border-radius: 10px;
-    align-self: center !important;
-    border-color: #00BF63;
-    color: #000000;
-
-    padding-top: 15px;
-    padding-bottom: 15px;
-}
-
-.ofertapp-overflow {
-    height: var(--height);
-    width: 100%;
-    overflow: auto;
-    margin-bottom: 20px;
-}
-
-.ofertapp-comments-block {
-    background-color: #00BF63;
-    border-radius: 20px;
-}
-
-.ofertapp-category {
-    font-size: 16px !important;
-    vertical-align: middle !important;
-    font-family: 'Inter';
-    font-style: "normal";
 }

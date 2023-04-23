@@ -10,7 +10,6 @@ import PriceRangeFilter from "./priceRangeFilter";
 import ComboBox from "../common/comboBox";
 import CheckBox from "../common/checkBox";
 import CustomButton from "../common/Button/button";
-import { toast } from "react-toastify";
 import "./../common/Button/button.css";
 import { parseJwt } from "../../utils/parseJWT";
 
@@ -140,7 +139,6 @@ class MainPage extends Component {
     try {
       const { data } = await getPublications(requestParams);
       this.setState({ publications: data["data"] });
-      toast.success("Publicaciones obtenidas con éxito.")
       return;
     } catch (e) {
       console.log("Error: ", e);

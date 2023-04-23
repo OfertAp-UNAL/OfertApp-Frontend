@@ -23,24 +23,28 @@ class PublicationViewComments extends Component {
             className = "row align-middle"
             >
                 <h3 className = "ofertapp-label">Comentarios</h3>
-                <div 
-                    className = "ofertapp-overflow ofertapp-comments-block"
-                    style = {{"--height": "350px"}}
-                >
-                    {
-                    this.state.comments.map( comment => (
-                        <Comment 
-                            comment={comment} key = {comment.id}
-                            onClick = {
-                                (comment) => {
-                                    // Set replying to content
-                                    this.setState({replyingTo: comment});
+                {
+                    this.state.comments.length > 0 ?<div 
+                        className = "ofertapp-overflow ofertapp-comments-block"
+                        style = {{"--height": "350px"}}
+                    >
+                        {
+                        this.state.comments.map( comment => (
+                            <Comment 
+                                comment={comment} key = {comment.id}
+                                onClick = {
+                                    (comment) => {
+                                        // Set replying to content
+                                        this.setState({replyingTo: comment});
+                                    }
                                 }
-                            }
-                        />
-                    ))
-                    }
-                </div>
+                            />
+                        ))
+                        }
+                    </div>
+                    :
+                    <p className = "ofertapp-label">No hay comentarios</p>
+                }
                 Haz click sobre un comentario para responder.
                 <input 
                     className = "form-control mb-3" placeholder = "Escribe un título para tu comentario" 

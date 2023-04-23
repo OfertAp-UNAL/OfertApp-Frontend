@@ -19,41 +19,26 @@ ChartJS.register(
     Legend
   );
 
-const options = {
-    responsive: false,
+const genOptions = (title) => {
+  return {
+    responsive: true,
+    maintainAspectRatio: false,
     plugins: {
-        legend: {
-        position: 'top',
-        },
-        title: {
+      legend: {
+        position: 'right',
+      },
+      title: {
         display: true,
-        text: 'Chart.js Bar Chart',
-        },
-    },
+        text: title,
+      },
+    }
+  }
 };
-
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-const data = {
-    labels,
-    datasets: [
-      {
-        label: 'Dataset 1',
-        data: labels.map(() => 2),
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-      {
-        label: 'Dataset 2',
-        data: labels.map(() => 3),
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
-      },
-    ],
-  };
 
 class BarPlot extends Component {
     render() {
         return (
-            <Bar data={data} options={options} />
+            <Bar data={this.props.data} options={genOptions(this.props.title)} />
         );
     }
 }

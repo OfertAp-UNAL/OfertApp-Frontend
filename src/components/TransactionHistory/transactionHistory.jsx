@@ -3,14 +3,23 @@ import withRouter from "../../services/withRouter";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
+import Pagination from '../common/pagination';
+import { paginate } from '../../utils/paginate';
+
 import { getTransactions } from "../../services/transactionService";
 import { getDatetimeFormatted } from '../../utils/getTime';
 import "./transactionHistory.css";
 
+const pageSize = 10;
+
 class TransactionHistory extends Component {
 
     state = {
+        data : {
+            rawTransactions: [],
+        },
         transactions: [],
+        currentPage: 1,
     }
 
     // Give transaction type a proper format
@@ -61,7 +70,6 @@ class TransactionHistory extends Component {
         )
     }
 
-
     // Renders a tooltip with transaction's additional information
     renderAdditionalInfo(transaction, props) {  
         return (
@@ -82,21 +90,42 @@ class TransactionHistory extends Component {
     async componentDidMount() {
         try{
             const token = localStorage.getItem("token");
+            if( !token ){
+                this.props.navigate("/login");
+                return;
+            }
             const responseData = await getTransactions( token );
             const { data, status } = responseData.data;
             if( status === "success" ){
-                this.setState({
-                    transactions: data,
-                });
+
+                // Paginate data with first page data
+                const transactions = paginate( data, this.state.currentPage, pageSize );
+                this.setState(
+                    {
+                        transactions: transactions,
+                        data: {
+                            rawTransactions: data,
+                        }
+                    }
+                );
                 return;
             } else {
                 console.log("Error: ", data);
+                this.props.navigate("/login");
+
             }
         } catch( e ){
             console.log("Error: ", e);
+            this.props.navigate("/login");
         }
     }
-
+    
+    handlePageChange = page => {
+        this.setState({ 
+            currentPage: page,
+            transactions: paginate( this.state.data.rawTransactions, page, pageSize )
+        });
+    };
 
     render() {
         const transactions = this.state.transactions;
@@ -107,6 +136,7 @@ class TransactionHistory extends Component {
                 </h1>
                 {
                     transactions &&
+                    <div>
                         <table className="ofertapp-table w-100 text-center">
                             <thead>
                                 <tr>
@@ -146,6 +176,13 @@ class TransactionHistory extends Component {
                                 }
                             </tbody>
                         </table>
+                        <Pagination
+                            itemsCount={this.state.data.rawTransactions.length}
+                            pageSize={pageSize}
+                            currentPage={this.state.currentPage}
+                            onPageChange={this.handlePageChange}
+                        />
+                    </div>
                 }
             </div>
         );
