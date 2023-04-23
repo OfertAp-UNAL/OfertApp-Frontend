@@ -12,9 +12,14 @@ export function getPublications(params) {
     return http.get(apiEndpoint, { params });
 }
 
-export function getPublication(publicationId) {
+export function getPublication(publicationId, token) {
+    const headers = token ? {
+        "Authorization": "Bearer " + token
+    } : {};
+    console.log(headers);
     return http.get(
-        publicationUrl(publicationId)
+        publicationUrl(publicationId),
+        { headers }
     );
 }
 

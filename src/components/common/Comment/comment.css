@@ -13,6 +13,8 @@
     background-color: #fff;
 
     margin-right: 10px !important;
+
+    cursor: pointer;
 }
 
 .ofertapp-reaction-container {
@@ -28,6 +30,8 @@
     font-size: 14px !important;
 
     overflow-wrap: break-word !important;
+
+    cursor: pointer;
 }
 
 .ofertapp-comment-text {
@@ -53,4 +57,9 @@
     text-align: right;
     font-family: 'Inter';
     font-style: "normal";
+}
+
+.ofertapp-reaction-active {
+    background-color: #000;
+    color: #fff;
 }
