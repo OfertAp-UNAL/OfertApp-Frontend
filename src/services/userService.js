@@ -51,3 +51,13 @@ export function getUserInfo(token) {
     },
   });
 }
+
+export function updateUserData(modifiedData) {
+  const token = localStorage.getItem("token");
+  return http.patch(apiUrl + "userinfo/", {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+    body: modifiedData,
+  });
+}

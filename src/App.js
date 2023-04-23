@@ -17,6 +17,7 @@ import MainPage from "./components/Main Page/mainPage";
 import AskResetPasswordForm from "./components/ResetPassword/askResetPasswordForm";
 import NewPasswordForm from "./components/ResetPassword/newPasswordForm";
 import CreatePublicationForm from "./components/Publication/createPublicationForm";
+import UpdateUserDataForm from "./components/common/updateUserData/updateUserRegistrationData";
 
 class JointComponentWithNavbar extends Component {
   render() {
@@ -67,6 +68,12 @@ class App extends Component {
             <Route
               path="/homepage"
               element={<JointComponentWithNavbar children={<MainPage />} />}
+            />
+            <Route
+              path="/updateUserData"
+              element={
+                <JointComponentWithNavbar children={<UpdateUserDataForm />} />
+              }
             />
             <Route
               path="/publication/:id"
