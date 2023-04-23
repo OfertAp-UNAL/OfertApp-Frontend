@@ -13,8 +13,14 @@ export function getPublications(params) {
   return http.get(apiEndpoint, { params });
 }
 
-export function getPublication(publicationId) {
-  return http.get(publicationUrl(publicationId));
+export function getPublication(publicationId, token) {
+  const headers = token ? {
+    "Authorization": "Bearer " + token
+  } : {};
+  return http.get(
+    publicationUrl(publicationId),
+    { headers }
+  );
 }
 
 export function createPublication(publication) {

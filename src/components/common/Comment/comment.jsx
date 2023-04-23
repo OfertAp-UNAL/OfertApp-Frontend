@@ -18,7 +18,19 @@ class Comment extends Component {
 
   async componentDidMount() {
     const { comment } = this.props;
-    this.setState({ comment });
+
+    let currentState = this.state;
+    currentState.comment = comment;
+    // Check user's reaction
+    const reactionType = comment ? comment.reactionsCount.userReaction : null;
+
+    if( reactionType ) {
+        // Mark this comment as made by current user
+        currentState.userReacted = true;
+        currentState.reactedType = reactionType;
+    }
+
+    this.setState({ currentState });
   }
 
   // Handle reaction change
@@ -34,8 +46,11 @@ class Comment extends Component {
     }
     comment.reactionsCount[type] += 1;
     this.setState({ comment, userReacted : true, reactedType : type });
+
+    // TODO: Send reaction to server
   }
-  // Creates a link to user's profile
+
+
   render() {
     const comment = this.state.comment;
     const user = this.state.comment ? this.state.comment.user : null;
@@ -94,13 +109,22 @@ class Comment extends Component {
                 </div>
                 <div className = "col-12 col-md-2">
                     <div className = "row text-center">
-                        <div className = "col-12 ofertapp-reaction-container" onClick = { () => this.handleReactionChange("LIKE")} >
+                        <div className = {"col-12 ofertapp-reaction-container" +
+                            (this.state.userReacted && this.state.reactedType === "LIKE" ? " ofertapp-reaction-active" : "")
+                        }
+                            onClick = { () => this.handleReactionChange("LIKE")} >
                             <strong>▲&nbsp;{comment.reactionsCount.LIKE}</strong>
                         </div>
-                        <div className = "col-12 ofertapp-reaction-container" onClick = { () => this.handleReactionChange("DISLIKE")} >
+                        <div className = {"col-12 ofertapp-reaction-container" +
+                            (this.state.userReacted && this.state.reactedType === "DISLIKE" ? " ofertapp-reaction-active" : "")
+                        }
+                            onClick = { () => this.handleReactionChange("DISLIKE")} >
                             <strong>▼&nbsp;{comment.reactionsCount.DISLIKE}</strong>
                         </div>
-                        <div className = "col-12 ofertapp-reaction-container" onClick = { () => this.handleReactionChange("WARNING")}>
+                        <div className = {"col-12 ofertapp-reaction-container" +
+                            (this.state.userReacted && this.state.reactedType === "WARNING" ? " ofertapp-reaction-active" : "")
+                        }
+                            onClick = { () => this.handleReactionChange("WARNING")}>
                             <strong>⚠&nbsp;{comment.reactionsCount.WARNING}</strong>
                         </div>
                     </div>

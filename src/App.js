@@ -9,6 +9,8 @@ import Verify from "./components/VerificationPage/verificationPage";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import TransactionHistory from "./components/TransactionHistory/transactionHistory";
+import Statistics from "./components/Statistics/statistics";
 import RegisterForm from "./components/Registration/registrationForm";
 import LoginForm from "./components/login/loginForm";
 import Logout from "./components/logout";
@@ -67,7 +69,21 @@ class App extends Component {
             />
             <Route
               path="/homepage"
-              element={<JointComponentWithNavbar children={<MainPage />} />}
+              element={<JointComponentWithNavbar children={<MainPage userPublications="false" />} />}
+              key={window.location.pathname}
+            />
+            <Route
+              path="/my-publications"
+              element={<JointComponentWithNavbar children={<MainPage userPublications="true" />} />}
+              key={window.location.pathname}
+            />
+            <Route
+              path="/transaction-history"
+              element={<JointComponentWithNavbar children={<TransactionHistory />} />}
+            />
+            <Route
+              path="/statistics"
+              element={<JointComponentWithNavbar children={<Statistics />} />}
             />
             <Route
               path="/updateUserData"

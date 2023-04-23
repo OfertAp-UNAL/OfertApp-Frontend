@@ -1,3 +1,20 @@
+.ofertapp-page-title {
+    font-size: 48px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.466);
+
+    padding-bottom: 20px;
+    padding-left: 40px;
+
+    margin-bottom: 30px;
+
+    text-align: left;
+    border-bottom-style: solid;
+    border-bottom-color: #000000;
+    font-family: 'Inter';
+    font-style: "normal";
+}
+
 .ofertapp-publication-card {
     background-color: #00BF63 !important;
     color: #fff;
@@ -7,6 +24,10 @@
     font-style: "normal";
     margin: 5px;
     cursor: pointer;
+}
+
+.ofertapp-publication-card:hover {
+    background-color: #047941f0 !important;
 }
 
 .ofertapp-pub-card-support {

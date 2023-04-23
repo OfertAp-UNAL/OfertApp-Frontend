@@ -9,7 +9,7 @@ const CheckBox = ({ name, label, onChange }) => {
             defaultChecked={true}
             name={name}
             id={name}
-            onChange={e => onChange(e.currentTarget.value)}
+            onChange={e => onChange(e.currentTarget.checked)}
         />
         <h5>{label}</h5>
         </React.Fragment>

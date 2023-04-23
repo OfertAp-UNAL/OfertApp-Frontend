@@ -25,7 +25,6 @@ class LoginForm extends Form {
     const { data } = this.state;
     try{
       const response = await login(data.user, data.password);
-      console.log( response );
       const responseData = response.data;
       if( responseData.status === "success" ){
         toast.success("Inicio de sesión exitoso. Serás redirigido en un momento");
