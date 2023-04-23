@@ -1,7 +1,9 @@
-import Joi from "joi-browser";
+import Joi, { create } from "joi-browser";
 import withRouter from "../../services/withRouter";
 import Form from "../common/form";
 import FileUpload from "./../common/FileUpload/fileUpload";
+import { createPublication } from "../../services/publicationService";
+import { toast } from "react-toastify";
 
 class CreatePublicationForm extends Form {
   state = {
@@ -27,14 +29,59 @@ class CreatePublicationForm extends Form {
       .label("Descripción del producto"),
     startingPrice: Joi.number().required().label("Precio inicial"),
     auctionDuration: Joi.number().required().label("Tiempo de subasta"),
-    evidenceFile: Joi.string().allow("").label("Archivo de evidencia"),
+    evidenceFile: Joi.any().label("Archivo de evidencia"),
     evidenceDescription: Joi.string()
       .allow("")
       .label("Descripción de la evidencia"),
   };
 
+  getUserId = () => {
+    const token = localStorage.getItem("token");
+    const jwtParts = token.split(".");
+    const decodedPayload = JSON.parse(
+      new TextDecoder().decode(
+        new Uint8Array(
+          atob(jwtParts[1])
+            .split("")
+            .map((c) => c.charCodeAt(0))
+        )
+      )
+    );
+    return decodedPayload.user_id;
+  };
+
+  genServiceData = () => {
+    const { data } = this.state;
+
+    // Modify name fields that already exist to make them match with what the backend expects
+    data.description = data.productDescription;
+    delete data.productDescription;
+
+    data.minOffer = data.startingPrice;
+    delete data.startingPrice;
+
+    data.supportsFiles = data.evidenceFile;
+    delete data.evidenceFile;
+    data.supportsDescriptions = data.evidenceDescription;
+    delete data.evidenceDescription;
+
+    delete data.auctionDuration;
+
+    data.category = "c2ddcc20-4272-4e77-8de8-d4c775b1bd4d";
+
+    data.user = this.getUserId();
+    data.supportsTypes = "IMAGE";
+
+    return data;
+  };
+
   doSubmit = async () => {
-    alert("Doing submit");
+    const publicationData = this.genServiceData();
+    try {
+      await createPublication(publicationData);
+    } catch (ex) {
+      toast.error("No se pudo realizar la publicación");
+    }
   };
 
   handleSubmit = (e) => {
@@ -47,7 +94,7 @@ class CreatePublicationForm extends Form {
 
   handleEvidenceImageSelection = async (file) => {
     const { data } = this.state;
-    data["profilePicture"] = file;
+    data["evidenceFile"] = file;
     this.setState({ data });
   };
 

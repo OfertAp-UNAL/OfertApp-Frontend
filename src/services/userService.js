@@ -6,7 +6,6 @@ const apiUrl = config.apiUrl;
 const apiEndpoint = apiUrl + "auth/";
 
 export function registerUser(user) {
-
   const formData = new FormData();
   formData.append("id", user.id);
   formData.append("firstName", user.firstName);
@@ -25,6 +24,7 @@ export function registerUser(user) {
   if (user.profilePicture != null) {
     formData.append("profilePicture", user.profilePicture);
   }
+  debugger;
   return http.post(apiEndpoint + "register/", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
