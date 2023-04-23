@@ -7,12 +7,8 @@ import PiePlot from './pieChart';
 import LinePlot from './histogram';
 import ComboBox from '../common/comboBox';
 import CustomButton from '../common/Button/button';
+import generateRandomColor from "../../utils/randomColor";
 import "./statistics.css";
-
-const monthLabels = [
-    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 
-    'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-];
 
 class Statistics extends Component {
 
@@ -20,8 +16,7 @@ class Statistics extends Component {
         data : {
             balance: 0,
             frozenBalance: 0,
-            sales: [],
-            purchases: [],
+            salesAndPurchases: [],
             reactions: [],
             offers: [],
 
@@ -40,44 +35,20 @@ class Statistics extends Component {
         // Histogram data
         histogramData : {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    label: 'Ventas',
-                    data: [1,2,3,4,5,6,7],
-                    borderColor: 'rgb(255, 99, 132)',
-                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                },
-                {
-                    label: 'Compras',
-                    data: [1,2,3,4,5,6,7],
-                    borderColor: 'rgb(53, 162, 235)',
-                    backgroundColor: 'rgba(53, 162, 235, 0.5)',
-                },
-            ],
+            salesData : [1,2,3,4,5,6,7],
+            purchasesData : [1,2,3,4,5,6,7]
         },
 
         // Piechart data
         piechartData : {
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [
-                {
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    borderWidth: 1,
-                },
-            ] 
+            reactionsData : [1,2,3,4,5,6,7],
         },
 
         // Barchart data
         barPlotData : {
             labels: ['.', '.', '.', '.', '.', '.', '.'],
-            datasets: [
-                {
-                    label: 'Publicaciones',
-                    data: [1,2,3,4,5,6,7],
-                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                },
-            ],
+            offersData : [1,2,3,4,5,6,7],
         }
     }
 
@@ -126,10 +97,10 @@ class Statistics extends Component {
             if( status === "success" ){
                 this.setState({
                     data : {
+                        ...this.state.data,
                         balance: data.balance,
-                        frozenBalance: data.frozenBalance,
-                        sales: data.sales,
-                        purchases: data.purchases,
+                        frozenBalance: data.frozenBalance,                        
+                        salesAndPurchases: data.salesPurchases,
                         reactions: data.reactions,
                         offers: data.offers
                     }
@@ -150,29 +121,31 @@ class Statistics extends Component {
 
     // Separate function for updating charts data
     updateChartsState = () => {
-        const { sales, purchases, reactions, offers } = this.state.data;
+        const { salesAndPurchases, reactions, offers } = this.state.data;
         const { financialGroupingBy } = this.state.data;
 
-        const financialLabels = sales.map( (sale) => sale[financialGroupingBy] );
-        const salesData = sales.map( (sale) => sale.total );
-        const purchasesData = purchases.map( (purchase) => purchase.total );
+        const financialLabels = salesAndPurchases.map( (record) => record[financialGroupingBy]);
+        
+        const salesData = salesAndPurchases.map( (record) => record.sales );
+        const purchasesData = salesAndPurchases.map( (record) => record.purchases );
 
-        const reactionsLabels = reactions.map( (reaction) => reaction["type"] );
-        const reactionsData = reactions.map( (reaction) => reaction["total"] );
+        const reactionsLabels = reactions.map( (reaction) => reaction.type );
+        const reactionsData = reactions.map( (reaction) => reaction.total );
 
-        const offersLabels = offers.map( (offer) => offer["publicationTitle"] );
-        const offersData = offers.map( (offer) => offer["total"] );
+        const offersLabels = offers.map( (offer) => offer.publicationTitle );
+        
+        const offersData = offers.map( (offer) => offer.total );
 
         const { histogramData, piechartData, barPlotData } = this.state;
         histogramData.labels = financialLabels;
-        histogramData.datasets[0].data = salesData;
-        histogramData.datasets[1].data = purchasesData;
+        histogramData.salesData = salesData;
+        histogramData.purchasesData = purchasesData;
 
         piechartData.labels = reactionsLabels;
-        piechartData.datasets[0].data = reactionsData;
+        piechartData.reactionsData = reactionsData;
 
         barPlotData.labels = offersLabels;
-        barPlotData.datasets[0].data = offersData;
+        barPlotData.offersData = offersData;
 
         this.setState({
             histogramData: histogramData,
@@ -181,10 +154,61 @@ class Statistics extends Component {
         });
     }
 
+    // Utils for data generation
+    generateHistogramData = () => {
+        const { histogramData } = this.state;
+        return {
+            labels: histogramData.labels,
+            datasets: [
+                {
+                    label: 'Ventas',
+                    data: histogramData.salesData,
+                    borderColor: generateRandomColor(),
+                    backgroundColor: generateRandomColor(),
+                },
+                {
+                    label: 'Compras',
+                    data: histogramData.purchasesData,
+                    borderColor: generateRandomColor(),
+                    backgroundColor: generateRandomColor(),
+                },
+            ],
+        }
+    }
+
+    generatePiechartData = () => {
+        const { piechartData } = this.state;
+        return {
+            labels: piechartData.labels,
+            datasets: [
+                {
+                    label: '# of Votes',
+                    data: piechartData.reactionsData,
+                    backgroundColor: piechartData.labels.map( () => generateRandomColor() ),
+                    borderColor: generateRandomColor(),
+                    borderWidth: 1,
+                },
+            ]
+        }
+    }
+
+    generateBarPlotData = () => {
+        const { barPlotData } = this.state;
+        return {
+            labels: barPlotData.labels,
+            datasets: [
+                {
+                    label: 'Publicaciones',
+                    data: barPlotData.offersData,
+                    backgroundColor: generateRandomColor(),
+                },
+            ],
+        }
+    }
+
     render() {
 
         // Update charts data
-        const { histogramData, piechartData, barPlotData } = this.state;
         return (
             <div className="w-100 text-center">
                 <h1 className = "ofertapp-page-title">
@@ -224,8 +248,8 @@ class Statistics extends Component {
                             onChange={(value) => {this.handleComboBoxChange("financialviewBy", value)}}
                         />
                     </div>
-                    <div className='col-12 col-sm-9 text-center'>
-                        <LinePlot title = "Tu avance financiero" data={histogramData} />
+                    <div className='col-12 col-sm-9 text-center' style={{"height":"300px"}}>
+                        <LinePlot title = "Tu avance financiero" data={this.generateHistogramData()} />
                     </div>
                 </div>
                 <h2 className='ofertapp-statistics-subtitle'>
@@ -245,8 +269,8 @@ class Statistics extends Component {
                             onChange = {(value) => {this.handleComboBoxChange("reactionsGroupingBy", value)}}
                         />
                     </div>
-                    <div className='col-12 col-sm-9 text-center'>
-                        <PiePlot title = "Reacciones a tus comentarios" data={piechartData}/>
+                    <div className='col-12 col-sm-9 text-center' style={{"height":"300px"}}>
+                        <PiePlot title = "Reacciones a tus comentarios" data={this.generatePiechartData()}/>
                     </div>
                 </div>
                 <h2 className='ofertapp-statistics-subtitle'>
@@ -275,8 +299,8 @@ class Statistics extends Component {
                             onChange = {(value) => {this.handleComboBoxChange("offersLast", value)}}
                         />
                     </div>
-                    <div className='col-12 col-sm-9 text-center'>
-                        <BarPlot title = "Ofertas a tus publicaciones" data={barPlotData}/>
+                    <div className='col-12 col-sm-9 text-center' style={{"height":"300px"}}>
+                        <BarPlot title = "Ofertas a tus publicaciones" data={this.generateBarPlotData()}/>
                     </div>
                 </div>
                 <CustomButton 

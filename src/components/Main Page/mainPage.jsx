@@ -48,7 +48,7 @@ class MainPage extends Component {
     },
     publications: [],
     currentPage: 1,
-    pageSize: 4
+    pageSize: 4,
   };
 
   async componentDidMount() {
@@ -83,10 +83,9 @@ class MainPage extends Component {
   componentDidUpdate(prevProps) {
     // Check if user is viewing his own publications only
     if( this.props.userPublications !== prevProps.userPublications ){
-      this.componentDidMount();
+      this.componentDidMount(); // Actually component did mount if url changed at this point
     }
   }
-
 
   handlePageChange = (page) => {
     this.setState({ currentPage: page });
@@ -128,10 +127,9 @@ class MainPage extends Component {
     if( limit && limit > 0){
       requestParams["limit"] = limit;
     }
-      
 
     // Set filtered user (First approach will consider only current user's publications)
-    if (user && user.toString().trim() !== "") {
+    if (user && this.props.userPublications === "true" && user.toString().trim() !== "") {
       requestParams["user"] = user;
     }
 

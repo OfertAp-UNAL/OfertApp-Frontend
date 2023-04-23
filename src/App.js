@@ -55,10 +55,12 @@ class App extends Component {
             <Route
               path="/homepage"
               element={<JointComponentWithNavbar children={<MainPage userPublications="false" />} />}
+              key={window.location.pathname}
             />
             <Route
               path="/my-publications"
               element={<JointComponentWithNavbar children={<MainPage userPublications="true" />} />}
+              key={window.location.pathname}
             />
             <Route
               path="/transaction-history"
