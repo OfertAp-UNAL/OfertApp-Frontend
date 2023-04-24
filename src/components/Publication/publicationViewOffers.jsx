@@ -25,24 +25,30 @@ class PublicationViewOffers extends Component {
         let mainOfferAssigned = false;
 
         return (
-            <div className = "row align-middle">
+            <div className = "row align-middle text-center">
                 <h3 className = "ofertapp-label">Ofertas</h3>
-                <div 
-                    className = "col-12 ofertapp-overflow"
-                    style = {{"--height": "480px"}}
-                >
                 {
-                    this.state.offers.map( offer => (
-                    <Offer offer={offer} key = {offer.id} main={(
-                        () => {
-                        // Assign main class to first item
-                        const toReturn = !mainOfferAssigned;
-                        mainOfferAssigned = true;
-                        return toReturn;
-                        }
-                    )()} />
-                    ))
+                    this.state.offers.length > 0 ? <div 
+                        className = "col-12 ofertapp-overflow"
+                        style = {{"--height": "480px"}}
+                    >
+                    {
+                        this.state.offers.map( offer => (
+                        <Offer offer={offer} key = {offer.id} main={(
+                            () => {
+                            // Assign main class to first item
+                            const toReturn = !mainOfferAssigned;
+                            mainOfferAssigned = true;
+                            return toReturn;
+                            }
+                        )()} />
+                        ))
+                    }
+                    </div>
+                    :
+                    <p className = "ofertapp-label">No hay ofertas</p>
                 }
+<<<<<<< HEAD
                 </div>
                 <button type="button" className="btn ofertapp-button-primary" data-toggle="modal" data-target="#modalOferta">
                     Crear oferta
@@ -74,6 +80,9 @@ class PublicationViewOffers extends Component {
                         </div>
                     </div>
                 </div>
+=======
+                <CustomButton onClick = {() => console.log("Crear Oferta")} caption = "Crear Oferta" type = "primary"/>
+>>>>>>> 94c74112306b7884afc17ef0f3f185135e201e3f
             </div>
         )
     }

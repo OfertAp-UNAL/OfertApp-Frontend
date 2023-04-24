@@ -9,6 +9,8 @@ import Verify from "./components/VerificationPage/verificationPage";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import TransactionHistory from "./components/TransactionHistory/transactionHistory";
+import Statistics from "./components/Statistics/statistics";
 import RegisterForm from "./components/Registration/registrationForm";
 import LoginForm from "./components/login/loginForm";
 import Logout from "./components/logout";
@@ -16,6 +18,7 @@ import Logout from "./components/logout";
 import MainPage from "./components/Main Page/mainPage";
 import AskResetPasswordForm from "./components/ResetPassword/askResetPasswordForm";
 import NewPasswordForm from "./components/ResetPassword/newPasswordForm";
+import CreatePublicationForm from "./components/Publication/createPublicationForm";
 import UpdateUserDataForm from "./components/common/updateUserData/updateUserRegistrationData";
 
 class JointComponentWithNavbar extends Component {
@@ -46,6 +49,15 @@ class App extends Component {
               }
             />
             <Route
+              path="/createPublication"
+              element={
+                <JointComponentWithNavbar
+                  children={<CreatePublicationForm />}
+                />
+              }
+            />
+
+            <Route
               path="/reset-password/:token/:user/"
               element={
                 <JointComponentWithNavbar children={<NewPasswordForm />} />
@@ -57,7 +69,21 @@ class App extends Component {
             />
             <Route
               path="/homepage"
-              element={<JointComponentWithNavbar children={<MainPage />} />}
+              element={<JointComponentWithNavbar children={<MainPage userPublications="false" />} />}
+              key={window.location.pathname}
+            />
+            <Route
+              path="/my-publications"
+              element={<JointComponentWithNavbar children={<MainPage userPublications="true" />} />}
+              key={window.location.pathname}
+            />
+            <Route
+              path="/transaction-history"
+              element={<JointComponentWithNavbar children={<TransactionHistory />} />}
+            />
+            <Route
+              path="/statistics"
+              element={<JointComponentWithNavbar children={<Statistics />} />}
             />
             <Route
               path="/updateUserData"

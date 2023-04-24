@@ -96,3 +96,18 @@
   color: #bdbdbd !important;
   font-size: 40px !important;
 }
+
+.ofertapp-page-link {
+  background-color: #fff !important;
+  color: #00BF63 !important;
+}
+
+.ofertapp-page-link:hover {
+  background-color: #00BF63 !important;
+  color: #fff !important;
+}
+
+.ofertapp-page-item-active.ofertapp-page-link {
+  background-color: #00BF63 !important;
+  color: #fff !important;
+}

@@ -25,7 +25,8 @@ class PublicationView extends Component {
 
     try{
       // Getting publication data from server
-      const { data } = await getPublication(this.props.params.id);
+      const token = localStorage.getItem("token");
+      const { data } = await getPublication(this.props.params.id, token);
 
       // A custom success message will be send by server
       const { status, data : publication } = data;

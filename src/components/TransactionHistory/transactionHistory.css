@@ -1,0 +1,30 @@
+.ofertapp-table {
+    font-size: 48px;
+    font-weight: bold;
+    color: #000;
+}
+
+.ofertapp-table-header {
+    font-size: 24px;
+    font-weight: bold;
+    background-color: #00BF63;
+    color: #fff;
+    border-style: solid;
+    text-align: center;
+    border-color: #fff;
+    border-width: 3px;
+    margin: 5px;
+}
+
+.ofertapp-table-item {
+    background-color: #fff;
+    color: #000;
+    font-size: 16px;
+    font-family: 'Inter';
+    font-style: "normal";
+    font-weight: 400;
+    border-radius: 10px;
+    border-color: #000;
+    border-style: solid;
+    border-width: 3px;
+}
