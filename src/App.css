@@ -7,6 +7,10 @@
   pointer-events: none;
 }
 
+body {
+  height: 100vh;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -90,12 +94,7 @@
   max-width: 200px !important;
 }
 
-.login-title {
-  font-family: 'Inter' !important;
-  font-weight: bolder !important;
-  color: #bdbdbd !important;
-  font-size: 40px !important;
-}
+
 
 .ofertapp-page-link {
   background-color: #fff !important;
