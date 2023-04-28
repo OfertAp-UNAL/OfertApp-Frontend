@@ -111,9 +111,10 @@ class Form extends Component {
     if (this.state.acceptedTermsConditions) {
       termsConditionsAccepted = this.state.acceptedTermsConditions;
     }
+
     return (
       <button
-        disabled={this.validate() && !termsConditionsAccepted}
+        disabled={!(this.validate() === null && termsConditionsAccepted)}
         className="btn btn-form login-button"
       >
         {label}

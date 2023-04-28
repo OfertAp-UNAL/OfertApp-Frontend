@@ -60,7 +60,7 @@ class LoginForm extends Form {
           "user",
           "Nombre de usuario",
           "text",
-          true,
+          false,
           "Escribe nombre de usuario o correo"
         )}
 
@@ -68,7 +68,7 @@ class LoginForm extends Form {
           "password",
           "Contraseña",
           "password",
-          true,
+          false,
           "Ingresa tu contraseña"
         )}
         <Link id="reset-password-login" to="/askResetPassword">
