@@ -56,11 +56,28 @@ class LoginForm extends Form {
     return (
       <form onSubmit={this.handleSubmit} id="login-form">
         <h5 className="login-title">Inicio de sesión</h5>
-        {this.renderInput("user", "Nombre de usuario")}
-        {this.renderInput("password", "Contraseña", "password")}
-        <Link to="/askResetPassword">Recuperar contraseña</Link>
+        {this.renderInput(
+          "user",
+          "Nombre de usuario",
+          "text",
+          true,
+          "Escribe nombre de usuario o correo"
+        )}
+
+        {this.renderInput(
+          "password",
+          "Contraseña",
+          "password",
+          true,
+          "Ingresa tu contraseña"
+        )}
+        <Link id="reset-password-login" to="/askResetPassword">
+          Recuperar contraseña
+        </Link>
         {this.renderButton("Iniciar sesión")}
-        <Link to="/register">Regístrate si no tienes una cuenta</Link>
+        <Link id="register-user-login" to="/register">
+          Regístrate si no tienes una cuenta
+        </Link>
       </form>
     );
   }

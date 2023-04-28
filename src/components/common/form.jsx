@@ -114,7 +114,7 @@ class Form extends Component {
     return (
       <button
         disabled={this.validate() && !termsConditionsAccepted}
-        className="btn btn-form mt-2"
+        className="btn btn-form login-button"
       >
         {label}
       </button>
@@ -188,7 +188,7 @@ class Form extends Component {
     );
   }
 
-  renderInput(name, label, type = "text", enabled = false) {
+  renderInput(name, label, type = "text", enabled = false, placeholder = "") {
     const { data, errors } = this.state;
 
     return (
@@ -196,6 +196,7 @@ class Form extends Component {
         type={type}
         name={name}
         value={data[name]}
+        placeholder={placeholder}
         label={label}
         readOnly={enabled}
         onChange={this.handleChange}
