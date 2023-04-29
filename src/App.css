@@ -7,6 +7,17 @@
   pointer-events: none;
 }
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh !important;
+  display: flex !important;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -59,7 +70,12 @@
   width: max(500px, 40vw);
   max-height: 3000px;
   border-width: 0px 10px 0px 10px;
-  border-image: repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.05) 2%, rgba(0, 0, 0, 0.5) 4%);
+  border-image: repeating-linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.05) 2%,
+    rgba(0, 0, 0, 0.5) 4%
+  );
   border-image-slice: 9;
   border-style: solid;
   position: relative;
@@ -68,7 +84,7 @@
 }
 
 .form-label {
-  font-family: 'Inter';
+  font-family: "Inter";
   font-weight: bold;
   font-size: large;
 }
@@ -80,8 +96,8 @@
 }
 
 .btn-form {
-  background-color: #00BF63 !important;
-  font-family: 'Inter' !important;
+  background-color: #00bf63 !important;
+  font-family: "Inter" !important;
   font-weight: bold !important;
   font-size: x-large !important;
   color: #ffffff !important;
@@ -90,24 +106,38 @@
   max-width: 200px !important;
 }
 
-.login-title {
-  font-family: 'Inter' !important;
-  font-weight: bolder !important;
-  color: #bdbdbd !important;
-  font-size: 40px !important;
-}
-
 .ofertapp-page-link {
   background-color: #fff !important;
-  color: #00BF63 !important;
+  color: #00bf63 !important;
 }
 
 .ofertapp-page-link:hover {
-  background-color: #00BF63 !important;
+  background-color: #00bf63 !important;
   color: #fff !important;
 }
 
 .ofertapp-page-item-active.ofertapp-page-link {
-  background-color: #00BF63 !important;
+  background-color: #00bf63 !important;
   color: #fff !important;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 5rem;
+  background-color: #00bf63;
+}
+
+.error-div {
+  margin-bottom: 0 !important;
+  color: red;
+}
+
+.error-input {
+  border-color: red !important;
+  background-image: url("../src/images/errorIcon.png");
+  background-size: 6%;
+  background-position: right center;
+  background-repeat: no-repeat;
 }
