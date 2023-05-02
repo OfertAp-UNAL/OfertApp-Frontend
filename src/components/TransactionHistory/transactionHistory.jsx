@@ -8,6 +8,11 @@ import { paginate } from '../../utils/paginate';
 
 import { getTransactions } from "../../services/transactionService";
 import { getDatetimeFormatted } from '../../utils/getTime';
+
+import QuickPaymentInfo from "./quickPaymentInfo";
+import QuickOfferInfo from "./quickOfferInfo";
+import QuickAdminInfo from "./quickAdminInfo";
+
 import "./transactionHistory.css";
 
 const pageSize = 10;
@@ -51,7 +56,7 @@ class TransactionHistory extends Component {
 
         // Define display text
         return (
-            <p>
+            <div>
                 <p
                     style = {{
                         color: balanceChange > 0 ? "green" : balanceChange < 0 ? "red" : "black",
@@ -66,24 +71,35 @@ class TransactionHistory extends Component {
                 >
                     Congelado: {" COP $ " + ((frozenChange > 0 ? "+" : "") + frozenChange.toLocaleString())}
                 </p>
-            </p>
+            </div>
         )
     }
 
     // Renders a tooltip with transaction's additional information
-    renderAdditionalInfo(transaction, props) {  
+    renderAdditionalInfo(transaction, props, type) {  
         return (
             <Tooltip
                 id = {"transaction-info-tooltip"} {...props}
                 className="ofertapp-transaction-info-tooltip"
             >
-                <div className = "row">
-                    <div className = "col-12">
-                        {transaction.id}
-                    </div>
-                </div>
+                {
+                    type === "offer" ? 
+                    <QuickOfferInfo offer = {transaction.offer} /> :
+                    type === "payment" ?
+                    <QuickPaymentInfo payment = {transaction.payment} /> :
+                    type === "admin" ? 
+                    <QuickAdminInfo admin = {transaction.admin} /> : 
+                    <p>No hay datos adicionales</p>
+                }
             </Tooltip>
         )
+    }
+
+    // Redirects to transaction's offer
+    handleTransactionClick( transaction, type ){
+        if( type === "offer" ){
+            this.props.navigate("/publication/" + transaction.offer.publication);
+        }
     }
 
     // Get user's transactions
@@ -149,24 +165,40 @@ class TransactionHistory extends Component {
                             <tbody>
                                 {
                                     this.state.transactions.map( transaction => {
+                                        const type = transaction.offer ?
+                                             "offer" : transaction.payment ? 
+                                                "payment" : transaction.admin ? 
+                                                    "admin" : "none";
+
                                         return (
                                             <OverlayTrigger
                                                 key = {transaction.id}
                                                 placement="auto"
                                                 delay={{ show: 250, hide: 400 }}
-                                                overlay={(props) => this.renderAdditionalInfo(transaction, props)}
+                                                overlay={(props) => this.renderAdditionalInfo(
+                                                    transaction, props, type
+                                                )}
                                             >
-                                                <tr key = {transaction.id}>
-                                                    <td className="ofertapp-table-item">
+                                                <tr key = {transaction.id}
+                                                    style={
+                                                        (type === "offer" || type === "payment") ?
+                                                        {cursor: "pointer"} : {}
+                                                    }
+                                                    className='ofertapp-table-row'
+                                                    onClick={() => this.handleTransactionClick(
+                                                        transaction, type
+                                                    )}
+                                                >
+                                                    <td style={{All : "inherit"}}>
                                                         {getDatetimeFormatted(transaction.timestamp)}
                                                     </td>
-                                                    <td className="ofertapp-table-item">
+                                                    <td style={{All : "inherit"}}>
                                                         {this.getTransactionType(transaction)}
                                                     </td>
-                                                    <td className="ofertapp-table-item">
+                                                    <td style={{All : "inherit"}}>
                                                         {transaction.description}
                                                     </td>
-                                                    <td className="ofertapp-table-item">
+                                                    <td style={{All : "inherit"}}>
                                                         {this.getTransactionFlow(transaction)}
                                                     </td>
                                                 </tr>
