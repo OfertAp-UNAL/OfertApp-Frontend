@@ -75,11 +75,11 @@ class Statistics extends Component {
     }
 
     async componentDidMount() {
-        await this.updateData();
+        await this.updateState();
     }
 
     // Update histogram data (finantial data)
-    updateData = async () => {
+    updateState = async () => {
         try{
             // Getting user's token
             const token = localStorage.getItem("token");
@@ -95,20 +95,18 @@ class Statistics extends Component {
             const responseData = await getStatistics( token, params );
             const { data, status } = responseData.data;
             if( status === "success" ){
-                this.setState({
-                    data : {
-                        ...this.state.data,
-                        balance: data.balance,
-                        frozenBalance: data.frozenBalance,                        
-                        salesAndPurchases: data.salesPurchases,
-                        reactions: data.reactions,
-                        offers: data.offers
-                    }
-                });
 
                 // Update charts data
-                this.updateChartsState();
+                this.updateChartsData({
+                    ...this.state.data,
+                    balance: data.balance,
+                    frozenBalance: data.frozenBalance,                        
+                    salesAndPurchases: data.salesPurchases,
+                    reactions: data.reactions,
+                    offers: data.offers
+                });
                 return;
+
             } else {
                 console.log("Error: ", data);
                 this.props.navigate("/login");
@@ -120,9 +118,10 @@ class Statistics extends Component {
     }
 
     // Separate function for updating charts data
-    updateChartsState = () => {
-        const { salesAndPurchases, reactions, offers } = this.state.data;
-        const { financialGroupingBy } = this.state.data;
+    updateChartsData = ( data ) => {
+
+        const { salesAndPurchases, reactions, offers } = data;
+        const { financialGroupingBy } = data;
 
         const financialLabels = salesAndPurchases.map( (record) => record[financialGroupingBy]);
         
@@ -146,8 +145,10 @@ class Statistics extends Component {
 
         barPlotData.labels = offersLabels;
         barPlotData.offersData = offersData;
-
+        
+        // Update current data and charts data
         this.setState({
+            data : data,
             histogramData: histogramData,
             piechartData: piechartData,
             barPlotData: barPlotData
@@ -306,7 +307,7 @@ class Statistics extends Component {
                 <CustomButton 
                     caption="Actualizar" 
                     type="primary"
-                    onClick={ () => {this.updateData()} }
+                    onClick={ () => {this.updateState()} }
                 />
             </div>
         );

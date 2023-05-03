@@ -128,3 +128,16 @@ body {
   height: 5rem;
   background-color: #00bf63;
 }
+
+.error-div {
+  margin-bottom: 0 !important;
+  color: red;
+}
+
+.error-input {
+  border-color: red !important;
+  background-image: url("../src/images/errorIcon.png");
+  background-size: 6%;
+  background-position: right center;
+  background-repeat: no-repeat;
+}

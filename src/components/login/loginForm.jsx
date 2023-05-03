@@ -2,7 +2,6 @@ import Form from "../common/form";
 import Joi from "joi-browser";
 import withRouter from "../../services/withRouter";
 import { login } from "../../services/userService";
-import logo from "../../images/OfertappGrande.png";
 import "../../App.css";
 import "./loginForm.css";
 import { Link } from "react-router-dom";
@@ -22,6 +21,14 @@ class LoginForm extends Form {
     password: Joi.string().required().label("Contraseña"),
   };
 
+  componentDidMount() {
+    document.body.classList.add('login-page');
+  }
+
+  componentWillUnmount() {
+    document.body.classList.remove('login-page');
+  }
+
   doSubmit = async () => {
     const { data } = this.state;
     try {
@@ -39,7 +46,6 @@ class LoginForm extends Form {
       }
     } catch (e) {
       toast.error("Usuario o contraseña incorrectos");
-      console.log(e);
     }
   };
 
