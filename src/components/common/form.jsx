@@ -194,7 +194,6 @@ class Form extends Component {
 
     return (
       <Input
-        className="Input"
         type={type}
         name={name}
         value={data[name]}

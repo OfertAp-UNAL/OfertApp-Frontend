@@ -13,10 +13,7 @@ body {
   padding: 0;
 }
 
-body {
-  height: 100vh !important;
-  display: flex !important;
-}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

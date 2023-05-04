@@ -22,11 +22,11 @@ class LoginForm extends Form {
   };
 
   componentDidMount() {
-    document.body.classList.add('login-page');
+    document.body.classList.add("center-container");
   }
 
   componentWillUnmount() {
-    document.body.classList.remove('login-page');
+    document.body.classList.remove("center-container");
   }
 
   doSubmit = async () => {
@@ -61,26 +61,28 @@ class LoginForm extends Form {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit} id="login-form" className="h-100">
-          <h5 className="login-title">Inicio de sesión</h5>
-          {this.renderInput(
-            "user",
-            "Nombre de usuario",
-            "text",
-            false,
-            "Escribe nombre de usuario o correo"
-          )}
-          {this.renderInput(
-            "password",
-            "Contraseña",
-            "password",
-            false,
-            "Ingresa tu contraseña"
-          )}
+        <h5 className="login-title">Inicio de sesión</h5>
+        <form onSubmit={this.handleSubmit} id="login-form">
+          <div className="form-input">
+            <label htmlFor="username-input">Nombre de usuario</label>
+            <input id="username-input" className="form-input" type="text" />
+          </div>
+          <div className="form-input">
+            <label htmlFor="password-input">Contraseña</label>
+            <input id="password-input" className="form-input" type="password" />
+          </div>
+
           <Link id="reset-password-login" to="/askResetPassword">
             Recuperar contraseña
           </Link>
-          {this.renderButton("Iniciar sesión")}
+
+          <button
+            disabled={this.validate() !== null}
+            className="btn btn-form login-button"
+          >
+            Iniciar Sesión
+          </button>
+
           <Link id="register-user-login" to="/register">
             Regístrate si no tienes una cuenta
           </Link>

@@ -6,7 +6,7 @@ const Input = ({ name, label, error, ...rest }) => {
       <label htmlFor={name}>{label}</label>
       <input
         {...rest}
-        className={error ? "error-input" : ""}
+        className={error ? "input error-input" : "input"}
         name={name}
         id={name}
       />
