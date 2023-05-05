@@ -15,8 +15,8 @@ export function getPublications(params) {
 export function getPublication(publicationId, token) {
   const headers = token
     ? {
-        Authorization: "Bearer " + token,
-      }
+      Authorization: "Bearer " + token,
+    }
     : {};
   return http.get(publicationUrl(publicationId), { headers });
 }
@@ -27,7 +27,6 @@ export function createPublication(publication) {
   Object.entries(publication).forEach(([key, value]) =>
     formData.append(key, value)
   );
-  debugger;
 
   return http.post(apiEndpoint, formData, {
     headers: {
@@ -48,7 +47,6 @@ export function deletePublication(publicationId) {
 export function addComment(publicationId, comment) {
   const token = localStorage.getItem("token");
   const route = apiUrl + "comments/" + publicationId + "/";
-  debugger;
   return http.post(route, comment, {
     headers: {
       Authorization: "Bearer " + token,

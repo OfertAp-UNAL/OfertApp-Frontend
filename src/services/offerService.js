@@ -6,11 +6,10 @@ const apiEndpoint = apiUrl + "offers/";
 
 function publicationUrl(id) {
     return `${apiEndpoint}${id}/`;
-  }
+}
 
 export function addOffer(publicationId, offer) {
     const token = localStorage.getItem("token");
-    debugger;
     console.log(publicationUrl(publicationId));
     return http.post(publicationUrl(publicationId), offer, {
         headers: {

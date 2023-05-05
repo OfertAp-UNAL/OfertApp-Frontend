@@ -48,10 +48,8 @@ class Comment extends Component {
     comment.reactionsCount[type] += 1;
     this.setState({ comment, userReacted : true, reactedType : type });
 
-    // TODO: Send reaction to server
-    //const { key } = this.props;
     const reaction = {
-        type: this.state.reactedType
+        type : type,
     } 
     await addReaction(comment.id, reaction);
   }
