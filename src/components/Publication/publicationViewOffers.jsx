@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import Offer from '../common/Offer/offer';
+import '../common/Offer/offerForm';
 import CustomButton from '../common/Button/button';
 import './publicationView.css';
+import { addOffer } from "../../services/offerService";
+import OfferForm from '../common/Offer/offerForm';
 
 class PublicationViewOffers extends Component {
 
@@ -13,11 +16,21 @@ class PublicationViewOffers extends Component {
         const { publication } = this.props;
         this.setState({offers: publication.offers});
     }
+
+    handleOffer = async (amount) => {
+        const { publication } = this.state;
+        const offer = {
+            amount: amount
+        }
+
+        await addOffer(publication.id, offer);
+    }
     
     render(){
 
         // Useful vars
         let mainOfferAssigned = false;
+        const { publication } = this.props;
 
         return (
             <div className = "row align-middle text-center">
@@ -43,7 +56,24 @@ class PublicationViewOffers extends Component {
                     :
                     <p className = "ofertapp-label">No hay ofertas</p>
                 }
-                <CustomButton onClick = {() => console.log("Crear Oferta")} caption = "Crear Oferta" type = "primary"/>
+                <button type="button" className="btn ofertapp-button-primary" data-toggle="modal" data-target="#modalOferta">
+                    Crear oferta
+                </button>
+                <div className="modal fade" id="modalOferta" tabIndex="-1" role="dialog" aria-labelledby="modalOfertaLabel" aria-hidden="true">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">Oferta</h5>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <OfferForm publication={publication}/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }
