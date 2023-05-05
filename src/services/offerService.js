@@ -10,7 +10,6 @@ function publicationUrl(id) {
 
 export function addOffer(publicationId, offer) {
     const token = localStorage.getItem("token");
-    console.log(publicationUrl(publicationId));
     return http.post(publicationUrl(publicationId), offer, {
         headers: {
             Authorization: "Bearer " + token,

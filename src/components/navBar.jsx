@@ -21,15 +21,22 @@ class NavBar extends Component {
       const token = localStorage.getItem("token");
       const responseData = await getUserInfo( token );
       const { data, status } = responseData.data;
+
+      // Update app's userData globally
+      const { OnUpdateUserData } = this.props;
       if( status === "success" ){
         this.setState({
             userIsLoggedIn: true,
             user: data,
           });
+        OnUpdateUserData( data );
         return;
       }
     } catch( e ){
       console.log("Error: ", e);
+
+      // Delete token for future actions
+      localStorage.removeItem("token");
     }
     
     this.setState({ userIsLoggedIn: false, user: {} });
@@ -83,6 +90,11 @@ class NavBar extends Component {
                     Mis Subastas
                   </Link>
                 </li>
+                <li className="nav-item ofertapp-item">
+                  <Link className="nav-link text-center" to="/createPublication">
+                    Crear Publicación
+                  </Link>
+                </li>
                 </React.Fragment>
               }
               <li className= {"nav-item flex-row text-center" + (
@@ -101,7 +113,7 @@ class NavBar extends Component {
                 <React.Fragment>
                 <a 
                   className="nav-link dropdown-toggle" 
-                  href="/"
+                  href="/profile"
                   id="navbarDropdown" 
                   role="button" 
                   data-bs-toggle="dropdown" 

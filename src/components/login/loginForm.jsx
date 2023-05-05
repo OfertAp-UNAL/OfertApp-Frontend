@@ -52,7 +52,6 @@ class LoginForm extends Form {
   validate = () => {
     const errors = {};
     const { data } = this.state;
-    console.log ( data) ;
     if (data.user.trim() === "") {
       errors.user = "Nombre de usuario o correo es requerido";
     }

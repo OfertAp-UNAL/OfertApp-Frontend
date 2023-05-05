@@ -18,7 +18,8 @@ import { toast } from "react-toastify";
 
 class PublicationView extends Component {
   state = {
-    publication : null
+    publication : null,
+    userLoggedIn : false
   };
 
   async componentDidMount() {
@@ -32,7 +33,10 @@ class PublicationView extends Component {
       const { status, data : publication } = data;
       
       if( status === "success" ){
-        this.setState({ publication });
+        this.setState({ 
+          publication,
+          userLoggedIn : token != null
+        });
       }
       else{
         toast.error("Error al cargar la publicación: Bad Status");
@@ -47,6 +51,7 @@ class PublicationView extends Component {
   render() {
     // Getting publication data (which was read as soon this component mounted)
     const { publication } = this.state;
+    const { userData } = this.props;
 
     return (
       <div className="w-100">
@@ -84,10 +89,18 @@ class PublicationView extends Component {
             </div>
             <div className = "row ofertapp-bottomline">
               <div className = "col-12 col-md-7">
-                <PublicationViewOffers publication = {publication} />
+                <PublicationViewOffers 
+                  publication = {publication} 
+                  userLoggedIn = {this.state.userLoggedIn}
+                  userData = {userData}
+                />
               </div>
               <div className = "col-12 col-md-4 offset-md-1">
-                <PublicationViewComments publication = {publication} />
+                <PublicationViewComments 
+                  publication = {publication} 
+                  userLoggedIn = {this.state.userLoggedIn}
+                  userData = {userData}
+                />
               </div>
             </div>
           </div>

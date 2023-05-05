@@ -8,7 +8,7 @@ const FileUpload = ({ label, type, value, onChange}) => {
     return (
         <React.Fragment>
             <h5>{label}</h5>
-            <div class = "file-upload-wrapper mb-3">
+            <div className = "file-upload-wrapper mb-3">
               <input 
                 type = "file"  
                 className = "file-upload"

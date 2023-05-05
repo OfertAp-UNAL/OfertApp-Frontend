@@ -25,7 +25,7 @@ class JointComponentWithNavbar extends Component {
   render() {
     return (
       <React.Fragment>
-        <NavBar user={this.props.user} />
+        <NavBar OnUpdateUserData={this.props.OnUpdateUserData} />
         {this.props.children}
       </React.Fragment>
     );
@@ -33,7 +33,16 @@ class JointComponentWithNavbar extends Component {
 }
 
 class App extends Component {
-  state = {};
+  state = {
+    userData: null
+  };
+
+  // Useful for keeping a global value with user data
+  updateUserData = (data) => {
+    this.setState({
+      userData: data
+    });
+  }
 
   render() {
     return (
@@ -45,7 +54,10 @@ class App extends Component {
             <Route
               path="/askResetPassword"
               element={
-                <JointComponentWithNavbar children={<AskResetPasswordForm />} />
+                <JointComponentWithNavbar
+                  children={<AskResetPasswordForm />}
+                  OnUpdateUserData={this.updateUserData}
+                />
               }
             />
             <Route
@@ -53,6 +65,7 @@ class App extends Component {
               element={
                 <JointComponentWithNavbar
                   children={<CreatePublicationForm />}
+                  OnUpdateUserData={this.updateUserData}
                 />
               }
             />
@@ -60,18 +73,26 @@ class App extends Component {
             <Route
               path="/reset-password/:token/:user/"
               element={
-                <JointComponentWithNavbar children={<NewPasswordForm />} />
+                <JointComponentWithNavbar
+                  children={<NewPasswordForm />}
+                  OnUpdateUserData={this.updateUserData}
+                />
               }
             />
             <Route
               path="/register"
-              element={<JointComponentWithNavbar children={<RegisterForm />} />}
+              element={
+                <JointComponentWithNavbar
+                  children={<RegisterForm />}
+                  OnUpdateUserData={this.updateUserData}
+                />}
             />
             <Route
               path="/homepage"
               element={
                 <JointComponentWithNavbar
                   children={<MainPage userPublications="false" />}
+                  OnUpdateUserData={this.updateUserData}
                 />
               }
               key={window.location.pathname}
@@ -81,6 +102,7 @@ class App extends Component {
               element={
                 <JointComponentWithNavbar
                   children={<MainPage userPublications="true" />}
+                  OnUpdateUserData={this.updateUserData}
                 />
               }
               key={window.location.pathname}
@@ -88,35 +110,61 @@ class App extends Component {
             <Route
               path="/transaction-history"
               element={
-                <JointComponentWithNavbar children={<TransactionHistory />} />
+                <JointComponentWithNavbar
+                  children={<TransactionHistory />}
+                  OnUpdateUserData={this.updateUserData}
+                />
               }
             />
             <Route
               path="/statistics"
-              element={<JointComponentWithNavbar children={<Statistics />} />}
+              element={
+                <JointComponentWithNavbar
+                  children={<Statistics />}
+                  OnUpdateUserData={this.updateUserData}
+                />}
             />
             <Route
               path="/profile"
               element={
-                <JointComponentWithNavbar children={<UpdateUserDataForm />} />
+                <JointComponentWithNavbar
+                  children={<UpdateUserDataForm />}
+                  OnUpdateUserData={this.updateUserData}
+                />
               }
             />
             <Route
               path="/publication/:id"
               element={
-                <JointComponentWithNavbar children={<PublicationView />} />
+                <JointComponentWithNavbar
+                  children={
+                    <PublicationView
+                      userData={this.state.userData}
+                    />
+                  }
+                  OnUpdateUserData={this.updateUserData}
+                />
               }
             />
             <Route
               path="/verify/:token/:userid"
-              element={<JointComponentWithNavbar children={<Verify />} />}
+              element={
+                <JointComponentWithNavbar
+                  children={<Verify />}
+                  OnUpdateUserData={this.updateUserData}
+                />}
             />
             <Route
               path="/not-found"
-              element={<JointComponentWithNavbar children={<NotFound />} />}
+              element={
+                <JointComponentWithNavbar
+                  children={<NotFound />}
+                  OnUpdateUserData={this.updateUserData}
+                />}
             />
             <Route path="/logout" element={<Logout />} />
-            <Route path="/" element={<Navigate to="/not-found" replace />} />
+            <Route path="/" element={<Navigate to="/homepage" replace />} />
+            <Route path="*" element={<Navigate to="/not-found" replace />} />
           </Routes>
         </main>
       </React.Fragment>

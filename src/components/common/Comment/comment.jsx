@@ -58,14 +58,17 @@ class Comment extends Component {
   render() {
     const comment = this.state.comment;
     const user = this.state.comment ? this.state.comment.user : null;
-    const onClick = this.props.onClick;
+    const { onClick, userLoggedIn : loggedIn } = this.props;
 
     return (
       // Conditional class name
         comment && user && 
         <div key = { this.state.comment.id } className = "col-12">
             <div className = "row ofertapp-comment-row">
-                <div className = "col-12 col-md-10 text-center" onClick = {() => onClick(comment)}>
+                <div className = "col-12 col-md-10 text-center" 
+                    onClick = {() => onClick(comment)}
+                    style = {loggedIn ? {"cursor" : "pointer"} : {}}
+                >
                     <div className = "row align-middle ofertapp-comment-container">
                         {
                             comment.parent &&
@@ -114,21 +117,33 @@ class Comment extends Component {
                 <div className = "col-12 col-md-2">
                     <div className = "row text-center">
                         <div className = {"col-12 ofertapp-reaction-container" +
-                            (this.state.userReacted && this.state.reactedType === "LIKE" ? " ofertapp-reaction-active" : "")
-                        }
-                            onClick = { () => this.handleReactionChange("LIKE")} >
+                                (this.state.userReacted && this.state.reactedType === "LIKE" ? " ofertapp-reaction-active" : "")
+                            }
+                            onClick = { 
+                                () => loggedIn && this.handleReactionChange("LIKE")
+                            } 
+                            style = {loggedIn ? {"cursor" : "pointer"} : {}}
+                            >
                             <strong>▲&nbsp;{comment.reactionsCount.LIKE}</strong>
                         </div>
                         <div className = {"col-12 ofertapp-reaction-container" +
                             (this.state.userReacted && this.state.reactedType === "DISLIKE" ? " ofertapp-reaction-active" : "")
-                        }
-                            onClick = { () => this.handleReactionChange("DISLIKE")} >
+                            }
+                            onClick = { 
+                                () => loggedIn && this.handleReactionChange("DISLIKE")
+                            } 
+                            style = {loggedIn ? {"cursor" : "pointer"} : {}}
+                            >
                             <strong>▼&nbsp;{comment.reactionsCount.DISLIKE}</strong>
                         </div>
                         <div className = {"col-12 ofertapp-reaction-container" +
                             (this.state.userReacted && this.state.reactedType === "WARNING" ? " ofertapp-reaction-active" : "")
-                        }
-                            onClick = { () => this.handleReactionChange("WARNING")}>
+                            }
+                            onClick = { 
+                                () => loggedIn && this.handleReactionChange("WARNING")
+                            }
+                            style = {loggedIn ? {"cursor" : "pointer"} : {}}
+                            >
                             <strong>⚠&nbsp;{comment.reactionsCount.WARNING}</strong>
                         </div>
                     </div>

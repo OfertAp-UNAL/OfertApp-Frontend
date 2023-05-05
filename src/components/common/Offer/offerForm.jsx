@@ -4,7 +4,6 @@ import withRouter from "../../../services/withRouter";
 import { addOffer } from "../../../services/offerService";
 import "../../../App.css";
 import "./offer.css";
-import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 class OfferForm extends Form {
@@ -24,14 +23,22 @@ class OfferForm extends Form {
     const { publication } = this.props;
 
     const info = (await addOffer(publication.id, data)).data;
-    console.log(info);
     if (info.status === "success") {
         toast.success(
-            "Oferta enviada"
+            "Oferta realizada"
         );
+
+        // Call callback for adding offer into offers view
+        const { OnOfferAdd } = this.props;
+        OnOfferAdd( info.data );
     }else {
         toast.error(JSON.stringify(info.error));
     }
+
+    // Finally close openned modal
+    // Note: This is not the React way
+    const modal = document.getElementById("modalOferta");
+    modal.setAttribute("aria-hidden", "true")
   };
 
   handleSubmit = (e) => {

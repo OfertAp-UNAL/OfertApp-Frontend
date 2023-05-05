@@ -44,9 +44,14 @@ export function deletePublication(publicationId) {
   return http.delete(publicationUrl(publicationId));
 }
 
-export function addComment(publicationId, comment) {
+export function addComment(publicationId, parentId, comment) {
   const token = localStorage.getItem("token");
-  const route = apiUrl + "comments/" + publicationId + "/";
+  let route = apiUrl + "comments/" + publicationId + "/";
+
+  // Check if this comment is a reply to another one
+  if (parentId)
+    route += parentId + "/";
+
   return http.post(route, comment, {
     headers: {
       Authorization: "Bearer " + token,
