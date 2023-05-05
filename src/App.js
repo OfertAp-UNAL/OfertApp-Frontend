@@ -96,7 +96,7 @@ class App extends Component {
               element={<JointComponentWithNavbar children={<Statistics />} />}
             />
             <Route
-              path="/updateUserData"
+              path="/profile"
               element={
                 <JointComponentWithNavbar children={<UpdateUserDataForm />} />
               }

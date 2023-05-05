@@ -5,6 +5,7 @@ import { getDepartments } from "../../../services/municipioDepartamentosService.
 import { getMunicipalitiesByDepartment } from "../../../services/municipioDepartamentosService.js";
 import FileUpload from "../FileUpload/fileUpload";
 import "../../../App.css";
+import "./updateRegistration.css";
 import { getUserInfo } from "../../../services/userService";
 
 class UpdateUserDataForm extends Form {
@@ -111,7 +112,7 @@ class UpdateUserDataForm extends Form {
   };
 
   doSubmit = async () => {
-    alert("Llamada AJAX");
+    this.props.navigate("/homepage");
   };
 
   handleSubmit = (e) => {
@@ -124,54 +125,119 @@ class UpdateUserDataForm extends Form {
   };
 
   render() {
-    const { departments, municipalitiesInDepartment } = this.state;
+    const { departments, municipalitiesInDepartment, errors } = this.state;
     const municipalitiesNames = municipalitiesInDepartment.map(
       (m) => m["name"]
     );
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div className="container">
-          <div className="form-div">
-            <div className="row align-middle">
-              <div className="offset-1 col-10">
-                <h5 className="login-title ps-2">
-                  Actualización de información
-                </h5>
-
-                {this.renderInput("firstName", "Nombres")}
-                {this.renderInput("lastName", "Apellidos")}
-                {this.renderInput("phone", "Teléfono", "number")}
-              </div>
-              <div className="col-12 col-md-6" style={{ paddingRight: "5%" }}>
-                <FileUpload
-                  label="Imagen de perfil"
-                  type="image"
-                  onChange={this.handleProfileImageSelection}
-                />
-                {this.renderAutosuggest(
-                  "department",
-                  "Departamento",
-                  departments,
-                  this.handleDepartmentSelection
-                )}
-
-                {this.renderAutosuggest(
-                  "municipality",
-                  "Municipio",
-                  municipalitiesNames,
-                  this.handleMunicipalitySelection
-                )}
-
-                {this.renderInput("address", "Dirección")}
-                {this.renderInput("paymentAccountType", "Método de pago")}
-                {this.renderInput("paymentAccountNumber", "Número de cuenta")}
-
-                <br />
-                {this.renderButton("Actualizar")}
-              </div>
-            </div>
+      <form onSubmit={this.handleSubmit} className="update-user-data-form">
+        <div className="update-user-data-form__left-column">
+          <div>
+            <label className="form__label" htmlFor="firstName">
+              Nombres
+            </label>
+            <input
+              className={
+                errors["firstName"] ? "form__input error-input" : "form__input"
+              }
+              type="text"
+              name="firstName"
+              onChange={this.handleChange}
+            />
           </div>
+          <div>
+            <label className="form__label" htmlFor="lastName">
+              Apellidos
+            </label>
+            <input
+              className={
+                errors["lastName"] ? "form__input error-input" : "form__input"
+              }
+              type="text"
+              name="lastName"
+              onChange={this.handleChange}
+            />
+          </div>
+          <div>
+            <label className="form__label" htmlFor="phone">
+              Teléfono
+            </label>
+            <input
+              className={
+                errors["phone"] ? "form__input error-input" : "form__input"
+              }
+              type="number"
+              name="phone"
+              onChange={this.handleChange}
+            />
+          </div>
+          <FileUpload
+            label="Imagen de perfil"
+            type="image"
+            onChange={this.handleProfileImageSelection}
+          />
         </div>
+
+        <update-user-data-form__right-column>
+          {this.renderAutosuggest(
+            "department",
+            "Departamento",
+            departments,
+            this.handleDepartmentSelection
+          )}
+          {this.renderAutosuggest(
+            "municipality",
+            "Municipio",
+            municipalitiesNames,
+            this.handleMunicipalitySelection
+          )}
+          <div>
+            <label className="form__label" htmlFor="address">
+              Dirección
+            </label>
+            <input
+              className={
+                errors["address"] ? "form__input error-input" : "form__input"
+              }
+              type="text"
+              name="address"
+              onChange={this.handleChange}
+            />
+          </div>
+          <div>
+            <label className="form__label" htmlFor="paymentAccountType">
+              Método de pago
+            </label>
+            <input
+              className={
+                errors["paymentAccountType"]
+                  ? "form__input error-input"
+                  : "form__input"
+              }
+              type="text"
+              name="paymentAccountType"
+              onChange={this.handleChange}
+            />
+          </div>
+          <div>
+            <label className="form__label" htmlFor="paymentAccountNumber">
+              Número de cuenta
+            </label>
+            <input
+              className={
+                errors["paymentAccountNumber"]
+                  ? "form__input error-input"
+                  : "form__input"
+              }
+              type="text"
+              name="paymentAccountNumber"
+              onChange={this.handleChange}
+            />
+          </div>
+          <button disabled={this.validate() !== null} className="btn btn-form">
+            Actualizar
+          </button>
+        </update-user-data-form__right-column>
       </form>
     );
   }

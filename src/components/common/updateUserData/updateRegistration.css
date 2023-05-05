@@ -1,0 +1,19 @@
+.update-user-data-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+
+.form__input {
+    padding-left: 0.7rem;
+    border: 1px solid gray;
+}
+
+.btn-form {
+    margin-top: 1rem;
+}
+
+input:invalid {
+    background: red;
+}

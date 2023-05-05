@@ -6,14 +6,11 @@
   height: 40vmin;
   pointer-events: none;
 }
+1
 
-html,
-body {
-  margin: 0;
-  padding: 0;
+#root {
+  height: 100%;
 }
-
-
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
