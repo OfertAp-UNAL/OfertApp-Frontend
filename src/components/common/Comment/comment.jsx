@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import UserLink from "../UserLink/userLink";
 import { getTimeLeft } from "./../../../utils/getTime";
 import "./comment.css";
+import { addReaction } from "../../../services/reactionService";
 
 // user: object
 // base: boolean
@@ -34,7 +35,7 @@ class Comment extends Component {
   }
 
   // Handle reaction change
-  handleReactionChange = (type) => {
+  handleReactionChange = async (type) => {
     const { comment } = this.state;
     if (this.state.userReacted) {
         comment.reactionsCount[this.state.reactedType] -= 1;
@@ -48,6 +49,11 @@ class Comment extends Component {
     this.setState({ comment, userReacted : true, reactedType : type });
 
     // TODO: Send reaction to server
+    //const { key } = this.props;
+    const reaction = {
+        type: this.state.reactedType
+    } 
+    await addReaction(comment.id, reaction);
   }
 
 
