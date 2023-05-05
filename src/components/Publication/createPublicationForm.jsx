@@ -4,6 +4,7 @@ import Form from "../common/form";
 import FileUpload from "./../common/FileUpload/fileUpload";
 import { createPublication } from "../../services/publicationService";
 import { toast } from "react-toastify";
+import "./publicationView.css";
 
 class CreatePublicationForm extends Form {
   state = {
@@ -101,25 +102,69 @@ class CreatePublicationForm extends Form {
   render() {
     return (
       <div>
-        <h1>Publica un producto</h1>
+        <h1 className = "ofertapp-page-title">
+          Publica un producto
+        </h1>
         <form onSubmit={this.handleSubmit} className="row text-center">
           <div className="col-12 col-md-6">
-            {this.renderInput("title", "Título")}
-            {this.renderInput("category", "Categoría")}
-            {this.renderInput("productDescription", "Descripción del producto")}
+            <h1 className = "ofertapp-inspirational-message">
+              !Ponle un título a tu publicación!
+            </h1>
+            {this.renderInput("title", "Recuerda ser claro, será lo primero que vean tus posibles compradores")}
+            <div className="ofertapp-div-hline"></div>
+            
+            <h1 className = "ofertapp-inspirational-message">
+              ¿Qué vas a publicar?
+            </h1>
+            {this.renderInput("category", "De qué categoría es el producto que quieres vender")}
+            <div className="ofertapp-div-hline"></div>
+
+            <h1 className = "ofertapp-inspirational-message">
+              Describe tu producto
+            </h1>
+            {this.renderInput("productDescription",
+              "Extiéndete todo lo que necesites, proporciona todos los detalles relevantes que sea necesario conocer")}
+            <div className="ofertapp-div-hline"></div>
+
+            <h1 className = "ofertapp-inspirational-message">
+              ¿Cuál debe ser el precio mínimo de oferta?
+            </h1>
+            {this.renderInput("startingPrice", 
+              "Recuerda que éste debería ser el valor mínimo que, consideras, vale tu producto", 
+              "number")}
+            <div className="ofertapp-div-hline"></div>
           </div>
           <div className="col-12 col-md-6">
-            {this.renderInput("startingPrice", "Precio inicial", "number")}
-            {this.renderInput("auctionDuration", "Tiempo de subasta", "number")}
+
+            <h1 className = "ofertapp-inspirational-message">
+              Tiempo de subasta
+            </h1>
+            {this.renderInput("auctionDuration", 
+              "Si eres usuario VIP, puedes cambiar éste tiempo", "number"
+            )}
+            <div className="ofertapp-div-hline"></div>
+
+            <h1 className = "ofertapp-inspirational-message">
+              Publica algunas evidencias que certifiquen la calidad de tu producto
+            </h1>
+
             <FileUpload
-              label="Sporte"
+              label = {"Puedes adjuntar imágenes y videos, no olvides que tus usuarios querrán estar seguros de la calidad de tu producto ofertado," +
+                " ¡Dales todo el soporte que consideres necesario!"}
               type="image"
               onChange={this.handleEvidenceImageSelection}
             />
             {this.renderInput(
               "evidenceDescription",
-              "Descripción de la evidencia"
+              "Describe tu evidencia para hacerlo aún más claro"
             )}
+
+            <div className="ofertapp-div-hline"></div>
+
+            <h1 className = "ofertapp-inspirational-message">
+              ¡Recuerda verificarlo todo antes de enviar!
+            </h1>
+
             {this.renderButton("Publicar")}
           </div>
         </form>

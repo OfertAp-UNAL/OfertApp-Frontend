@@ -72,7 +72,7 @@ class LoginForm extends Form {
 
   render() {
     return (
-      <div>
+      <div className = "align-middle">
         <h5 className="login-title">Inicio de sesión</h5>
         <form onSubmit={this.handleSubmit} id="login-form">
           <div className="form-input">
