@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import config from '../../config';
 import './publicationView.css';
-
-const { mediaUrl } = config;
 
 class PublicationViewMedia extends Component {
     
@@ -37,14 +34,14 @@ class PublicationViewMedia extends Component {
                                         support.type === "IMAGE" ?
                                         // Image
                                         <img className = "ofertapp-media"
-                                            src = {mediaUrl + support.data}
+                                            src = {support.data}
                                             alt='Publication support'
                                         />
                                         :
                                         // Video
                                         <video className = "ofertapp-media"
                                             controls
-                                            src = {mediaUrl + support.data}
+                                            src = {support.data}
                                         />
                                     }
                                     <div>

@@ -58,3 +58,7 @@ export function addComment(publicationId, parentId, comment) {
     },
   });
 }
+
+export function getCategories() {
+  return http.get(apiUrl + "categories/");
+}

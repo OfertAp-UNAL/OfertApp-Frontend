@@ -64,7 +64,11 @@ class App extends Component {
               path="/createPublication"
               element={
                 <JointComponentWithNavbar
-                  children={<CreatePublicationForm />}
+                  children={
+                    <CreatePublicationForm
+                      userData={this.state.userData}
+                    />
+                  }
                   OnUpdateUserData={this.updateUserData}
                 />
               }

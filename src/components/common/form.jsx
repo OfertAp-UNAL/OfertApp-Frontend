@@ -189,14 +189,14 @@ class Form extends Component {
     );
   }
 
-  renderInput(name, label, type = "text", enabled = false, placeholder = "") {
+  renderInput(name, label, type = "text", enabled = false, placeholder = "", defaultValue = null) {
     const { data, errors } = this.state;
 
     return (
       <Input
         type={type}
         name={name}
-        value={data[name]}
+        value={defaultValue || data[name] }
         placeholder={placeholder}
         label={label}
         readOnly={enabled}

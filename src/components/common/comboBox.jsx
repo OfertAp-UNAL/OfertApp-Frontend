@@ -1,4 +1,5 @@
 import React from 'react';
+import "./../../App.css";
 
 const ComboBox = ({ label, options, value, onChange}) => {
     return (

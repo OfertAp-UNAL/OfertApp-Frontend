@@ -82,7 +82,6 @@ class LoginForm extends Form {
               className="form-input" 
               type="text"
               onChange = {(e) => {
-                console.log(e.target.value)
                 this.setState({data: {...this.state.data, user: e.target.value}});
               }}
             />

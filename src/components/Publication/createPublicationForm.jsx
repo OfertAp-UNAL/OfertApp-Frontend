@@ -1,9 +1,12 @@
-import Joi, { create } from "joi-browser";
+import Joi from "joi-browser";
 import withRouter from "../../services/withRouter";
 import Form from "../common/form";
 import FileUpload from "./../common/FileUpload/fileUpload";
-import { createPublication } from "../../services/publicationService";
+import { createPublication, getCategories } from "../../services/publicationService";
 import { toast } from "react-toastify";
+import ComboBox from "../common/comboBox";
+import CheckBox from "../common/checkBox";
+
 import "./publicationView.css";
 
 class CreatePublicationForm extends Form {
@@ -16,11 +19,19 @@ class CreatePublicationForm extends Form {
       auctionDuration: "",
       evidenceFile: "",
       evidenceDescription: "",
+      boostProduct: false,
     },
     errors: {},
+    categories: []
   };
 
-  async componentDidMount() {}
+  async componentDidMount() {
+    const { data: requestData } = await getCategories();
+    const { status, data } = requestData;
+    if( status === "success" ){
+      this.setState({ categories: data });
+    }
+  }
 
   schema = {
     title: Joi.string().required().label("Título"),
@@ -29,51 +40,41 @@ class CreatePublicationForm extends Form {
       .required()
       .label("Descripción del producto"),
     startingPrice: Joi.number().required().label("Precio inicial"),
-    auctionDuration: Joi.number().required().label("Tiempo de subasta"),
+    auctionDuration: Joi.date().label("Tiempo de subasta"),
     evidenceFile: Joi.any().label("Archivo de evidencia"),
     evidenceDescription: Joi.string()
       .allow("")
       .label("Descripción de la evidencia"),
   };
 
-  getUserId = () => {
-    const token = localStorage.getItem("token");
-    const jwtParts = token.split(".");
-    const decodedPayload = JSON.parse(
-      new TextDecoder().decode(
-        new Uint8Array(
-          atob(jwtParts[1])
-            .split("")
-            .map((c) => c.charCodeAt(0))
-        )
-      )
-    );
-    return decodedPayload.user_id;
-  };
-
   genServiceData = () => {
-    const { data } = this.state;
+    const { 
+      productDescription, startingPrice, evidenceFile, evidenceDescription,
+      category, auctionDuration, boostProduct
+     } = this.state.data;
+
+    // Find category ID
+    const categoryId = this.state.categories.find((e) => e.name === category).id;
 
     // Modify name fields that already exist to make them match with what the backend expects
-    data.description = data.productDescription;
-    delete data.productDescription;
+    let requestData = {
+      description : productDescription,
+      minOffer : startingPrice,
+      supportsFiles : evidenceFile,
+      supportsDescriptions : evidenceDescription,
+      category : categoryId,
+      supportsTypes: "IMAGE"
+    };
 
-    data.minOffer = data.startingPrice;
-    delete data.startingPrice;
+    if( auctionDuration !== "" ){
+      requestData.endDate = new Date(auctionDuration).toISOString();
+    }
 
-    data.supportsFiles = data.evidenceFile;
-    delete data.evidenceFile;
-    data.supportsDescriptions = data.evidenceDescription;
-    delete data.evidenceDescription;
+    if( boostProduct ){
+      requestData.priority = true;
+    }
 
-    delete data.auctionDuration;
-
-    data.category = "c2ddcc20-4272-4e77-8de8-d4c775b1bd4d";
-
-    data.user = this.getUserId();
-    data.supportsTypes = "IMAGE";
-
-    return data;
+    return requestData;
   };
 
   doSubmit = async () => {
@@ -99,7 +100,36 @@ class CreatePublicationForm extends Form {
     this.setState({ data });
   };
 
+  handleBoosteableChange = async (checked) => {
+    const { data } = this.state;
+    data["boostProduct"] = checked;
+    this.setState({ data });
+  };
+
+  handleCategorySelection = async (category) => {
+    const { data } = this.state;
+    data["category"] = category;
+    this.setState({ data });
+  };
+
   render() {
+    const { userData } = this.props;
+    const { categories } = this.state;
+
+    // Check if user has VIP State
+    // Don't worry, backend will verify this as well
+    let isVIP = false, vipPubCount = 0;
+    if (userData) {
+      isVIP = userData.isVIP;
+      vipPubCount = userData.vipPublicationsCount;
+    }
+
+    // Check if this publication can be boosteable
+    const pubIsBoosteable = isVIP && vipPubCount > 0;
+    
+    // Gen default value for auction duration
+    const dateDuration = new Date( Date.now() + 1000 * 60 * 60 * 24 ); // One day
+    const defaultAuctionDuration = dateDuration.toISOString().split("T")[0];
     return (
       <div>
         <h1 className = "ofertapp-page-title">
@@ -116,7 +146,22 @@ class CreatePublicationForm extends Form {
             <h1 className = "ofertapp-inspirational-message">
               ¿Qué vas a publicar?
             </h1>
-            {this.renderInput("category", "De qué categoría es el producto que quieres vender")}
+            {
+              <ComboBox
+                name="category"
+                label="De qué categoría es el producto que quieres vender"
+                value = {categories.length > 0 ? categories[0].name : ""}
+                options={ (() => {
+                  return categories.map((category) => {
+                    return {
+                      name: category.id,
+                      label: category.name,
+                    };
+                  });
+                })() }
+                onChange={ this.handleCategorySelection }
+              />
+            }
             <div className="ofertapp-div-hline"></div>
 
             <h1 className = "ofertapp-inspirational-message">
@@ -130,7 +175,7 @@ class CreatePublicationForm extends Form {
               ¿Cuál debe ser el precio mínimo de oferta?
             </h1>
             {this.renderInput("startingPrice", 
-              "Recuerda que éste debería ser el valor mínimo que, consideras, vale tu producto", 
+              "Recuerda que éste debería ser el valor mínimo que, consideras, vale tu producto (COP $)", 
               "number")}
             <div className="ofertapp-div-hline"></div>
           </div>
@@ -139,8 +184,10 @@ class CreatePublicationForm extends Form {
             <h1 className = "ofertapp-inspirational-message">
               Tiempo de subasta
             </h1>
-            {this.renderInput("auctionDuration", 
-              "Si eres usuario VIP, puedes cambiar éste tiempo", "number"
+            {this.renderInput(
+              "auctionDuration",
+              "Si eres usuario VIP, puedes cambiar éste tiempo", "date",
+              !isVIP, "", defaultAuctionDuration
             )}
             <div className="ofertapp-div-hline"></div>
 
@@ -165,6 +212,19 @@ class CreatePublicationForm extends Form {
               ¡Recuerda verificarlo todo antes de enviar!
             </h1>
 
+            
+            {pubIsBoosteable && 
+              <div>
+                <div className="ofertapp-div-hline"></div>
+                <CheckBox
+                  name = "boostProduct"
+                  label = "¿Quieres que tu publicación sea boosteada?"
+                  onChange = {this.handleBoosteableChange}
+                />
+                <div className="ofertapp-div-hline"></div>
+              </div>
+            }
+            
             {this.renderButton("Publicar")}
           </div>
         </form>
