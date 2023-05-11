@@ -6,6 +6,7 @@ import { createPublication, getCategories } from "../../services/publicationServ
 import { toast } from "react-toastify";
 import ComboBox from "../common/comboBox";
 import CheckBox from "../common/checkBox";
+import CustomButtom from "../common/Button/button";
 
 import "./publicationView.css";
 
@@ -22,15 +23,31 @@ class CreatePublicationForm extends Form {
       boostProduct: false,
     },
     errors: {},
-    categories: []
+    categories: [],
+    defaultAuctionDuration: ""
   };
 
   async componentDidMount() {
     const { data: requestData } = await getCategories();
     const { status, data } = requestData;
     if( status === "success" ){
-      this.setState({ categories: data });
+
+      // Gen default value for auction duration
+      const dateDuration = new Date( Date.now() + 1000 * 60 * 60 * 24 ); // One day
+      const defaultAuctionDuration = dateDuration.toISOString().split("T")[0];
+
+      this.setState({
+          data : {
+            ...this.state.data,
+            category: data[0].name,
+            auctionDuration: defaultAuctionDuration
+          },
+         categories: data,
+          defaultAuctionDuration
+        });
     }
+
+    
   }
 
   schema = {
@@ -41,10 +58,11 @@ class CreatePublicationForm extends Form {
       .label("Descripción del producto"),
     startingPrice: Joi.number().required().label("Precio inicial"),
     auctionDuration: Joi.date().label("Tiempo de subasta"),
-    evidenceFile: Joi.any().label("Archivo de evidencia"),
+    evidenceFile: Joi.any().required().label("Archivo de evidencia"),
     evidenceDescription: Joi.string()
       .allow("")
       .label("Descripción de la evidencia"),
+    boostProduct: Joi.boolean().label("Boosteable"),
   };
 
   genServiceData = () => {
@@ -90,6 +108,7 @@ class CreatePublicationForm extends Form {
     e.preventDefault();
     const errors = this.validate();
     this.setState({ errors: errors || {} });
+    toast.error(errors);
     if (errors) return;
     this.doSubmit();
   };
@@ -114,7 +133,7 @@ class CreatePublicationForm extends Form {
 
   render() {
     const { userData } = this.props;
-    const { categories } = this.state;
+    const { categories, defaultAuctionDuration } = this.state;
 
     // Check if user has VIP State
     // Don't worry, backend will verify this as well
@@ -126,10 +145,7 @@ class CreatePublicationForm extends Form {
 
     // Check if this publication can be boosteable
     const pubIsBoosteable = isVIP && vipPubCount > 0;
-    
-    // Gen default value for auction duration
-    const dateDuration = new Date( Date.now() + 1000 * 60 * 60 * 24 ); // One day
-    const defaultAuctionDuration = dateDuration.toISOString().split("T")[0];
+
     return (
       <div>
         <h1 className = "ofertapp-page-title">
@@ -225,7 +241,14 @@ class CreatePublicationForm extends Form {
               </div>
             }
             
-            {this.renderButton("Publicar")}
+            {
+              ! this.validate() &&
+              <CustomButtom
+                caption = "Publicar"
+                type = "primary"
+                onClick = {this.handleSubmit}
+              />
+            }
           </div>
         </form>
       </div>
