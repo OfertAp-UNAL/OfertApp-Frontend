@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@mercadopago/sdk-react": "^0.0.9",
+    "@paypal/react-paypal-js": "^7.8.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -10,6 +12,7 @@
     "bootstrap": "^5.2.3",
     "chart.js": "^4.2.1",
     "joi-browser": "^13.4.0",
+    "mercadopago": "^1.5.16",
     "react": "^18.2.0",
     "react-autosuggest": "^10.1.0",
     "react-bootstrap": "^2.7.2",
@@ -17,7 +20,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.2",
     "react-scripts": "^5.0.1",
-    "react-toastify": "^9.1.1",
+    "react-toastify": "8.0.0",
     "web-vitals": "^2.1.4",
     "workbox-background-sync": "^6.5.4",
     "workbox-broadcast-update": "^6.5.4",
@@ -42,7 +45,11 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "react/jsx-uses-react": "off",
+      "react/react-in-jsx-scope": "off"
+    }
   },
   "browserslist": {
     "production": [

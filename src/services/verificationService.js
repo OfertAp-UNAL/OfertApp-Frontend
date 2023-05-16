@@ -1,5 +1,5 @@
 import http from "./httpService";
-import config from "../config.json";
+import config from "../config";
 
 const apiUrl = config.apiUrl + "auth/verify-email/";
 

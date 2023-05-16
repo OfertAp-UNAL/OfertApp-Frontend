@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../images/Ofertapp.png";
 import { getUserInfo } from "./../services/userService";
 import withRouter from "./../services/withRouter";
-import config from "./../config.json";
+import config from "../config";
 import "../App.css";
 import "./navBar.css";
 
@@ -93,6 +93,11 @@ class NavBar extends Component {
                 <li className="nav-item ofertapp-item">
                   <Link className="nav-link text-center" to="/createPublication">
                     Crear Publicación
+                  </Link>
+                </li>
+                <li className="nav-item ofertapp-item">
+                  <Link className="nav-link text-center" to="/account">
+                    Mi Saldo
                   </Link>
                 </li>
                 </React.Fragment>

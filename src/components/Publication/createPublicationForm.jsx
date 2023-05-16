@@ -242,10 +242,10 @@ class CreatePublicationForm extends Form {
             }
             
             {
-              ! this.validate() &&
               <CustomButtom
                 caption = "Publicar"
                 type = "primary"
+                disabled = { !this.validate() }
                 onClick = {this.handleSubmit}
               />
             }

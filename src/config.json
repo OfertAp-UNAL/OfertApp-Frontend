@@ -1,4 +1,5 @@
 {
   "apiUrl": "http://localhost:8000/api/v1/",
-  "mediaUrl": "http://localhost:8000"
+  "mediaUrl": "http://localhost:8000",
+  "mercadoPagoURL": "https://api.mercadopago.com"
 }

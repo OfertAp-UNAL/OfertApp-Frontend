@@ -1,5 +1,5 @@
 import React from 'react';
-import config from '../../../config.json';
+import config from '../../../config';
 import "./fileUpload.css";
 
 const { mediaUrl } = config;

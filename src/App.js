@@ -20,6 +20,8 @@ import AskResetPasswordForm from "./components/ResetPassword/askResetPasswordFor
 import NewPasswordForm from "./components/ResetPassword/newPasswordForm";
 import CreatePublicationForm from "./components/Publication/createPublicationForm";
 import UpdateUserDataForm from "./components/common/updateUserData/updateUserRegistrationData";
+import FinancialTransactionsView from "./components/FinancialTransactions/account";
+
 import "./App.css";
 class JointComponentWithNavbar extends Component {
   render() {
@@ -133,6 +135,19 @@ class App extends Component {
               element={
                 <JointComponentWithNavbar
                   children={<UpdateUserDataForm />}
+                  OnUpdateUserData={this.updateUserData}
+                />
+              }
+            />
+            <Route
+              path="/account"
+              element={
+                <JointComponentWithNavbar
+                  children={
+                    <FinancialTransactionsView
+                      userData={this.state.userData}
+                    />
+                  }
                   OnUpdateUserData={this.updateUserData}
                 />
               }

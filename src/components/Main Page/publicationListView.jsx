@@ -1,5 +1,5 @@
 import React from "react";
-import config from "../../config.json";
+import config from "../../config";
 import { getTimeLeft } from './../../utils/getTime';
 import withRouter from "../../services/withRouter";
 import UserLink from "./../common/UserLink/userLink";
