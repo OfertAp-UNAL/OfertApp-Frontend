@@ -23,6 +23,7 @@ import UpdateUserDataForm from "./components/common/updateUserData/updateUserReg
 import FinancialTransactionsView from "./components/FinancialTransactions/account";
 
 import "./App.css";
+import UserReportsHistory from "./components/ReportsComponent/userReportsHistory";
 class JointComponentWithNavbar extends Component {
   render() {
     return (
@@ -36,15 +37,15 @@ class JointComponentWithNavbar extends Component {
 
 class App extends Component {
   state = {
-    userData: null
+    userData: null,
   };
 
   // Useful for keeping a global value with user data
   updateUserData = (data) => {
     this.setState({
-      userData: data
+      userData: data,
     });
-  }
+  };
 
   render() {
     return (
@@ -67,10 +68,18 @@ class App extends Component {
               element={
                 <JointComponentWithNavbar
                   children={
-                    <CreatePublicationForm
-                      userData={this.state.userData}
-                    />
+                    <CreatePublicationForm userData={this.state.userData} />
                   }
+                  OnUpdateUserData={this.updateUserData}
+                />
+              }
+            />
+
+            <Route
+              path="/reports-history"
+              element={
+                <JointComponentWithNavbar
+                children={<UserReportsHistory />}
                   OnUpdateUserData={this.updateUserData}
                 />
               }
@@ -91,7 +100,8 @@ class App extends Component {
                 <JointComponentWithNavbar
                   children={<RegisterForm />}
                   OnUpdateUserData={this.updateUserData}
-                />}
+                />
+              }
             />
             <Route
               path="/homepage"
@@ -128,7 +138,8 @@ class App extends Component {
                 <JointComponentWithNavbar
                   children={<Statistics />}
                   OnUpdateUserData={this.updateUserData}
-                />}
+                />
+              }
             />
             <Route
               path="/profile"
@@ -144,9 +155,7 @@ class App extends Component {
               element={
                 <JointComponentWithNavbar
                   children={
-                    <FinancialTransactionsView
-                      userData={this.state.userData}
-                    />
+                    <FinancialTransactionsView userData={this.state.userData} />
                   }
                   OnUpdateUserData={this.updateUserData}
                 />
@@ -156,11 +165,7 @@ class App extends Component {
               path="/publication/:id"
               element={
                 <JointComponentWithNavbar
-                  children={
-                    <PublicationView
-                      userData={this.state.userData}
-                    />
-                  }
+                  children={<PublicationView userData={this.state.userData} />}
                   OnUpdateUserData={this.updateUserData}
                 />
               }
@@ -171,7 +176,8 @@ class App extends Component {
                 <JointComponentWithNavbar
                   children={<Verify />}
                   OnUpdateUserData={this.updateUserData}
-                />}
+                />
+              }
             />
             <Route
               path="/not-found"
@@ -179,7 +185,8 @@ class App extends Component {
                 <JointComponentWithNavbar
                   children={<NotFound />}
                   OnUpdateUserData={this.updateUserData}
-                />}
+                />
+              }
             />
             <Route path="/logout" element={<Logout />} />
             <Route path="/" element={<Navigate to="/homepage" replace />} />
