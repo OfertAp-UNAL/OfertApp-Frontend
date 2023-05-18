@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import { performPayment } from "../../services/paymentService";
 import { getConfig } from "../../services/configService";
 import { toast } from "react-toastify";

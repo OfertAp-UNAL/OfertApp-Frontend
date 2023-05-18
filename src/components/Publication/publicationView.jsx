@@ -1,6 +1,6 @@
 //import Joi from "joi-browser";
 import withRouter from "../../services/withRouter";
-import React, { Component } from "react";
+import { Component } from "react";
 import { getPublication } from "../../services/publicationService";
 
 import PublicationViewHeader from "./publicationViewHeader";

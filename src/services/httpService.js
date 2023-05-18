@@ -16,10 +16,11 @@ axios.interceptors.response.use(null, (error) => {
   };
 });
 
-export default {
+const exportable = {
   get: axios.get,
   post: axios.post,
   put: axios.put,
   delete: axios.delete,
   patch: axios.patch,
-};
+}
+export default exportable;

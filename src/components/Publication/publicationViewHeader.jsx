@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import UserLink from './../common/UserLink/userLink';
 import { getTimeLeft } from './../../utils/getTime';
 import './publicationView.css';

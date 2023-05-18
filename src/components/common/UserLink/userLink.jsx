@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import config from "../../../config";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";

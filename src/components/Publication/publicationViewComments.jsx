@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import "./publicationView.css";
 import Comment from "../common/Comment/comment";
 import CustomButton from "../common/Button/button";

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Offer from '../common/Offer/offer';
 import '../common/Offer/offerForm';
 import './publicationView.css';

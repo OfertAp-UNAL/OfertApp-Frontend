@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import UserLink from "../UserLink/userLink";
 import { getTimeLeft } from "./../../../utils/getTime";
 import "./comment.css";

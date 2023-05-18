@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import Pagination from "../common/pagination";
 import SearchBox from "../common/searchBox";
 import withRouter from "../../services/withRouter";

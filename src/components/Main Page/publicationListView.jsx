@@ -1,4 +1,3 @@
-import React from "react";
 import config from "../../config";
 import { getTimeLeft } from './../../utils/getTime';
 import withRouter from "../../services/withRouter";

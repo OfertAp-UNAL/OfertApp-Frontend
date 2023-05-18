@@ -1,5 +1,3 @@
-import React from "react";
-
 const PriceRangeFilter = ({ valueMin, valueMax, onChangeMin, onChangeMax }) => {
 
   return (
