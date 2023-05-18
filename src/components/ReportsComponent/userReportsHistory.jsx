@@ -1,5 +1,6 @@
 import withRouter from "../../services/withRouter";
 import React, { Component } from "react";
+import UserLink from "../common/UserLink/userLink";
 
 class UserReportsHistory extends Component {
   state = {
@@ -33,7 +34,7 @@ class UserReportsHistory extends Component {
           {this.state.reports.map((report) => (
             <tr key={report.id}>
               <td>{report.id}</td>
-              <td>{report.creatorUser}</td>
+              <td>{<UserLink  fontSize="16" fontColor="#fff" user={report.creatorUser}/>}</td>
               <td>{report.type}</td>
               <td>{report.creationDate}</td>
               <td>{report.body}</td>
