@@ -102,6 +102,7 @@ class MainPage extends Component {
   }
 
   handleSubmit = async () => {
+    console.log("ola");
     const { titleQuery, minPriceFilter, maxPriceFilter, available, orderBy, limit, user } = this.state.data;
     const requestParams = {};
 
@@ -134,11 +135,23 @@ class MainPage extends Component {
     }
 
     // Send request
+    console.log("ola2");
     try {
-      const { data } = await getPublications(requestParams);
-      this.setState({ publications: data["data"] });
-      return;
+      console.log("ola3");
+      const { data:response } = await getPublications(requestParams);
+      const { data, status } = response;
+      console.log("ola4");
+      console.log( response )
+      console.log("ola5");
+      if( status === "success" ){
+        this.setState({ publications: data });
+        return;
+      } else {
+        this.setState({ publications: [] });
+      }
+
     } catch (e) {
+      console.log("ola6");
       console.log("Error: ", e);
       this.setState({publications: []});
     }
