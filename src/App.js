@@ -24,6 +24,8 @@ import FinancialTransactionsView from "./components/FinancialTransactions/accoun
 
 import "./App.css";
 import UserReportsHistory from "./components/ReportsComponent/userReportsHistory";
+import DetailedReport from "./components/ReportsComponent/detailedReport";
+import AddSupport from "./components/ReportsComponent/addSupport";
 class JointComponentWithNavbar extends Component {
   render() {
     return (
@@ -79,7 +81,7 @@ class App extends Component {
               path="/reports-history"
               element={
                 <JointComponentWithNavbar
-                children={<UserReportsHistory />}
+                  children={<UserReportsHistory />}
                   OnUpdateUserData={this.updateUserData}
                 />
               }
@@ -157,6 +159,24 @@ class App extends Component {
                   children={
                     <FinancialTransactionsView userData={this.state.userData} />
                   }
+                  OnUpdateUserData={this.updateUserData}
+                />
+              }
+            />
+            <Route
+              path="/report/:id"
+              element={
+                <JointComponentWithNavbar
+                  children={<DetailedReport />}
+                  OnUpdateUserData={this.updateUserData}
+                />
+              }
+            />a
+            <Route
+              path="/report/:id/addSupport"
+              element={
+                <JointComponentWithNavbar
+                  children={<AddSupport />}
                   OnUpdateUserData={this.updateUserData}
                 />
               }

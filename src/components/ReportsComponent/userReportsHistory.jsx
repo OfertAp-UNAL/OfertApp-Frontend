@@ -34,11 +34,25 @@ class UserReportsHistory extends Component {
           {this.state.reports.map((report) => (
             <tr key={report.id}>
               <td>{report.id}</td>
-              <td>{<UserLink  fontSize="16" fontColor="#fff" user={report.creatorUser}/>}</td>
+              <td>
+                {
+                  <UserLink
+                    fontSize="16"
+                    fontColor="#fff"
+                    user={report.creatorUser}
+                  />
+                }
+              </td>
               <td>{report.type}</td>
               <td>{report.creationDate}</td>
               <td>{report.body}</td>
-              <td><button>Hola</button></td>
+              <td>
+                <button
+                  onClick={() => this.props.navigate(`/report/${report.id}`)}
+                >
+                  Hola
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
