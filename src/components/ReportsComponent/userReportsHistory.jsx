@@ -8,6 +8,24 @@ class UserReportsHistory extends Component {
     reports: [],
   };
 
+  traducirSigla(sigla) {
+    const opciones = [
+      ['DF', 'Deliveryfraud'],
+      ['SF', 'Suspectfraud'],
+      ['DL', 'Dontlike'],
+      ['MA', 'Misleadingadvertisement'],
+      ['QF', 'Qualityfraud']
+    ];
+    
+    const opcion = opciones.find((item) => item[0] === sigla);
+    
+    if (opcion) {
+      return opcion[1];
+    } else {
+      return null;
+    }
+  }
+
   async componentDidMount() {
     try {
       const {data} = await getReports();
@@ -27,7 +45,7 @@ class UserReportsHistory extends Component {
             <th className="ofertapp-table-header">Usuario que reporta</th>
             <th className="ofertapp-table-header">Tipo de reporte</th>
             <th className="ofertapp-table-header">Cuerpo del reporte</th>
-            <th className="ofertapp-table-header">Añadir soporte</th>
+            <th className="ofertapp-table-header">Soportes</th>
           </tr>
         </thead>
         <tbody>
@@ -43,13 +61,13 @@ class UserReportsHistory extends Component {
                   />
                 }
               </td>
-              <td>{report.type}</td>
+              <td>{this.traducirSigla(report.type)}</td>
               <td>{report.body}</td>
               <td>
                 <button
                   onClick={() => this.props.navigate(`/report/${report.id}`)}
                 >
-                  Hola
+                  Ver Soportes
                 </button>
               </td>
             </tr>
