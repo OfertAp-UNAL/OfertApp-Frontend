@@ -5,25 +5,7 @@ const apiUrl = config.apiUrl;
 
 const apiEndpoint = apiUrl + "auth/";
 
-export function registerUser(user) {
-  const formData = new FormData();
-  formData.append("id", user.id);
-  formData.append("firstName", user.firstName);
-  formData.append("lastName", user.lastName);
-  formData.append("email", user.email);
-  formData.append("username", user.username);
-  formData.append("birthdate", user.birthdate);
-  formData.append("phone", user.phone);
-  formData.append("address", user.address);
-  formData.append("townId", user.municipalityId);
-  formData.append("password", user.password);
-  formData.append("paymentAccountType", user.paymentAccountType);
-  formData.append("paymentAccountNumber", user.paymentAccountNumber);
-  formData.append("idenIdType", "CC");
-
-  if (user.profilePicture != null) {
-    formData.append("profilePicture", user.profilePicture);
-  }
+export function registerUser(formData) {
   return http.post(apiEndpoint + "register/", formData, {
     headers: {
       "Content-Type": "multipart/form-data",

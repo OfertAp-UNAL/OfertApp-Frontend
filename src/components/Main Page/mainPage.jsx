@@ -179,11 +179,30 @@ class MainPage extends Component {
     this.setState({ data: {...this.state.data, orderBy: value }});
   }
 
+  resetFilters = () => {
+    this.setState({
+      data : {
+        ...this.state.data,
+        titleQuery : "",
+        minPriceFilter : 0,
+        maxPriceFilter : Number.MAX_VALUE,
+        orderBy : "relevance",
+        limit: defaultLimit,
+        available: true,
+      }
+    });
+  }
+
   render() {
     const {
       pageSize,
       currentPage,
     } = this.state;
+
+    const { 
+      minPriceFilter, maxPriceFilter, available,
+      orderBy, limit, titleQuery
+    } = this.state.data;
 
     const { totalCount, data: publications } = this.getPagedData();
 
@@ -196,11 +215,15 @@ class MainPage extends Component {
         </div>
         <div className="col-12 col-sm-3 text-center">
           <div className="ofertapp-pub-filter-divider">
-            <SearchBox label = "Contiene en su titulo" onChange={this.handleTitleChange} />
+            <SearchBox 
+              label = "Contiene en su titulo" onChange={this.handleTitleChange}
+              value={titleQuery}
+            />
           </div>
           <div className="ofertapp-pub-filter-divider">
             <PriceRangeFilter
               valueMin={0}
+              values={[minPriceFilter, maxPriceFilter]}
               valueMax={Number.MAX_VALUE}
               onChangeMin={this.handleMinPriceChange}
               onChangeMax={this.handleMaxPriceChange}
@@ -208,19 +231,34 @@ class MainPage extends Component {
           </div>
           <div className="ofertapp-pub-filter-divider">
             <CheckBox name="available" label="Solo publicaciones disponibles" 
-              onChange={this.handleAvailableChange} />
+              onChange={this.handleAvailableChange}
+              value={available}
+            />
           </div>
           <div className="ofertapp-pub-filter-divider">
             <ComboBox name="orderby" label="Ordenar por" options={this.orderbyFields} 
-              value="relevance" onChange={this.handleOrderByChange} />
+              onChange={this.handleOrderByChange} 
+              currentValue={orderBy}
+            />
           </div>
           <div className="ofertapp-pub-filter-divider">
-            <NumberBox value={defaultLimit} label = "Límite de publicaciones" onChange={this.handleLimitChange} />
+            <NumberBox 
+              value={defaultLimit} label = "Límite de publicaciones" 
+              onChange={this.handleLimitChange}
+              currentValue={limit}
+            />
           </div>
           <div className="ofertapp-pub-filter-divider">
             <CustomButton caption="Filtrar" type="primary" onClick={() => {
-              this.handleSubmit()
-            }} />
+                this.handleSubmit()
+              }} 
+            />
+          </div>
+          <div className="ofertapp-pub-filter-divider">
+            <CustomButton caption="Reiniciar" type="primary" onClick={() => {
+                this.resetFilters()
+              }} 
+            />
           </div>
         </div>
         <div className="col-12 col-sm-9">

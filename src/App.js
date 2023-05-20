@@ -19,7 +19,6 @@ import MainPage from "./components/Main Page/mainPage";
 import AskResetPasswordForm from "./components/ResetPassword/askResetPasswordForm";
 import NewPasswordForm from "./components/ResetPassword/newPasswordForm";
 import CreatePublicationForm from "./components/Publication/createPublicationForm";
-import UpdateUserDataForm from "./components/common/updateUserData/updateUserRegistrationData";
 import FinancialTransactionsView from "./components/FinancialTransactions/account";
 
 import OfertAppTeam from "./components/OfertAppTeam/ofertapp-team";

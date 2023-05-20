@@ -6,6 +6,7 @@ import { registerUser, updateUserData } from "../../services/userService";
 import { getMunicipalitiesByDepartment } from "../../services/municipioDepartamentosService";
 import FileUpload from "../common/FileUpload/fileUpload";
 import ComboBox from "../common/comboBox";
+import CustomButton from "../common/Button/button";
 import { toast } from "react-toastify";
 import "./userInfoEdit.css";
 
@@ -79,10 +80,13 @@ class UserInfoEdit extends Form {
       const { error } = Joi.validate(obj, schema);
       return error ? error.details[0].message : null;
     }
-    else return super.validateProperty({ name, value });
+    else {
+      const obj = { [name]: value };
+      const schema = { [name]: this.schema[name] };
+      const { error } = Joi.validate(obj, schema);
+      return error ? error.details[0].message : null;
+    }
   }
-
-
 
   // Method for getting logged in user information
   getUserData = () => {
@@ -118,10 +122,9 @@ class UserInfoEdit extends Form {
       password: editing ? 
         Joi.string().optional().label("Contraseña").allow("") : 
         Joi.string().required().label("Contraseña"),
-      confirmPassword: Joi.string().optional()
-          .valid(Joi.ref("Contraseña"))
-          .label("Confirmar contraseña")
-          .options({ language: { any: { allowOnly: 'must match \'Contraseña\'' } } }),
+      confirmPassword: editing ? 
+        Joi.string().optional().label("Confirmar contraseña").allow("") :
+        Joi.string().required().label("Confirmar contraseña"),
       email: editing ? Joi.any() : Joi.string().email().required().label("Correo electrónico"),
       birthdate: Joi.any().required().label("Fecha de nacimiento"),
       phone: Joi.string().required().label("Teléfono"),
@@ -136,15 +139,37 @@ class UserInfoEdit extends Form {
     }
   }
 
-
   doSubmitRegister = async () => {
+    // Get location data
     const { data, municipalitiesInDepartment } = this.state;
     const municipalityId = municipalitiesInDepartment.find(
       (m) => m["name"] === data.municipality
     ).id;
     const user = { ...data, municipalityId };
+
+    // Lets build a form data object to send to the server
+    const formData = new FormData();
+    formData.append("id", user.id);
+    formData.append("firstName", user.firstName);
+    formData.append("lastName", user.lastName);
+    formData.append("email", user.email);
+    formData.append("username", user.username);
+    formData.append("birthdate", user.birthdate);
+    formData.append("phone", user.phone);
+    formData.append("address", user.address);
+    formData.append("townId", user.municipalityId);
+    formData.append("password", user.password);
+    formData.append("paymentAccountType", user.paymentAccountType);
+    formData.append("paymentAccountNumber", user.paymentAccountNumber);
+    formData.append("idenIdType", "CC");
+
+    if (user.profilePicture != null) {
+      formData.append("profilePicture", user.profilePicture);
+    }
+
+    // Now perform our request
     try{
-      const response = await registerUser(user);
+      const response = await registerUser(formData);
       const{ token, status, error } = response.data;
       if(status === "success" ){
         toast.success("Usuario registrado exitosamente");
@@ -167,15 +192,57 @@ class UserInfoEdit extends Form {
 
   doSubmitUpdate = async () => {
     // This can be kinda complicated than registration case
+
+    // Get location data
+    const { data, municipalitiesInDepartment } = this.state;
+    const municipalityId = municipalitiesInDepartment.find(
+      (m) => m["name"] === data.municipality
+    ).id;
+    const user = { ...data, municipalityId };
+
+    // Lets build a form data object to send to the server
+    const formData = new FormData();
+    formData.append("firstName", user.firstName);
+    formData.append("lastName", user.lastName);
+    formData.append("birthdate", user.birthdate);
+    formData.append("phone", user.phone);
+    formData.append("municipalityId", user.municipalityId);
+    formData.append("address", user.address);
+    formData.append("townId", user.municipalityId);
+
+    if( user.password !== "" )
+      formData.append("password", user.password);
+
+    if (user.profilePicture != null)
+      formData.append("profilePicture", user.profilePicture);
+
+    // Now perform our request
+    try{
+      const response = await updateUserData(formData);
+      const{ status, error } = response.data;
+      if(status === "success" ){
+        toast.success("Usuario actualizado exitosamente");
+        this.props.navigate("/homepage");
+      } else {
+        toast.error("Error registrando usuario, verifique los campos digitados: " + 
+          JSON.stringify( error || "Error desconocido") 
+        );
+      }
+    } catch( e ) {
+      toast.error("Error registrando usuario, verifique los campos digitados");
+    }
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = (e, editing) => {
     e.preventDefault();
 
     const errors = this.validate();
     this.setState({ errors: errors || {} });
     if (errors) return;
-    this.doSubmit();
+    if( editing )
+      this.doSubmitUpdate();
+    else
+      this.doSubmitRegister();
   }
 
   handleDepartmentSelection = async (departmentName) => {
@@ -217,7 +284,18 @@ class UserInfoEdit extends Form {
   }
 
   // Perform a custom validation for the form
-  customValidate = ( editing ) => {
+  customValidate = ( ) => {
+    let errors = this.validate();
+    
+    // Manually check password and confirmPassword
+    const { password, confirmPassword } = this.state.data;
+    const passwordsAreSet = (password !== "" || confirmPassword !== "");
+    const passwordsMatch = (password === confirmPassword);
+    
+    if( passwordsAreSet && ! passwordsMatch ){
+      errors["confirmPassword"] = "Las contraseñas no coinciden";
+    }
+    return errors;
   } 
 
   render() {
@@ -235,11 +313,6 @@ class UserInfoEdit extends Form {
 
     return (
       <div>
-        <div>
-          {
-            this.generateErrorsDiv()
-          }
-        </div>
         <h1 className="ofertapp-page-title">
           {editing ? "Actualiza tus datos en OfertApp!" : "Regístrate en OfertApp!"}
         </h1>
@@ -342,9 +415,14 @@ class UserInfoEdit extends Form {
             {
               !editing && this.renderTermsConditionsCheckbox()
             }
-            {this.renderButton(
-              editing ? "Actualizar" : "Registrarme"
-            )}
+            {
+              <CustomButton
+                caption={editing ? "Actualizar" : "Registrarse"}
+                disabled={this.customValidate(editing)}
+                onClick={(e) => this.handleSubmit(e, editing)}
+                type="primary"
+              />
+            }
           </div>
         </form>
       </div>

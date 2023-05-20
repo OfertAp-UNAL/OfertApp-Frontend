@@ -45,7 +45,7 @@ class NavBar extends Component {
                 <React.Fragment>
                   <li className="nav-item ofertapp-item">
                     <Link className="nav-link text-center" to="/homepage">
-                      {isAdmin ? "Mis Reportes" : "Reportes"}
+                      {!isAdmin ? "Mis Reportes" : "Reportes"}
                     </Link>
                   </li>
 

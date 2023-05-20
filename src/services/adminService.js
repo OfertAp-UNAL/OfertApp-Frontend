@@ -8,7 +8,7 @@ const requestURL = config.apiUrl + "admin/";
 
 export function deletePublication(publicationId) {
     const token = localStorage.getItem("token");
-    return http.delete(requestURL + publicationId,
+    return http.delete(requestURL + "publications/" + publicationId + "/",
         {
             headers: {
                 "Authorization": "Bearer " + token,
@@ -18,7 +18,7 @@ export function deletePublication(publicationId) {
 
 export function deleteComment(commentId) {
     const token = localStorage.getItem("token");
-    return http.delete(requestURL + commentId,
+    return http.delete(requestURL + "comments/" + commentId + "/",
         {
             headers: {
                 "Authorization": "Bearer " + token,
@@ -28,7 +28,7 @@ export function deleteComment(commentId) {
 
 export function deleteUser(userId) {
     const token = localStorage.getItem("token");
-    return http.delete(requestURL + userId,
+    return http.delete(requestURL + "users/" + userId + "/",
         {
             headers: {
                 "Authorization": "Bearer " + token,
@@ -38,7 +38,7 @@ export function deleteUser(userId) {
 
 export function postReport(reportId, data) {
     const token = localStorage.getItem("token");
-    return http.post(requestURL + reportId, data,
+    return http.post(requestURL + "reports/" + reportId + "/", data,
         {
             headers: {
                 "Authorization": "Bearer " + token,
@@ -48,7 +48,7 @@ export function postReport(reportId, data) {
 
 export function postUser(userId, data) {
     const token = localStorage.getItem("token");
-    return http.post(requestURL + userId, data,
+    return http.post(requestURL + "users/" + userId + "/", data,
         {
             headers: {
                 "Authorization": "Bearer " + token,

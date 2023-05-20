@@ -2,7 +2,7 @@ import { Component } from "react";
 import { 
     deletePublication, deleteComment, deleteUser, 
     postReport, postUser
-} from "../../services/publicationService";
+} from "../../services/adminService";
 
 class AdminDeleteButton extends Component {
     handleClick = async () => {
@@ -26,10 +26,12 @@ class AdminDeleteButton extends Component {
             case "reportUpdate":
                 response = await postReport( id, data );
                 break;
+            default:
+                onError( "Error al realizar la operación" );
         }
 
         if( response ){
-            const { status, data, error } = response;
+            const { status, data, error } = response.data;
             if( status === "success" ){
                 onSuccess( data );
             }
@@ -43,7 +45,9 @@ class AdminDeleteButton extends Component {
     render() {
         const { caption } = this.props;
         return (
-            <button onClick={this.handleClick} className="btn btn-danger">
+            <button onClick={this.handleClick} className="btn btn-danger"
+                style={{ borderRadius: "10px"}}
+            >
                 {caption}
             </button>
         );

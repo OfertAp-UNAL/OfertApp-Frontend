@@ -68,6 +68,7 @@ class PublicationViewComments extends Component {
 
   render() {
     const loggedIn = this.props.userLoggedIn;   
+    const userData = this.props.userData;
     
     return (
       <div className="row align-middle">
@@ -85,11 +86,12 @@ class PublicationViewComments extends Component {
                 this.setState({ replyingTo: comment });
               }}
               userLoggedIn={loggedIn}
+              userData={userData}
             />
           ))}
         </div>
         {
-          loggedIn && 
+          loggedIn && ! userData.isAdmin &&
           <div className= "col-12">
             Haz click sobre un comentario para responder.
             <input
