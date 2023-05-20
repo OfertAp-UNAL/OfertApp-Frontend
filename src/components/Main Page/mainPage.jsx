@@ -16,38 +16,39 @@ import { parseJwt } from "../../utils/parseJWT";
 const defaultLimit = 10;
 
 class MainPage extends Component {
+
   orderbyFields = [
     {
       name: "relevance",
-      label: "Relevancia",
+      label: "Relevancia"
     },
     {
       name: "price",
-      label: "Precio",
+      label: "Precio"
     },
     {
       name: "offers",
-      label: "N° Ofertas",
+      label: "N° Ofertas"
     },
     {
       name: "comments",
-      label: "N° Comentarios",
+      label: "N° Comentarios"
     },
-  ];
+  ]
 
   state = {
-    data: {
-      titleQuery: "",
-      minPriceFilter: 0,
-      maxPriceFilter: Number.MAX_VALUE,
-      orderBy: "relevance",
+    data : {
+      titleQuery : "",
+      minPriceFilter : 0,
+      maxPriceFilter : Number.MAX_VALUE,
+      orderBy : "relevance",
       limit: defaultLimit,
       available: true,
-      user: "",
+      user : ""
     },
     publications: [],
     currentPage: 1,
-    pageSize: 4,
+    pageSize: 5
   };
 
   async componentDidMount() {
@@ -55,18 +56,17 @@ class MainPage extends Component {
     // in our case, we care about props changes only
 
     // Check if user is viewing his own publications only
-    if (this.props.userPublications === "true") {
+    if( this.props.userPublications === "true" ){
       const token = localStorage.getItem("token");
-
-      if (token) {
-        try {
+      if( token ){
+        try{
           const payload = parseJwt(token);
 
           // Set user to filter ID
           let data = this.state.data;
           data.user = payload.user_id;
           this.setState({ data: data });
-        } catch (e) {
+        } catch(e) {
           console.log("Error: ", e);
           this.props.navigate("/login");
           return;
@@ -79,33 +79,29 @@ class MainPage extends Component {
     await this.handleSubmit();
   }
 
-  componentDidUpdate(prevProps) {
-    // Check if user is viewing his own publications only
-    if (this.props.userPublications !== prevProps.userPublications) {
-      this.componentDidMount(); // Actually component did mount if url changed at this point
+    componentDidUpdate(prevProps) {
+      // Check if user is viewing his own publications only
+      if( this.props.userPublications !== prevProps.userPublications ){
+        this.componentDidMount(); // Actually component did mount if url changed at this point
+      }
     }
-  }
 
   handlePageChange = (page) => {
     this.setState({ currentPage: page });
   };
 
   getPagedData = () => {
-    const { pageSize, currentPage, publications } = this.state;
+    const {
+      pageSize,
+      currentPage,
+      publications,
+    } = this.state;
     const paginatedData = paginate(publications, currentPage, pageSize);
     return { totalCount: publications.length, data: paginatedData };
-  };
+  }
 
   handleSubmit = async () => {
-    const {
-      titleQuery,
-      minPriceFilter,
-      maxPriceFilter,
-      available,
-      orderBy,
-      limit,
-      user,
-    } = this.state.data;
+    const { titleQuery, minPriceFilter, maxPriceFilter, available, orderBy, limit, user } = this.state.data;
     const requestParams = {};
 
     // Filter by title (LIKE operator in sql databases)
@@ -114,10 +110,10 @@ class MainPage extends Component {
     }
 
     // Set availability only param
-    if (available) {
+    if( available ){
       requestParams["available"] = available;
     }
-
+      
     // Set price range
     requestParams["minPrice"] = minPriceFilter;
     requestParams["maxPrice"] = maxPriceFilter;
@@ -125,120 +121,143 @@ class MainPage extends Component {
     // Set order by
     requestParams["orderBy"] = orderBy;
 
+    
     // Set limit
-    if (limit && limit > 0) {
+    if( limit && limit > 0){
       requestParams["limit"] = limit;
     }
 
     // Set filtered user (First approach will consider only current user's publications)
-    if (
-      user &&
-      this.props.userPublications === "true" &&
-      user.toString().trim() !== ""
-    ) {
+    if (user && this.props.userPublications === "true" && user.toString().trim() !== "") {
       requestParams["user"] = user;
     }
 
     // Send request
     try {
-      const { data: response } = await getPublications(requestParams);
+      const { data:response } = await getPublications(requestParams);
       const { data, status } = response;
-      if (status === "success") {
-        this.setState({ publications: data });
+      if( status === "success" ){
+        this.setState({ 
+          publications: data
+        });
         return;
       } else {
-        this.setState({ publications: [] });
+        this.setState({ 
+          publications: []
+        });
       }
+
     } catch (e) {
       console.log("Error: ", e);
-      this.setState({ publications: [] });
+      this.setState({
+        publications: []
+      });
     }
-  };
+  }
 
   handleTitleChange = (value) => {
-    this.setState({ data: { ...this.state.data, titleQuery: value } });
+    this.setState({ data: {...this.state.data, titleQuery: value} });
   };
 
   handleMinPriceChange = (value) => {
-    this.setState({ data: { ...this.state.data, minPriceFilter: value } });
+    this.setState({ data: {...this.state.data, minPriceFilter: value} });
   };
 
   handleMaxPriceChange = (value) => {
-    this.setState({ data: { ...this.state.data, maxPriceFilter: value } });
+    this.setState({ data: {...this.state.data, maxPriceFilter: value} });
   };
 
   handleLimitChange = (value) => {
-    this.setState({ data: { ...this.state.data, limit: value } });
-  };
+    this.setState({ data: {...this.state.data, limit: value} });
+  }
 
   handleAvailableChange = (value) => {
-    this.setState({ data: { ...this.state.data, available: value } });
-  };
+    this.setState({ data: {...this.state.data, available: value} });
+  }
 
   handleOrderByChange = (value) => {
-    this.setState({ data: { ...this.state.data, orderBy: value } });
-  };
+    this.setState({ data: {...this.state.data, orderBy: value }});
+  }
+
+  resetFilters = () => {
+    this.setState({
+      data : {
+        ...this.state.data,
+        titleQuery : "",
+        minPriceFilter : 0,
+        maxPriceFilter : Number.MAX_VALUE,
+        orderBy : "relevance",
+        limit: defaultLimit,
+        available: true,
+      }
+    });
+  }
 
   render() {
-    const { pageSize, currentPage } = this.state;
+    const {
+      pageSize,
+      currentPage,
+    } = this.state;
+
+    const { 
+      minPriceFilter, maxPriceFilter, available,
+      orderBy, limit, titleQuery
+    } = this.state.data;
 
     const { totalCount, data: publications } = this.getPagedData();
-    console.log("Publications are", publications);
 
     return (
       <div className="row">
         <div className="col-12 text-center">
           <h1 className="mb-3 ofertapp-page-title">
-            {this.props.userPublications === "true"
-              ? "Mis publicaciones"
-              : "Publicaciones"}
+            {this.props.userPublications === "true" ? "Mis publicaciones" : "Publicaciones"}
           </h1>
         </div>
         <div className="col-12 col-sm-3 text-center">
           <div className="ofertapp-pub-filter-divider">
-            <SearchBox
-              label="Contiene en su titulo"
-              onChange={this.handleTitleChange}
+            <SearchBox 
+              label = "Contiene en su titulo" onChange={this.handleTitleChange}
+              value={titleQuery}
             />
           </div>
           <div className="ofertapp-pub-filter-divider">
             <PriceRangeFilter
               valueMin={0}
+              values={[minPriceFilter, maxPriceFilter]}
               valueMax={Number.MAX_VALUE}
               onChangeMin={this.handleMinPriceChange}
               onChangeMax={this.handleMaxPriceChange}
             />
           </div>
           <div className="ofertapp-pub-filter-divider">
-            <CheckBox
-              name="available"
-              label="Solo publicaciones disponibles"
+            <CheckBox name="available" label="Solo publicaciones disponibles" 
               onChange={this.handleAvailableChange}
+              value={available}
             />
           </div>
           <div className="ofertapp-pub-filter-divider">
-            <ComboBox
-              name="orderby"
-              label="Ordenar por"
-              options={this.orderbyFields}
-              value="relevance"
-              onChange={this.handleOrderByChange}
+            <ComboBox name="orderby" label="Ordenar por" options={this.orderbyFields} 
+              onChange={this.handleOrderByChange} 
+              currentValue={orderBy}
             />
           </div>
           <div className="ofertapp-pub-filter-divider">
-            <NumberBox
-              value={defaultLimit}
-              label="Límite de publicaciones"
+            <NumberBox 
+              value={defaultLimit} label = "Límite de publicaciones" 
               onChange={this.handleLimitChange}
+              currentValue={limit}
             />
           </div>
           <div className="ofertapp-pub-filter-divider">
-            <CustomButton
-              caption="Filtrar"
-              type="primary"
-              onClick={() => {
-                this.handleSubmit();
-              }}
+            <CustomButton caption="Filtrar" type="primary" onClick={() => {
+                this.handleSubmit()
+              }} 
+            />
+          </div>
+          <div className="ofertapp-pub-filter-divider">
+            <CustomButton caption="Reiniciar" type="primary" onClick={() => {
+                this.resetFilters()
+              }} 
             />
           </div>
         </div>
@@ -258,6 +277,7 @@ class MainPage extends Component {
           />
         </div>
       </div>
+
     );
   }
 }

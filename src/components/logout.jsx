@@ -12,6 +12,8 @@ class Logout extends Component {
             const { status } = responseData.data;
             if (status === "success") {
                 localStorage.removeItem("token");
+                
+                await this.props.OnUpdateUserData();
                 this.props.navigate("/homepage");
                 return;
             } else {

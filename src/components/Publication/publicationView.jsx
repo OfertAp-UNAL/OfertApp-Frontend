@@ -11,6 +11,7 @@ import PublicationViewOffers from "./publicationViewOffers";
 import PublicationViewComments from "./publicationViewComments";
 
 import CustomButton from "../common/Button/button";
+import AdminDeleteButton from "../Admins/deleteButton";
 
 import "./publicationView.css";
 
@@ -57,13 +58,27 @@ class PublicationView extends Component {
       <div className="w-100">
         <h1 className = "ofertapp-page-title">Visualización de Publicación</h1>
         {
-          publication && publication.reportable &&
-            (<CustomButton 
+          publication && publication.reportable && ! userData.isAdmin &&
+             <CustomButton 
               onClick = { () => console.log("Reporte") }
               caption = "Reportar"
               type = "report"
-            />)
+            />
         }
+        {
+          publication && userData.isAdmin &&
+          <AdminDeleteButton
+            type = "publicationDelete"
+            id = {publication.id}
+            caption = "Eliminar publicación"
+            onSuccess = { () => {
+              toast.success("Publicación eliminada con éxito");
+              this.props.navigate("/homepage")
+            }}
+            onError = { (error) => toast.error(error) }
+          />
+        }
+
         <h2 className = "ofertapp-base-subtitle">{
           publication ? (    
             <p className = "align-middle" style={{"margin" : "auto"}}>
