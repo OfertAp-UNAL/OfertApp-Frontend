@@ -8,7 +8,6 @@ const { mediaUrl } = config;
 
 function PublicationListView({ publication }) {
   const { id, title, minOffer, supports, endDate, user } = publication;
-  console.log(user);
   return (
     <div
       key={id}

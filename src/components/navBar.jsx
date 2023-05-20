@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import logo from "../images/OfertappGrande.png";
-import { getNotifications } from "./../services/notificationService";
+import { getNotifications, markAsRead } from "./../services/notificationService";
 import withRouter from "./../services/withRouter";
 import config from "../config";
 import Notification from "./common/Notification/notification";
@@ -104,41 +104,49 @@ class NavBar extends Component {
                   </React.Fragment>
                   }
 
-                <li className="nav-item flex-row text-center dropdown">
-                <a 
-                  className="nav-link dropdown-toggle" 
-                  href="/profile"
-                  id="notificationDropdown" 
-                  alt="Notifications"
-                  role="button" 
-                  data-bs-toggle="dropdown" 
-                  aria-expanded="false"
+                <li 
+                  className="nav-item flex-row text-center dropdown"
+                  onClick={() => {
+                    // Mark notifications as read (in backend only)
+                    markAsRead();
+                  }}
                 >
-                  <i className="fas fa-bell" alt="Notifications">
-                    
-                  </i>
-                </a>
-                <ul
-                  className="dropdown-menu notification-holder"
-                  aria-labelledby="notificationDropdown"
-                >
-                  <div style = {{"textAlign": "center"}}>
-                    Notificaciones
-                  </div>
-                  {
-                  this.state.notifications.length > 0 ? 
-                  <div>
-                    
-                  {
-                    this.state.notifications.map( notification => (
-                      <Notification notification={notification}/>
-                    ))
-                  }
-                  </div>
-                  :
-                  <p className = "ofertapp-label">No hay notificaciones</p>
-                  }
-                </ul>
+                  <a 
+                    className="nav-link dropdown-toggle" 
+                    href="/profile"
+                    id="notificationDropdown" 
+                    alt="Notifications"
+                    role="button" 
+                    data-bs-toggle="dropdown" 
+                    aria-expanded="false"
+                  >
+                    <i className="fas fa-bell" alt="Notifications">
+                      
+                    </i>
+                  </a>
+                  <ul
+                    className="dropdown-menu notification-holder"
+                    aria-labelledby="notificationDropdown"
+                  >
+                    <div style = {{"textAlign": "center"}}>
+                      Notificaciones
+                    </div>
+                    {
+                    this.state.notifications.length > 0 ? 
+                      <div>
+                      {
+                        this.state.notifications.map( notification => (
+                          <Notification 
+                            key = {notification.id}
+                            notification={notification}
+                          />
+                        ))
+                      }
+                      </div>
+                    :
+                      <p className = "ofertapp-label">No hay notificaciones</p>
+                    }
+                  </ul>
                 </li>
                 </React.Fragment>
               }

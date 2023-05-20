@@ -12,3 +12,12 @@ export function getNotifications() {
         },
     });
 }
+
+export function markAsRead() {
+    const token = localStorage.getItem("token");
+    return http.post(apiEndpoint, null, {
+        headers: {
+            Authorization: "Bearer " + token,
+        },
+    });
+}

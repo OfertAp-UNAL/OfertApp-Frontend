@@ -10,7 +10,6 @@ class DetailedReport extends Component {
       const response = await fetch("http://localhost:3002/supports");
       const supports = await response.json();
       this.setState({ supports });
-      console.log("supports", supports);
     } catch (error) {
       console.error("Failed to fetch supports:", error);
     }
@@ -29,7 +28,6 @@ class DetailedReport extends Component {
     delete support.supports; // Get only the new support data
     const id = this.props.params.id;
     alert("Here comes a call to backend!");
-    console.log("support is ", support);
     this.props.navigate(`/report/${id}`);
   }
 

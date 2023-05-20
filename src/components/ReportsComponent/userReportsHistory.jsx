@@ -30,7 +30,6 @@ class UserReportsHistory extends Component {
     try {
       const {data} = await getReports();
       this.setState({ reports: data.data });
-      console.log("reports are ", data.data);
     } catch (error) {
       console.error("Failed to fetch reports:", error);
     }

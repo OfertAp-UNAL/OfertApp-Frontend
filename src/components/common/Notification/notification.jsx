@@ -15,7 +15,7 @@ class Notification extends Component {
             </li>
             <div className={ "notification-container" +
             (notification.isRead ? " notification-read" : "")}>
-              <div className="row" style = {{"font-weight": "bold"}}>
+              <div className="row" style = {{"fontWeight": "bold"}}>
                 <div className="col-10 offset-1 pt-1 pb-2">
                   {notification.title}
                 </div>
@@ -24,7 +24,7 @@ class Notification extends Component {
                 <div className="col-9 pb-3">
                   {notification.description}
                 </div>
-                <div className="col-3" style = {{"display": "flex", "justify-content": "flex-end", "align-items": "flex-end", "font-size": "small"}}>
+                <div className="col-3" style = {{"display": "flex", "justifyContent": "flex-end", "alignItems": "flex-end", "fontSize": "small"}}>
                 Hace {getTimeLeft(notification.createdAt, true)}
                 </div>
               </div>
