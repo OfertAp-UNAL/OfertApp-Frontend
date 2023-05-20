@@ -7,8 +7,8 @@ const { mediaUrl } = config;
 const FileUpload = ({ label, type, value, onChange}) => {   
     return (
         <React.Fragment>
-            <h5>{label}</h5>
-            <div class = "file-upload-wrapper mb-3">
+            <h5 className='label-style'>{label}</h5>
+            <div className = "file-upload-wrapper mb-3">
               <input 
                 type = "file"  
                 className = "file-upload"

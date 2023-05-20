@@ -70,7 +70,6 @@ class RegisterForm extends Form {
 
   doSubmit = async () => {
     const { data, municipalitiesInDepartment } = this.state;
-    debugger;
     const municipalityId = municipalitiesInDepartment.find(
       (m) => m["name"] === data.municipality
     ).id;

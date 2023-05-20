@@ -12,11 +12,9 @@ class Form extends Component {
   };
 
   validate = () => {
-    debugger;
     const options = { abortEarly: false };
     const { error } = Joi.validate(this.state.data, this.schema, options);
     if (!error) return null;
-
     const errors = {};
     for (let item of error.details) errors[item.path[0]] = item.message;
     return errors;
@@ -190,14 +188,14 @@ class Form extends Component {
     );
   }
 
-  renderInput(name, label, type = "text", enabled = false, placeholder = "") {
+  renderInput(name, label, type = "text", enabled = false, placeholder = "", defaultValue = null) {
     const { data, errors } = this.state;
 
     return (
       <Input
         type={type}
         name={name}
-        value={data[name]}
+        value={defaultValue || data[name] }
         placeholder={placeholder}
         label={label}
         readOnly={enabled}

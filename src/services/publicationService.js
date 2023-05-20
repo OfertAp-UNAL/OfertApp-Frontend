@@ -15,8 +15,8 @@ export function getPublications(params) {
 export function getPublication(publicationId, token) {
   const headers = token
     ? {
-        Authorization: "Bearer " + token,
-      }
+      Authorization: "Bearer " + token,
+    }
     : {};
   return http.get(publicationUrl(publicationId), { headers });
 }
@@ -27,7 +27,6 @@ export function createPublication(publication) {
   Object.entries(publication).forEach(([key, value]) =>
     formData.append(key, value)
   );
-  debugger;
 
   return http.post(apiEndpoint, formData, {
     headers: {
@@ -45,13 +44,21 @@ export function deletePublication(publicationId) {
   return http.delete(publicationUrl(publicationId));
 }
 
-export function addComment(publicationId, comment) {
+export function addComment(publicationId, parentId, comment) {
   const token = localStorage.getItem("token");
-  const route = apiUrl + "comments/" + publicationId + "/";
-  debugger;
+  let route = apiUrl + "comments/" + publicationId + "/";
+
+  // Check if this comment is a reply to another one
+  if (parentId)
+    route += parentId + "/";
+
   return http.post(route, comment, {
     headers: {
       Authorization: "Bearer " + token,
     },
   });
+}
+
+export function getCategories() {
+  return http.get(apiUrl + "categories/");
 }

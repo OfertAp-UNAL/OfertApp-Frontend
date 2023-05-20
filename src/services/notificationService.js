@@ -2,15 +2,11 @@ import http from "./httpService";
 import config from "../config.json";
 const apiUrl = config.apiUrl;
 
-const apiEndpoint = apiUrl + "offers/";
+const apiEndpoint = apiUrl + "notifications/";
 
-function publicationUrl(id) {
-    return `${apiEndpoint}${id}/`;
-}
-
-export function addOffer(publicationId, offer) {
+export function getNotifications() {
     const token = localStorage.getItem("token");
-    return http.post(publicationUrl(publicationId), offer, {
+    return http.get(apiEndpoint, {
         headers: {
             Authorization: "Bearer " + token,
         },

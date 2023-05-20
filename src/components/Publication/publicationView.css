@@ -15,6 +15,25 @@
     font-style: "normal";
 }
 
+.ofertapp-inspirational-message {
+    color: #00BF63;
+    font-size: 25px;
+
+    font-family: 'Inter';
+    font-style: "normal";
+
+    font-weight: 700;
+}
+
+.ofertapp-div-hline {
+    border-bottom-color: #00BF63;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 .ofertapp-base-subtitle {
     font-size: 36px;
     font-weight: bold;

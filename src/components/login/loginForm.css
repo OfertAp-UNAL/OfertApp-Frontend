@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
   margin: 0;
@@ -45,6 +46,7 @@ input {
   font-weight: bolder;
   color: #595757;
   font-size: 3rem;
+  margin-top: auto;
 }
 
 .group-form {
