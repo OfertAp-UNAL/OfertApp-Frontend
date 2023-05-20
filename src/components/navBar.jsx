@@ -1,16 +1,41 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import logo from "../images/OfertappGrande.png";
+import { getNotifications } from "./../services/notificationService";
 import withRouter from "./../services/withRouter";
 import config from "../config";
+import Notification from "./common/Notification/notification";
+
 import "../App.css";
 import "./navBar.css";
+
 
 const { mediaUrl } = config;
 
 class NavBar extends Component {
 
-  state = {}
+  state = {
+    notifications: []
+  }
+
+  async componentDidMount() {
+    try{
+      const response = await getNotifications();
+      const { status, data } = response.data;
+      if( status === "success" ){
+        this.setState({
+          notifications: data
+        });
+        return;
+      } else {
+        console.log("Error");
+      }
+    } catch( e ){
+      console.log("Error: ", e);
+    }
+    
+    this.setState({ userIsLoggedIn: false, user: {}, notifications: [] });
+  }
 
   render() {
     const { userData : user } = this.props;
@@ -78,6 +103,43 @@ class NavBar extends Component {
                     </li>
                   </React.Fragment>
                   }
+
+                <li className="nav-item flex-row text-center dropdown">
+                <a 
+                  className="nav-link dropdown-toggle" 
+                  href="/profile"
+                  id="notificationDropdown" 
+                  alt="Notifications"
+                  role="button" 
+                  data-bs-toggle="dropdown" 
+                  aria-expanded="false"
+                >
+                  <i className="fas fa-bell" alt="Notifications">
+                    
+                  </i>
+                </a>
+                <ul
+                  className="dropdown-menu notification-holder"
+                  aria-labelledby="notificationDropdown"
+                >
+                  <div style = {{"textAlign": "center"}}>
+                    Notificaciones
+                  </div>
+                  {
+                  this.state.notifications.length > 0 ? 
+                  <div>
+                    
+                  {
+                    this.state.notifications.map( notification => (
+                      <Notification notification={notification}/>
+                    ))
+                  }
+                  </div>
+                  :
+                  <p className = "ofertapp-label">No hay notificaciones</p>
+                  }
+                </ul>
+                </li>
                 </React.Fragment>
               }
               <li className= {"nav-item flex-row text-center" + (
