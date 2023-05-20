@@ -65,7 +65,7 @@ class PublicationViewOffers extends Component {
                     <p className = "ofertapp-label">No hay ofertas</p>
                 }
                 {
-                    loggedIn && ! userData.isAdmin &&
+                    loggedIn && ! ( userData && userData.isAdmin ) &&
                     <div className='col-12'>
                         <button type="button" className="btn ofertapp-button-primary" data-toggle="modal" data-target="#modalOferta">
                             Crear oferta

@@ -58,7 +58,7 @@ class PublicationView extends Component {
       <div className="w-100">
         <h1 className = "ofertapp-page-title">Visualización de Publicación</h1>
         {
-          publication && publication.reportable && ! userData.isAdmin &&
+          publication && publication.reportable && ! (userData && userData.isAdmin ) &&
              <CustomButton 
               onClick = { () => console.log("Reporte") }
               caption = "Reportar"
@@ -66,7 +66,7 @@ class PublicationView extends Component {
             />
         }
         {
-          publication && userData.isAdmin &&
+          publication && userData && userData.isAdmin &&
           <AdminDeleteButton
             type = "publicationDelete"
             id = {publication.id}

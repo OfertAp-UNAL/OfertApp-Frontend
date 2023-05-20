@@ -151,7 +151,7 @@ class Comment extends Component {
                             <strong>⚠&nbsp;{comment.reactionsCount.WARNING}</strong>
                         </div>
                         {
-                            userData.isAdmin &&
+                            userData && userData.isAdmin &&
                             <div className = "col-12 mb-2 text-center">
                                 <AdminDeleteButton
                                     caption = "X"
