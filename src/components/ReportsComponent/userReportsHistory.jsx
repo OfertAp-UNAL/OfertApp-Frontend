@@ -1,6 +1,7 @@
 import withRouter from "../../services/withRouter";
 import React, { Component } from "react";
 import UserLink from "../common/UserLink/userLink";
+import { getReports } from "../../services/reportService";
 
 class UserReportsHistory extends Component {
   state = {
@@ -9,9 +10,9 @@ class UserReportsHistory extends Component {
 
   async componentDidMount() {
     try {
-      const response = await fetch("http://localhost:3001/reportsA");
-      const reports = await response.json();
-      this.setState({ reports });
+      const {data} = await getReports();
+      this.setState({ reports: data.data });
+      console.log("reports are ", data.data);
     } catch (error) {
       console.error("Failed to fetch reports:", error);
     }
@@ -25,7 +26,6 @@ class UserReportsHistory extends Component {
             <th className="ofertapp-table-header">Id del reporte</th>
             <th className="ofertapp-table-header">Usuario que reporta</th>
             <th className="ofertapp-table-header">Tipo de reporte</th>
-            <th className="ofertapp-table-header">Fecha de creación</th>
             <th className="ofertapp-table-header">Cuerpo del reporte</th>
             <th className="ofertapp-table-header">Añadir soporte</th>
           </tr>
@@ -39,12 +39,11 @@ class UserReportsHistory extends Component {
                   <UserLink
                     fontSize="16"
                     fontColor="#fff"
-                    user={report.creatorUser}
+                    user={report.user}
                   />
                 }
               </td>
               <td>{report.type}</td>
-              <td>{report.creationDate}</td>
               <td>{report.body}</td>
               <td>
                 <button

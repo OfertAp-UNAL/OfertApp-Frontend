@@ -25,7 +25,6 @@ import FinancialTransactionsView from "./components/FinancialTransactions/accoun
 import "./App.css";
 import UserReportsHistory from "./components/ReportsComponent/userReportsHistory";
 import DetailedReport from "./components/ReportsComponent/detailedReport";
-import AddSupport from "./components/ReportsComponent/addSupport";
 class JointComponentWithNavbar extends Component {
   render() {
     return (
@@ -172,15 +171,7 @@ class App extends Component {
                 />
               }
             />a
-            <Route
-              path="/report/:id/addSupport"
-              element={
-                <JointComponentWithNavbar
-                  children={<AddSupport />}
-                  OnUpdateUserData={this.updateUserData}
-                />
-              }
-            />
+            
             <Route
               path="/publication/:id"
               element={
