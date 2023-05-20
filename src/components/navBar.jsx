@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import logo from "../images/Ofertapp.png";
 import { getUserInfo } from "./../services/userService";
+import { getNotifications } from "./../services/notificationService";
 import withRouter from "./../services/withRouter";
 import config from "./../config.json";
 import "../App.css";
 import "./navBar.css";
+import Notification from "./common/Notification/notification";
 
 const { mediaUrl } = config;
 
@@ -14,11 +16,14 @@ class NavBar extends Component {
   state = {
     userIsLoggedIn: false,
     user: {},
+    notifications: []
   }
 
   async componentDidMount() {
     try{
       const token = localStorage.getItem("token");
+      const notifications = await getNotifications();
+      console.log(notifications.data);
       const responseData = await getUserInfo( token );
       const { data, status } = responseData.data;
 
@@ -28,6 +33,7 @@ class NavBar extends Component {
         this.setState({
             userIsLoggedIn: true,
             user: data,
+            notifications: notifications.data
           });
         OnUpdateUserData( data );
         return;
@@ -39,7 +45,7 @@ class NavBar extends Component {
       localStorage.removeItem("token");
     }
     
-    this.setState({ userIsLoggedIn: false, user: {} });
+    this.setState({ userIsLoggedIn: false, user: {}, notifications: [] });
   }
 
   render() {
@@ -94,6 +100,42 @@ class NavBar extends Component {
                   <Link className="nav-link text-center" to="/createPublication">
                     Crear Publicación
                   </Link>
+                </li>
+                <li className="nav-item flex-row text-center dropdown">
+                <a 
+                  className="nav-link dropdown-toggle" 
+                  href="/profile"
+                  id="notificationDropdown" 
+                  alt="Notifications"
+                  role="button" 
+                  data-bs-toggle="dropdown" 
+                  aria-expanded="false"
+                >
+                  <i className="fas fa-bell" alt="Notifications">
+                    
+                  </i>
+                </a>
+                <ul
+                  className="dropdown-menu notification-holder"
+                  aria-labelledby="notificationDropdown"
+                >
+                  <div style = {{"textAlign": "center"}}>
+                    Notificaciones
+                  </div>
+                  {
+                  this.state.notifications.length > 0 ? 
+                  <div>
+                    
+                  {
+                    this.state.notifications.map( notification => (
+                      <Notification notification={notification}/>
+                    ))
+                  }
+                  </div>
+                  :
+                  <p className = "ofertapp-label">No hay notificaciones</p>
+                  }
+                </ul>
                 </li>
                 </React.Fragment>
               }

@@ -87,3 +87,11 @@
     color: #00BF63;
     margin-top: 20%;
 }
+
+.notification-holder {
+    --bs-dropdown-min-width: 500px !important;
+    left: -200% !important;
+    max-height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
