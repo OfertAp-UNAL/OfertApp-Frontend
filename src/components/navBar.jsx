@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import logo from "../images/Ofertapp.png";
-import { getUserInfo } from "./../services/userService";
+import logo from "../images/OfertappGrande.png";
 import withRouter from "./../services/withRouter";
 import config from "../config";
 import "../App.css";
@@ -11,38 +10,12 @@ const { mediaUrl } = config;
 
 class NavBar extends Component {
 
-  state = {
-    userIsLoggedIn: false,
-    user: {},
-  }
-
-  async componentDidMount() {
-    try{
-      const token = localStorage.getItem("token");
-      const responseData = await getUserInfo( token );
-      const { data, status } = responseData.data;
-
-      // Update app's userData globally
-      const { OnUpdateUserData } = this.props;
-      if( status === "success" ){
-        this.setState({
-            userIsLoggedIn: true,
-            user: data,
-          });
-        OnUpdateUserData( data );
-        return;
-      }
-    } catch( e ){
-      console.log("Error: ", e);
-
-      // Delete token for future actions
-      localStorage.removeItem("token");
-    }
-    
-    this.setState({ userIsLoggedIn: false, user: {} });
-  }
+  state = {}
 
   render() {
+    const { userData : user } = this.props;
+    const isAdmin = user != null && user.isAdmin;
+    const userIsLoggedIn = user != null;
     return (
       <nav className="navbar navbar-expand-lg static-top" >
         <div className="container">
@@ -68,45 +41,50 @@ class NavBar extends Component {
                 </Link>
               </li>
               {
-                this.state.userIsLoggedIn &&
+                userIsLoggedIn &&
                 <React.Fragment>
                   <li className="nav-item ofertapp-item">
-                  <Link className="nav-link text-center" to="/homepage">
-                    Mis Reportes
-                  </Link>
-                </li>
-                <li className="nav-item ofertapp-item">
-                  <Link className="nav-link text-center" to="/transaction-history">
-                    Mis Transacciones
-                  </Link>
-                </li>
-                <li className="nav-item ofertapp-item">
-                  <Link className="nav-link text-center" to="/statistics">
-                    Mis Estadísticas
-                  </Link>
-                </li>
-                <li className="nav-item ofertapp-item">
-                  <Link className="nav-link text-center" to="/my-publications">
-                    Mis Subastas
-                  </Link>
-                </li>
-                <li className="nav-item ofertapp-item">
-                  <Link className="nav-link text-center" to="/createPublication">
-                    Crear Publicación
-                  </Link>
-                </li>
-                <li className="nav-item ofertapp-item">
-                  <Link className="nav-link text-center" to="/account">
-                    Mi Saldo
-                  </Link>
-                </li>
+                    <Link className="nav-link text-center" to="/homepage">
+                      {isAdmin ? "Mis Reportes" : "Reportes"}
+                    </Link>
+                  </li>
+
+                  { !isAdmin &&
+                  <React.Fragment>
+                    <li className="nav-item ofertapp-item">
+                      <Link className="nav-link text-center" to="/transaction-history">
+                        Mis Transacciones
+                      </Link>
+                    </li>
+                    <li className="nav-item ofertapp-item">
+                      <Link className="nav-link text-center" to="/statistics">
+                        Mis Estadísticas
+                      </Link>
+                    </li>
+                    <li className="nav-item ofertapp-item">
+                      <Link className="nav-link text-center" to="/my-publications">
+                        Mis Subastas
+                      </Link>
+                    </li>
+                    <li className="nav-item ofertapp-item">
+                      <Link className="nav-link text-center" to="/createPublication">
+                        Crear Publicación
+                      </Link>
+                    </li>
+                    <li className="nav-item ofertapp-item">
+                      <Link className="nav-link text-center" to="/account">
+                        Mi Saldo
+                      </Link>
+                    </li>
+                  </React.Fragment>
+                  }
                 </React.Fragment>
               }
               <li className= {"nav-item flex-row text-center" + (
-                this.state.userIsLoggedIn ? " dropdown" : ""
+                userIsLoggedIn ? " dropdown" : ""
               )}>
               {
-                !this.state.userIsLoggedIn ?
+                !userIsLoggedIn ?
                 <button className="green-button" type="button" onClick={
                   () => {
                     this.props.navigate("/login")
@@ -129,13 +107,13 @@ class NavBar extends Component {
                       <img
                         className="img-responsive ofertapp-navbar-profile-picture"
                         alt = "Avatar"
-                        src = {mediaUrl + this.state.user.profilePicture}
+                        src = {mediaUrl + user.profilePicture}
                       />
                     </div>
                     
                     <div className="col-12 col-sm-6 text-center">
                       <p className="ofertapp-navbar-profile-name">
-                        {this.state.user.username}
+                        {user.username}
                       </p>
                     </div>
                   </div>

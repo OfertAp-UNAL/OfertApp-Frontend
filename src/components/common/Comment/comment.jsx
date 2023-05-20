@@ -59,6 +59,7 @@ class Comment extends Component {
     const comment = this.state.comment;
     const user = this.state.comment ? this.state.comment.user : null;
     const { onClick, userLoggedIn : loggedIn } = this.props;
+    const { userData } = this.props;
 
     return (
       // Conditional class name

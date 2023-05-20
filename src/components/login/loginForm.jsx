@@ -1,10 +1,11 @@
 import Form from "../common/form";
 import Joi from "joi-browser";
 import withRouter from "../../services/withRouter";
-import { login } from "../../services/userService";
-import "./loginForm.css";
 import { Link } from "react-router-dom";
+import { login } from "../../services/userService";
+import logo from "../../images/OfertappGrande.png";
 import { toast } from "react-toastify";
+import "./loginForm.css";
 
 class LoginForm extends Form {
   state = {
@@ -20,14 +21,6 @@ class LoginForm extends Form {
     password: Joi.string().required().label("Contraseña"),
   };
 
-  componentDidMount() {
-    document.body.classList.add("center-container");
-  }
-
-  componentWillUnmount() {
-    document.body.classList.remove("center-container");
-  }
-
   doSubmit = async () => {
     const { data } = this.state;
     try {
@@ -39,6 +32,9 @@ class LoginForm extends Form {
         );
         // Success logic, save token and redirect
         localStorage.setItem("token", response.data.token); // Save JWT in client browser
+
+        // Finally update general user data
+        await this.props.OnUpdateUserData();
         this.props.navigate("/homepage");
       } else {
         toast.error("Usuario o contraseña incorrectos");
@@ -46,19 +42,6 @@ class LoginForm extends Form {
     } catch (e) {
       toast.error("Usuario o contraseña incorrectos");
     }
-  };
-
-  // Overwrite validation method+
-  validate = () => {
-    const errors = {};
-    const { data } = this.state;
-    if (data.user.trim() === "") {
-      errors.user = "Nombre de usuario o correo es requerido";
-    }
-    if (data.password.trim() === "") {
-      errors.password = "Contraseña es requerida";
-    }
-    return Object.keys(errors).length === 0 ? null : errors;
   };
 
   handleSubmit = (e) => {
@@ -71,49 +54,38 @@ class LoginForm extends Form {
   };
 
   render() {
-    return (
-      <div className = "align-middle">
-        <h5 className="login-title">Inicio de sesión</h5>
-        <form onSubmit={this.handleSubmit} id="login-form">
-          <div className="form-input">
-            <label htmlFor="username-input">Nombre de usuario</label>
-            <input 
-              id="username-input" 
-              className="form-input" 
-              type="text"
-              onChange = {(e) => {
-                this.setState({data: {...this.state.data, user: e.target.value}});
-              }}
-            />
+    return ( 
+      <form onSubmit={this.handleSubmit}>
+        <div className="container">
+          <div className="form-div">
+            <div className="row align-middle">
+              <img className="login-logo pb-2" src={logo} alt="Nope" />
+              <div className="offset-1 col-10">
+                <h5 className="login-title ps-2">
+                  Inicio de sesión
+                </h5>
+                {this.renderInput("user", "Nombre de usuario")}
+                {this.renderInput("password", "Contraseña", "password")}
+                <br/>
+                <div className="row justify-content-center">
+                  {this.renderButton("¡Listo!")}
+                </div>
+                <div className = "text-center">
+                  <Link id="reset-password-login" to="/askResetPassword">
+                    ¿Olvidaste tu contraseña? Recupérala!
+                  </Link>
+                  <br/>
+                  <Link id="register-user-login" to="/register">
+                    Regístrate si no tienes una cuenta
+                  </Link>
+                </div>
+                
+              </div>
+            </div>
+      
           </div>
-          <div className="form-input">
-            <label htmlFor="password-input">Contraseña</label>
-            <input 
-              id="password-input" 
-              className="form-input" 
-              type="password" 
-              onChange = {(e) => {
-                this.setState({data: {...this.state.data, password: e.target.value}});
-              }}
-            />
-          </div>
-
-          <Link id="reset-password-login" to="/askResetPassword">
-            Recuperar contraseña
-          </Link>
-
-          <button
-            disabled={this.validate() !== null}
-            className="btn btn-form login-button"
-          >
-            Iniciar Sesión
-          </button>
-
-          <Link id="register-user-login" to="/register">
-            Regístrate si no tienes una cuenta
-          </Link>
-        </form>
-      </div>
+        </div>
+      </form>
     );
   }
 }

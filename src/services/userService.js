@@ -52,11 +52,19 @@ export function getUserInfo(token) {
 }
 
 export function updateUserData(modifiedData) {
+  const formData = new FormData();
+  if (modifiedData.profilePicture != null) {
+    formData.append("profilePicture", modifiedData.profilePicture);
+  }
+  formData.append("firstName", modifiedData.firstName);
+  formData.append("lastName", modifiedData.lastName);
+  formData.append("email", modifiedData.email);
+  formData.append("username", modifiedData.username);
+
   const token = localStorage.getItem("token");
-  return http.patch(apiUrl + "userinfo/", {
+  return http.patch(apiUrl + "userinfo/", modifiedData, {
     headers: {
       Authorization: "Bearer " + token,
-    },
-    body: modifiedData,
+    }
   });
 }

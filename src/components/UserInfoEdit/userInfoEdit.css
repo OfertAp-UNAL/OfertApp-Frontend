@@ -1,32 +1,3 @@
-.update-user-data-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-}
-
-.ofertapp-inspirational-message {
-    color: #00BF63;
-    font-size: 25px;
-
-    font-family: 'Inter';
-    font-style: "normal";
-
-    font-weight: 700;
-}
-
-.form__input {
-    padding-left: 0.7rem;
-    border: 1px solid gray;
-}
-
-.btn-form {
-    margin-top: 1rem;
-}
-
-input:invalid {
-    background: red;
-}
-
 .ofertapp-page-title {
     font-size: 48px;
     font-weight: bold;
@@ -44,7 +15,7 @@ input:invalid {
     font-style: "normal";
 }
 
-.ofertapp-update-column {
+.ofertapp-registration-column {
     padding-right: 50px !important;
     padding-left: 50px !important;
     margin: auto;

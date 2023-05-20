@@ -3,10 +3,10 @@ import Joi from "joi-browser";
 import withRouter from "../../../services/withRouter";
 import { getDepartments } from "../../../services/municipioDepartamentosService.js";
 import { getMunicipalitiesByDepartment } from "../../../services/municipioDepartamentosService.js";
+import { updateUserData } from "./../../../services/userService";
 import FileUpload from "../FileUpload/fileUpload";
-import "../../../App.css";
+import { toast } from "react-toastify";
 import "./updateRegistration.css";
-import { getUserInfo } from "../../../services/userService";
 
 class UpdateUserDataForm extends Form {
   state = {
@@ -17,72 +17,60 @@ class UpdateUserDataForm extends Form {
       department: "",
       municipality: "",
       address: "",
-      paymentAccountType: "",
-      paymentAccountNumber: "",
       profilePicture: null,
     },
     errors: {},
     departments: [],
-    municipalitiesInDepartment: [],
+    municipalitiesInDepartment: []
   };
 
   schema = {
     firstName: Joi.string().required().label("Nombres"),
     lastName: Joi.string().required().label("Apellidos"),
-    phone: Joi.number().required().label("Teléfono"),
+    phone: Joi.string().required().label("Teléfono"),
     department: Joi.string().required().label("Departamento"),
     municipality: Joi.string().required().label("Municipio"),
     address: Joi.string().required().label("Dirección"),
-    paymentAccountType: Joi.string().required().label("Tipo de cuenta de pago"),
-    paymentAccountNumber: Joi.string()
-      .required()
-      .label("Número de cuenta de pago"),
     profilePicture: Joi.any(),
   };
 
+  componentDidUpdate(prevProps) {
+    
+    if( this.props.userData != null && prevProps.userData !== this.props.userData) {
+      console.log( "data" )
+      console.log( this.props.userData )
+      this.setState({
+        data: this.mapToViewModel(this.props.userData)
+      })
+    }
+  }
+
   mapToViewModel(user) {
     return {
-      data: {
         firstName: user.firstName ? user.firstName : "",
         lastName: user.lastName ? user.lastName : "",
         phone: user.phone ? user.phone : "",
         department: user.department ? user.department : "",
         municipality: user.municipality ? user.municipality : "",
         address: user.address ? user.address : "",
-        paymentAccountType: user.paymentAccountType
-          ? user.paymentAccountType
-          : "",
-        paymentAccountNumber: user.paymentAccountNumber
-          ? user.paymentAccountNumber
-          : "",
         profilePicture: user.profilePicture,
-      },
-    };
+      };
   }
 
-  populateUserData = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const a = await getUserInfo(token);
-      const user = a["data"]["data"];
-      this.setState({
-        data: this.mapToViewModel(user).data,
-      });
-    } catch (ex) {
-      if (ex.response && ex.response.status === 404)
-        this.props.navigate("/not-found");
-    }
-  };
-
-  fillDepartments = async () => {
+  fillData = async () => {
     const { data } = await getDepartments();
     const departments = data.map((e) => e.departamento);
-    this.setState({ departments });
+    this.setState({
+      data: this.props.userData ? 
+          this.mapToViewModel(this.props.userData) :
+          this.state.data,
+      
+      departments 
+    });
   };
 
   async componentDidMount() {
-    await this.populateUserData();
-    await this.fillDepartments();
+    await this.fillData();
   }
 
   handleDepartmentSelection = async (departmentName) => {
@@ -112,7 +100,22 @@ class UpdateUserDataForm extends Form {
   };
 
   doSubmit = async () => {
-    this.props.navigate("/homepage");
+    const { data } = this.state;
+    try{
+      const response = await updateUserData(data);
+
+      const{ status, error } = response.data;
+      if( status === "success" ){
+        this.props.navigate("/homepage");
+      } else {
+        toast.error("Error actualizando usuario, verifique los campos digitados: " + 
+          JSON.stringify( error || "Error desconocido") 
+        );
+      }
+    } catch ( ex ){
+      console.log( ex );
+      toast.error("Error actualizando usuario, verifique los campos digitados")
+    }
   };
 
   handleSubmit = (e) => {
@@ -125,120 +128,92 @@ class UpdateUserDataForm extends Form {
   };
 
   render() {
+    const userData = this.props.userData;
     const { departments, municipalitiesInDepartment, errors } = this.state;
     const municipalitiesNames = municipalitiesInDepartment.map(
       (m) => m["name"]
     );
     return (
-      <form onSubmit={this.handleSubmit} className="update-user-data-form">
-        <div className="update-user-data-form__left-column">
-          <div>
-            <label className="form__label" htmlFor="firstName">
-              Nombres
-            </label>
-            <input
-              className={
-                errors["firstName"] ? "form__input error-input" : "form__input"
-              }
-              type="text"
-              name="firstName"
-              onChange={this.handleChange}
-            />
+      userData ?
+        <form onSubmit={this.handleSubmit} className="update-user-data-form">
+          <div className="ofertapp-update-column text-center">
+            {this.renderInput( 
+              "id", "Tu Identificación", "text", 
+              true, "", userData.id )
+            }
+            <div className="ofertapp-div-hline"></div>
+            {this.renderInput( 
+              "firstName", "Tus Nombres", "text", 
+              false, "", userData.firstName )
+            }
+            <div className="ofertapp-div-hline"></div>
+            {this.renderInput( 
+              "lastName", "Tus Apellidos", "text", 
+              false, "", userData.lastName )
+            }
+            <div className="ofertapp-div-hline"></div>
+            {this.renderInput( 
+              "phone", "Tu Número de teléfono", "text", 
+              false, "", userData.phone )
+            }
+            <div className="ofertapp-div-hline"></div>
+            <h1 className="ofertapp-inspirational-message">
+              Confirma / Actualiza tu contraseña
+            </h1>
+            {this.renderInput("password", "Contraseña", "password")}
+            <div className="ofertapp-div-hline"></div>
+            {this.renderInput(
+              "confirmPassword",
+              "Confirmar Contraseña",
+              "password"
+            )}
           </div>
-          <div>
-            <label className="form__label" htmlFor="lastName">
-              Apellidos
-            </label>
-            <input
-              className={
-                errors["lastName"] ? "form__input error-input" : "form__input"
-              }
-              type="text"
-              name="lastName"
-              onChange={this.handleChange}
-            />
-          </div>
-          <div>
-            <label className="form__label" htmlFor="phone">
-              Teléfono
-            </label>
-            <input
-              className={
-                errors["phone"] ? "form__input error-input" : "form__input"
-              }
-              type="number"
-              name="phone"
-              onChange={this.handleChange}
-            />
-          </div>
-          <FileUpload
-            label="Imagen de perfil"
-            type="image"
-            onChange={this.handleProfileImageSelection}
-          />
-        </div>
 
-        <update-user-data-form__right-column>
-          {this.renderAutosuggest(
-            "department",
-            "Departamento",
-            departments,
-            this.handleDepartmentSelection
-          )}
-          {this.renderAutosuggest(
-            "municipality",
-            "Municipio",
-            municipalitiesNames,
-            this.handleMunicipalitySelection
-          )}
-          <div>
-            <label className="form__label" htmlFor="address">
-              Dirección
-            </label>
-            <input
-              className={
-                errors["address"] ? "form__input error-input" : "form__input"
-              }
-              type="text"
-              name="address"
-              onChange={this.handleChange}
+          <div className="ofertapp-update-column text-center">
+            <FileUpload
+              label="Imagen de perfil"
+              type="image"
+              onChange={this.handleProfileImageSelection}
             />
+            <div className="ofertapp-div-hline"></div>
+            {this.renderAutosuggest(
+              "department",
+              "Departamento",
+              departments,
+              this.handleDepartmentSelection
+            )}
+            <div className="ofertapp-div-hline"></div>
+            {this.renderAutosuggest(
+              "municipality",
+              "Municipio",
+              municipalitiesNames,
+              this.handleMunicipalitySelection
+            )}
+            <div className="ofertapp-div-hline"></div>
+            {this.renderInput( 
+              "address", "Tu dirección", "text", 
+              false, "", userData.address )
+            }
+            <div className="ofertapp-div-hline"></div>
+            {this.renderInput( 
+              "paymentAccountType", "Tu método de pago", "text", 
+              false, "", userData.accountType )
+            }
+            <div className="ofertapp-div-hline"></div>
+            {this.renderInput( 
+              "paymentAccountNumber", "Tu número de cuenta de pago", "text", 
+              false, "", userData.accountId )
+            }
+            
+            <button disabled={this.validate() !== null} className="btn btn-form">
+              Actualizar
+            </button>
           </div>
-          <div>
-            <label className="form__label" htmlFor="paymentAccountType">
-              Método de pago
-            </label>
-            <input
-              className={
-                errors["paymentAccountType"]
-                  ? "form__input error-input"
-                  : "form__input"
-              }
-              type="text"
-              name="paymentAccountType"
-              onChange={this.handleChange}
-            />
-          </div>
-          <div>
-            <label className="form__label" htmlFor="paymentAccountNumber">
-              Número de cuenta
-            </label>
-            <input
-              className={
-                errors["paymentAccountNumber"]
-                  ? "form__input error-input"
-                  : "form__input"
-              }
-              type="text"
-              name="paymentAccountNumber"
-              onChange={this.handleChange}
-            />
-          </div>
-          <button disabled={this.validate() !== null} className="btn btn-form">
-            Actualizar
-          </button>
-        </update-user-data-form__right-column>
-      </form>
+        </form>
+      :
+      <p>
+        Cargando...
+      </p>
     );
   }
 }

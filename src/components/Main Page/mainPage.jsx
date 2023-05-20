@@ -48,7 +48,7 @@ class MainPage extends Component {
     },
     publications: [],
     currentPage: 1,
-    pageSize: 4,
+    pageSize: 5
   };
 
   async componentDidMount() {
@@ -58,7 +58,6 @@ class MainPage extends Component {
     // Check if user is viewing his own publications only
     if( this.props.userPublications === "true" ){
       const token = localStorage.getItem("token");
-
       if( token ){
         try{
           const payload = parseJwt(token);
@@ -80,12 +79,12 @@ class MainPage extends Component {
     await this.handleSubmit();
   }
 
-  componentDidUpdate(prevProps) {
-    // Check if user is viewing his own publications only
-    if( this.props.userPublications !== prevProps.userPublications ){
-      this.componentDidMount(); // Actually component did mount if url changed at this point
+    componentDidUpdate(prevProps) {
+      // Check if user is viewing his own publications only
+      if( this.props.userPublications !== prevProps.userPublications ){
+        this.componentDidMount(); // Actually component did mount if url changed at this point
+      }
     }
-  }
 
   handlePageChange = (page) => {
     this.setState({ currentPage: page });
@@ -138,15 +137,21 @@ class MainPage extends Component {
       const { data:response } = await getPublications(requestParams);
       const { data, status } = response;
       if( status === "success" ){
-        this.setState({ publications: data });
+        this.setState({ 
+          publications: data
+        });
         return;
       } else {
-        this.setState({ publications: [] });
+        this.setState({ 
+          publications: []
+        });
       }
 
     } catch (e) {
       console.log("Error: ", e);
-      this.setState({publications: []});
+      this.setState({
+        publications: []
+      });
     }
   }
 
@@ -234,6 +239,7 @@ class MainPage extends Component {
           />
         </div>
       </div>
+
     );
   }
 }
