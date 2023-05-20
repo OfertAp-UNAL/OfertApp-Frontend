@@ -4,7 +4,7 @@ import logo from "../images/Ofertapp.png";
 import { getUserInfo } from "./../services/userService";
 import { getNotifications } from "./../services/notificationService";
 import withRouter from "./../services/withRouter";
-import config from "./../config.json";
+import config from "../config";
 import "../App.css";
 import "./navBar.css";
 import Notification from "./common/Notification/notification";
@@ -99,6 +99,11 @@ class NavBar extends Component {
                 <li className="nav-item ofertapp-item">
                   <Link className="nav-link text-center" to="/createPublication">
                     Crear Publicación
+                  </Link>
+                </li>
+                <li className="nav-item ofertapp-item">
+                  <Link className="nav-link text-center" to="/account">
+                    Mi Saldo
                   </Link>
                 </li>
                 <li className="nav-item flex-row text-center dropdown">

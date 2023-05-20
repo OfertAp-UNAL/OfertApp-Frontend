@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import withRouter from "../../services/withRouter";
 import { getStatistics } from '../../services/statisticsService';
 import StatisticsAccountView from './statisticsViewBalance';

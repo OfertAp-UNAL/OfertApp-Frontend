@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import CustomButton from '../common/Button/button';
 import { verify } from './../../services/verificationService';
 import withRouter from '../../services/withRouter';

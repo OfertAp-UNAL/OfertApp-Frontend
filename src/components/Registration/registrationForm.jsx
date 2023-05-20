@@ -10,20 +10,20 @@ import { toast } from "react-toastify";
 class RegisterForm extends Form {
   state = {
     data: {
-      id: 12,
-      firstName: "Jose",
-      lastName: "Avila",
-      email: "jose@mail.com",
-      username: "fdsaf",
+      id: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      username: "",
       birthdate: "",
-      password: "asdf",
-      confirmPassword: "asdf",
-      phone: "123",
+      password: "",
+      confirmPassword: "",
+      phone: "",
       department: "",
       municipality: "",
-      address: "fadf",
-      paymentAccountType: "asdf",
-      paymentAccountNumber: "132",
+      address: "",
+      paymentAccountType: "",
+      paymentAccountNumber: "",
       profilePicture: null,
     },
     departments: [],
@@ -76,14 +76,16 @@ class RegisterForm extends Form {
     const user = { ...data, municipalityId };
     try{
       const response = await registerUser(user);
-      const{ token, status } = response.data;
+      const{ token, status, error } = response.data;
       if(status === "success" ){
         toast.success("Usuario registrado exitosamente");
         localStorage.setItem("token", token); // Save JWT in client browser
         
         this.props.navigate("/homepage");
       } else {
-        toast.error("Error registrando usuario, verifique los campos digitados");
+        toast.error("Error registrando usuario, verifique los campos digitados: " + 
+          JSON.stringify( error || "Error desconocido") 
+        );
       }
     } catch( e ) {
       toast.error("Error registrando usuario, verifique los campos digitados");

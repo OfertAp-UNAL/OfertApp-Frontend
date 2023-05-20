@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import "./transactionHistory.css";
 
 class QuickOfferInfo extends Component {

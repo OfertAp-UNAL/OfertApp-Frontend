@@ -10,13 +10,17 @@ axios.interceptors.response.use(null, (error) => {
     toast.error("An unexpected error occurrred.");
   }
 
-  return Promise.reject(error);
+  return {
+    data: error,
+    status: "error",
+  };
 });
 
-export default {
+const exportable = {
   get: axios.get,
   post: axios.post,
   put: axios.put,
   delete: axios.delete,
   patch: axios.patch,
-};
+}
+export default exportable;
