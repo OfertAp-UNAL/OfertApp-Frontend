@@ -13,6 +13,7 @@ class DetailedReport extends Component {
   state = { 
     supports: [],
     report : null,
+    reportId: this.props.params.id
   };
 
   async componentDidMount() {
@@ -40,19 +41,25 @@ class DetailedReport extends Component {
     formData.append("body", body);
     formData.append("type", "IMAGE");
     
-    const id = this.props.params.id;
+    const id = this.state.reportId;
 
     try{
       const { data: result } = await postReportSupport(formData, id);
       const { status, data, error } = result;
       if (status === "success") {
-        toast.success("Soporte agregado");
+        
+        const supportData = {
+          ...data,
+          // We know its myself who did add the support
+          user: this.props.userData,
+        }
 
         this.setState({
-          data: "",
-          body: "",
-          supports: [...this.state.supports, data],
+          supports: [...this.state.supports, supportData],
         });
+
+        toast.success("Soporte agregado");
+
       } else {
         toast.error("Error al agregar soporte " + 
           (error ? JSON.stringify(error) : "")
@@ -79,7 +86,9 @@ class DetailedReport extends Component {
           >
             { ! isAdmin ? "Agregar Soporte" : "Actualizar estado de reporte" }
           </button>
-          <AddSupportDialog onSubmit = { this.handleSubmit }/>
+          <AddSupportDialog onSubmit = { (data, body) => this.handleSubmit(
+            data, body
+          ) }/>
           <UpdateReportStatusForm 
             report = {report}
             onSuccess = { () => toast.success("Reporte actualizado") }

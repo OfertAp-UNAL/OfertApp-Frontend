@@ -110,7 +110,9 @@ class App extends Component {
             <Route
               path="/reports-history"
               element={
-                <UserReportsHistory />
+                <UserReportsHistory
+                  userData={userData}
+                />
               }
             />
 

@@ -73,6 +73,7 @@ class UserReportsHistory extends Component {
                       key={report.id}
                       report={report}
                       navigate={this.props.navigate}
+                      userData={this.props.userData}
                     />
                   ))}
                 </tbody>

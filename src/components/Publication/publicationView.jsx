@@ -69,8 +69,13 @@ class PublicationView extends Component {
   submitReport = async () => {
     const { type, body } = this.state.reportData;
     const { id } = this.props.params;
-    await postReport(type, body, id);
-    alert("okok")
+    const { data } = await postReport(type, body, id);
+    const { status } = data;
+    if ( status === "success") {
+      toast.success("Reporte enviado con éxito");
+    } else {
+      toast.error("Error al enviar reporte");
+    }
   };
 
   render() {
