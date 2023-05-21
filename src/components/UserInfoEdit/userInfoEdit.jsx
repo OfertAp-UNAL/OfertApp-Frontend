@@ -1,9 +1,8 @@
 import Joi from "joi-browser";
 import withRouter from "../../services/withRouter";
 import Form from "../common/form";
-import { getDepartments } from "../../services/municipioDepartamentosService";
+import { getDepartments, getMunicipalitiesByDepartment } from "../../services/municipioDepartamentosService";
 import { registerUser, updateUserData } from "../../services/userService";
-import { getMunicipalitiesByDepartment } from "../../services/municipioDepartamentosService";
 import FileUpload from "../common/FileUpload/fileUpload";
 import ComboBox from "../common/comboBox";
 import CustomButton from "../common/Button/button";
@@ -50,19 +49,26 @@ class UserInfoEdit extends Form {
   }
 
   async componentDidMount() {
-    const { data } = await getDepartments();
-    const departments = data.map((e) => e.departamento);
+    const { data : response } = await getDepartments();
+    const { status, data } = response;
 
-    // Check if there is user data around here
-    const parsedData = this.getUserData();
+    if(status === "success"){
+      
+      const departments = data.map((e) => e.name);
 
-    this.setState({ 
-      departments,
-      data: {
-        ...this.state.data,
-        ...parsedData
-      }
-    });
+      // Check if there is user data around here
+      const parsedData = this.getUserData();
+
+      this.setState({ 
+        departments,
+        data: {
+          ...this.state.data,
+          ...parsedData
+        }
+      });
+    } else {
+      toast.error("Error cargando departamentos");
+    }
   }
 
   // Method for getting logged in user information
