@@ -50,3 +50,12 @@ export function updateUserData(modifiedData) {
     }
   });
 }
+
+export function buyMembership() {
+  const token = localStorage.getItem("token");
+  return http.post(apiUrl + "membership/", {}, {
+    headers: {
+      Authorization: "Bearer " + token,
+    }
+  });
+}

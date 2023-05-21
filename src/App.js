@@ -6,6 +6,7 @@ import NavBar from "./components/navBar";
 import NotFound from "./components/common/notFound";
 import PublicationView from "./components/Publication/publicationView";
 import Verify from "./components/VerificationPage/verificationPage";
+import DeliveryInfo from "./components/DeliveryInformation/deliveryInformation";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -56,6 +57,9 @@ class App extends Component {
         this.setState({
           userData: null,
         });
+
+        // Delete token for future actions
+        localStorage.removeItem("token");
       }
 
     } catch (e) {
@@ -185,6 +189,14 @@ class App extends Component {
               path="/publication/:id"
               element={
                 <PublicationView
+                  userData={userData}
+                />
+              }
+            />
+            <Route
+              path="/delivery/:id"
+              element={
+                <DeliveryInfo
                   userData={userData}
                 />
               }

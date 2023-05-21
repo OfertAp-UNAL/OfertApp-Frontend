@@ -87,14 +87,17 @@ class PublicationView extends Component {
       <div className="w-100">
         <h1 className="ofertapp-page-title">Visualización de Publicación</h1>
 
-        <button
-          type="button"
-          className="btn ofertapp-button-primary"
-          data-toggle="modal"
-          data-target="#modalReporte"
-        >
-          Reportar
-        </button>
+        {
+          publication && ! (userData && userData.isAdmin) &&
+          <button
+            type="button"
+            className="btn ofertapp-button-primary"
+            data-toggle="modal"
+            data-target="#modalReporte"
+          >
+            Reportar
+          </button>
+        }
         <div
           className="modal fade"
           id="modalReporte"
@@ -187,16 +190,32 @@ class PublicationView extends Component {
           </div>
         </div>
         {publication && userData && userData.isAdmin && (
-          <AdminDeleteButton
-            type="publicationDelete"
-            id={publication.id}
-            caption="Eliminar publicación"
-            onSuccess={() => {
-              toast.success("Publicación eliminada con éxito");
-              this.props.navigate("/homepage");
-            }}
-            onError={(error) => toast.error(error)}
-          />
+          <div>
+            <AdminDeleteButton
+              type="publicationDelete"
+              id={publication.id}
+              caption="Eliminar publicación"
+              onSuccess={() => {
+                toast.success("Publicación eliminada con éxito");
+                this.props.navigate("/homepage");
+              }}
+              onError={(error) => toast.error(error)}
+            />
+            <div className="row">
+              <div className="col-12 col-md-6">
+                Tipo de entrega: {
+                  publication.deliveryType ? (
+                    publication.deliveryType === "SV" ? "Servientrega" : "Prosegur"
+                  ) : "No especificado"
+                }
+              </div>
+              <div className="col-12 col-md-6">
+                ID de entrega: {
+                  publication.deliveryId || "No especificado"
+                }
+              </div>
+            </div>
+          </div>  
         )}
 
         <h2 className="ofertapp-base-subtitle">
