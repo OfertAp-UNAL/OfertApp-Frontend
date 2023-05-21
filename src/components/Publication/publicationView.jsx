@@ -141,10 +141,27 @@ class PublicationView extends Component {
                       onChange={this.handleRadioChange}
                     />
                   </li>
+
                   <li className="report-list__item">
-                    <label htmlFor="other">Otro</label>
-                    <input type="text" name="other" id="other" />
+                    <label htmlFor="MA">Fallo de Calidad</label>
+                    <input
+                      type="radio"
+                      name="report-type"
+                      id="QF"
+                      onChange={this.handleRadioChange}
+                    />
                   </li>
+
+                  <li className="report-list__item">
+                    <label htmlFor="DL">No me gustó el producto</label>
+                    <input
+                      type="radio"
+                      name="report-type"
+                      id="DL"
+                      onChange={this.handleRadioChange}
+                    />
+                  </li>
+                  
                 </ul>
                 <hr />
                 <textarea
