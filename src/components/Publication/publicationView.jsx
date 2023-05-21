@@ -202,16 +202,22 @@ class PublicationView extends Component {
               onError={(error) => toast.error(error)}
             />
             <div className="row">
-              <div className="col-12 col-md-6">
+              <div className="col-12 col-md-4">
                 Tipo de entrega: {
                   publication.deliveryType ? (
                     publication.deliveryType === "SV" ? "Servientrega" : "Prosegur"
                   ) : "No especificado"
                 }
               </div>
-              <div className="col-12 col-md-6">
+              <div className="col-12 col-md-4">
                 ID de entrega: {
                   publication.deliveryId || "No especificado"
+                }
+              </div>
+              <div className="col-12 col-md-4">
+                Comprador confirma recepción: {
+                  publication.confirmed ?
+                    "Sí" : "No"
                 }
               </div>
             </div>

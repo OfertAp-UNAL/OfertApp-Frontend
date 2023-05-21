@@ -40,7 +40,7 @@ class DeliveryInfo extends Form {
 
         } catch (error) {
             console.log( error );
-            toast.error("Error al verificar la cuenta");
+            toast.error("Error al editar información");
         }
     }
 

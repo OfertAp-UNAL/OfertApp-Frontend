@@ -7,6 +7,7 @@ import NotFound from "./components/common/notFound";
 import PublicationView from "./components/Publication/publicationView";
 import Verify from "./components/VerificationPage/verificationPage";
 import DeliveryInfo from "./components/DeliveryInformation/deliveryInformation";
+import ConfirmProductDelivery from "./components/DeliveryInformation/confirmDelivery";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -197,6 +198,14 @@ class App extends Component {
               path="/delivery/:id"
               element={
                 <DeliveryInfo
+                  userData={userData}
+                />
+              }
+            />
+            <Route
+              path="/confirm/:id"
+              element={
+                <ConfirmProductDelivery
                   userData={userData}
                 />
               }
