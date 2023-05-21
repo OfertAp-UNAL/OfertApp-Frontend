@@ -97,7 +97,7 @@ class UserInfoEdit extends Form {
       lastName: Joi.string().required().label("Apellidos"),
       username: editing ? Joi.any() : Joi.string().required().label("Nombre de usuario"),
       password: editing ? 
-        Joi.password().regex(
+        Joi.string().regex(
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/ 
         ).optional().label("Contraseña").allow("").options({
           language: {

@@ -173,7 +173,9 @@ class App extends Component {
             <Route
               path="/report/:id"
               element={
-                <DetailedReport />
+                <DetailedReport
+                  userData={userData}
+                />
               }
             />a
 

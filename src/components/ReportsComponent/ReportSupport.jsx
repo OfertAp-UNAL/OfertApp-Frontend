@@ -1,6 +1,8 @@
 import { Component } from "react";
 import config from "./../../config";
 import { getDatetimeFormatted } from "../../utils/getTime";
+import UserLink from "../common/UserLink/userLink";
+
 import "./reportsComponent.css"
 
 const { mediaUrl } = config;
@@ -9,10 +11,16 @@ class ReportSupport extends Component {
     render() {
         const { support } = this.props;
         return (
-            <div className = "col-12 col-sm-4">
+            <div className = "col-12 col-sm-6">
                 <div className="row ofertapp-reaction-support">
                     <div className="col-12 col-md-8">
                         <div className="row align-middle">
+                            <div className="col-12 ofertapp-support-text">
+                                <UserLink
+                                    fontSize="24"
+                                    user={ support.user }
+                                />
+                            </div>
                             <div className="col-12 ofertapp-support-text">
                                 { support.body }
                             </div>

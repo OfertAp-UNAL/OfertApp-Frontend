@@ -36,19 +36,9 @@ export function deleteUser(userId) {
         });
 }
 
-export function postReport(reportId, data) {
+export function editReport(reportId, data) {
     const token = localStorage.getItem("token");
     return http.post(requestURL + "reports/" + reportId + "/", data,
-        {
-            headers: {
-                "Authorization": "Bearer " + token,
-            },
-        });
-}
-
-export function postUser(userId, data) {
-    const token = localStorage.getItem("token");
-    return http.post(requestURL + "users/" + userId + "/", data,
         {
             headers: {
                 "Authorization": "Bearer " + token,

@@ -1,13 +1,12 @@
 import { Component } from "react";
 import { 
-    deletePublication, deleteComment, deleteUser, 
-    postReport, postUser
+    deletePublication, deleteComment, deleteUser
 } from "../../services/adminService";
 
 class AdminDeleteButton extends Component {
     handleClick = async () => {
         // Data may not exist if its a deletion case
-        const { type, id, data, onSuccess, onError } = this.props;
+        const { type, id, onSuccess, onError } = this.props;
         let response = null;
 
         switch( type ){
@@ -19,12 +18,6 @@ class AdminDeleteButton extends Component {
                 break;
             case "userDelete":
                 response = await deleteUser( id );
-                break;
-            case "userUpdate":
-                response = await postUser( id, data );
-                break;
-            case "reportUpdate":
-                response = await postReport( id, data );
                 break;
             default:
                 onError( "Error al realizar la operación" );

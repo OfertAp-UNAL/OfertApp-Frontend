@@ -91,7 +91,7 @@ class PublicationViewComments extends Component {
           ))}
         </div>
         {
-          loggedIn && ! userData.isAdmin &&
+          loggedIn && !( userData && userData.isAdmin ) &&
           <div className= "col-12">
             Haz click sobre un comentario para responder.
             <input
