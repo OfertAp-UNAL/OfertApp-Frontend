@@ -107,7 +107,7 @@ class Form extends Component {
     /* General use button. If the form has a check T&C button, it will only 
     be active if they're accepted. If the form doesn't have T&C it will be active only with the JOI validation*/
     let termsConditionsAccepted = true;
-    if (this.state.acceptedTermsConditions) {
+    if (this.state.acceptedTermsConditions != null ) {
       termsConditionsAccepted = this.state.acceptedTermsConditions;
     }
 
@@ -188,20 +188,38 @@ class Form extends Component {
     );
   }
 
-  renderInput(name, label, type = "text", enabled = false, placeholder = "", defaultValue = null) {
+  renderInput(name, label, type = "text", readonly = false, placeholder = "", defaultValue = null) {
     const { data, errors } = this.state;
 
     return (
       <Input
         type={type}
         name={name}
-        value={defaultValue || data[name] }
+        defaultValue={defaultValue || data[name] }
         placeholder={placeholder}
         label={label}
-        readOnly={enabled}
+        readOnly={readonly}
         onChange={this.handleChange}
         error={errors[name]}
       />
+    );
+  }
+
+  // Custom render marking errors
+  generateErrorsDiv() {
+    // Show all validation errors
+    return (
+      <div>
+        {
+          this.state.errors && Object.keys(this.state.errors).map((key) => {
+            return (
+              <div key={key}>
+                {this.state.errors[key]}
+              </div>
+            );
+          }
+        )}
+      </div>  
     );
   }
 }

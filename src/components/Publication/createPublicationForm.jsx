@@ -6,14 +6,13 @@ import { createPublication, getCategories } from "../../services/publicationServ
 import { toast } from "react-toastify";
 import ComboBox from "../common/comboBox";
 import CheckBox from "../common/checkBox";
-import CustomButtom from "../common/Button/button";
 
 import "./publicationView.css";
 
 class CreatePublicationForm extends Form {
   state = {
     data: {
-      title: "jose",
+      title: "",
       category: "",
       productDescription: "",
       startingPrice: "",
@@ -39,7 +38,7 @@ class CreatePublicationForm extends Form {
       this.setState({
           data : {
             ...this.state.data,
-            category: data[0].name,
+            category: data[0] ? data[0].id : "",
             auctionDuration: defaultAuctionDuration
           },
          categories: data,
@@ -65,17 +64,18 @@ class CreatePublicationForm extends Form {
     boostProduct: Joi.boolean().label("Boosteable"),
   };
 
-  genServiceData = () => {
+  genServiceData = ( userIsVIP ) => {
     const { 
       productDescription, startingPrice, evidenceFile, evidenceDescription,
-      category, auctionDuration, boostProduct
+      category, auctionDuration, boostProduct, title
      } = this.state.data;
 
     // Find category ID
-    const categoryId = this.state.categories.find((e) => e.name === category).id;
+    const categoryId = category
 
     // Modify name fields that already exist to make them match with what the backend expects
     let requestData = {
+      title : title,
       description : productDescription,
       minOffer : startingPrice,
       supportsFiles : evidenceFile,
@@ -84,33 +84,42 @@ class CreatePublicationForm extends Form {
       supportsTypes: "IMAGE"
     };
 
-    if( auctionDuration !== "" ){
+    if( auctionDuration !== "" && userIsVIP ){
+      // User can chage endDate only if he is VIP
       requestData.endDate = new Date(auctionDuration).toISOString();
     }
 
-    if( boostProduct ){
+    if( boostProduct && userIsVIP ){
+      // Double checking that user is not trying to cheat :D
       requestData.priority = true;
     }
 
     return requestData;
   };
 
-  doSubmit = async () => {
-    const publicationData = this.genServiceData();
+  doSubmit = async ( isVIP ) => {
+    const publicationData = this.genServiceData( isVIP );
     try {
-      await createPublication(publicationData);
+      const { data: result } = await createPublication(publicationData);
+      const { status, errors } = result;
+      if (status === "success") {
+        toast.success("Publicación realizada con éxito");
+        this.props.navigate("/my-publications");
+      } else {
+        toast.error("No se pudo crear la publicación : " + errors ? JSON.stringify(errors) : "");
+      }
     } catch (ex) {
       toast.error("No se pudo realizar la publicación");
     }
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = (e, isVIP) => {
     e.preventDefault();
     const errors = this.validate();
     this.setState({ errors: errors || {} });
     toast.error(errors);
     if (errors) return;
-    this.doSubmit();
+    this.doSubmit( isVIP );
   };
 
   handleEvidenceImageSelection = async (file) => {
@@ -151,8 +160,8 @@ class CreatePublicationForm extends Form {
         <h1 className = "ofertapp-page-title">
           Publica un producto
         </h1>
-        <form onSubmit={this.handleSubmit} className="row text-center">
-          <div className="col-12 col-md-6">
+        <form onSubmit={ (e) => {this.handleSubmit( e, isVIP )} } className="row text-center">
+          <div className="col-12 col-md-6 ofertapp-creation-column">
             <h1 className = "ofertapp-inspirational-message">
               !Ponle un título a tu publicación!
             </h1>
@@ -195,7 +204,7 @@ class CreatePublicationForm extends Form {
               "number")}
             <div className="ofertapp-div-hline"></div>
           </div>
-          <div className="col-12 col-md-6">
+          <div className="col-12 col-md-6 ofertapp-creation-column">
 
             <h1 className = "ofertapp-inspirational-message">
               Tiempo de subasta
@@ -242,12 +251,7 @@ class CreatePublicationForm extends Form {
             }
             
             {
-              <CustomButtom
-                caption = "Publicar"
-                type = "primary"
-                disabled = { !this.validate() }
-                onClick = {this.handleSubmit}
-              />
+              this.renderButton("Registrarse")
             }
           </div>
         </form>

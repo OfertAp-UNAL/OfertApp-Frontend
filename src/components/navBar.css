@@ -90,8 +90,11 @@
 
 .notification-holder {
     --bs-dropdown-min-width: 500px !important;
-    left: -200% !important;
+    
     max-height: 400px;
+    max-width: 500px;
     overflow-y: scroll;
     overflow-x: hidden;
+    position: relative;
+    left: -400px !important;
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-const NumberBox = ({ value, name, onChange, label }) => {
+const NumberBox = ({ name, onChange, label, currentValue }) => {
   return (
     <React.Fragment>
     <h4>{label}</h4>
@@ -9,7 +9,7 @@ const NumberBox = ({ value, name, onChange, label }) => {
       max={Number.MAX_SAFE_INTEGER}
       type="number"
       name={name}
-      defaultValue={value}
+      value={currentValue}
       className="form-control my-3"
       placeholder="Digita un numero"
       onChange={e => onChange(e.currentTarget.value)}

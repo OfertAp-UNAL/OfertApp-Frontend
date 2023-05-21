@@ -1,6 +1,6 @@
 import React from "react";
 
-const SearchBox = ({ onChange, label }) => {
+const SearchBox = ({ onChange, label, value }) => {
   return (
     <React.Fragment>
     <h4>{label}</h4>
@@ -9,7 +9,7 @@ const SearchBox = ({ onChange, label }) => {
       name="query"
       className="form-control my-3"
       placeholder="Search..."
-      defaultValue={""}
+      value={value}
       onChange={e => onChange(e.currentTarget.value)}
     />
     </React.Fragment>

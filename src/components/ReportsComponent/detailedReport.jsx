@@ -1,104 +1,155 @@
 import { Component } from "react";
 import withRouter from "../../services/withRouter";
-import FileUpload from "../common/FileUpload/fileUpload";
+import { getReportSupports, postReportSupport } from "../../services/reportService";
+import ReportSupport from "./ReportSupport";
+import { toast } from "react-toastify";
+import { getDatetimeFormatted } from "../../utils/getTime";
+import AddSupportDialog from "./addSupportDialog";
+import UpdateReportStatusForm from "./../Admins/updateReport";
+import UserLink from "../common/UserLink/userLink";
 
 class DetailedReport extends Component {
-  state = { supports: [], data: "", body: "" };
+
+  state = { 
+    supports: [],
+    report : null,
+    reportId: this.props.params.id
+  };
 
   async componentDidMount() {
     try {
-      const response = await fetch("http://localhost:3002/supports");
-      const supports = await response.json();
-      this.setState({ supports });
-      console.log("supports", supports);
+      const { data: response } = await getReportSupports(
+        this.props.params.id
+      );
+      const { status, data } = response;
+      if (status === "success") {
+        this.setState({ 
+          supports: data["supports"],
+          report: data["report"]
+        });
+      } else {
+        toast.error("Failed to fetch supports");
+      }
     } catch (error) {
-      console.error("Failed to fetch supports:", error);
+      toast.error("Failed to fetch supports:", error);
     }
   }
 
-  handleDataSelection = async (image) => {
-    this.setState({ data: image });
-  };
+  async handleSubmit( data, body ) {
+    const formData = new FormData();
+    formData.append("data", data);
+    formData.append("body", body);
+    formData.append("type", "IMAGE");
+    
+    const id = this.state.reportId;
 
-  handleTextChange = (event) => {
-    this.setState({ body: event.target.value });
-  };
+    try{
+      const { data: result } = await postReportSupport(formData, id);
+      const { status, data, error } = result;
+      if (status === "success") {
+        
+        const supportData = {
+          ...data,
+          // We know its myself who did add the support
+          user: this.props.userData,
+        }
 
-  handleSubmit() {
-    const support = { ...this.state, type: "IMAGE" };
-    delete support.supports; // Get only the new support data
-    const id = this.props.params.id;
-    alert("Here comes a call to backend!");
-    console.log("support is ", support);
-    this.props.navigate(`/report/${id}`);
+        this.setState({
+          supports: [...this.state.supports, supportData],
+        });
+
+        toast.success("Soporte agregado");
+
+      } else {
+        toast.error("Error al agregar soporte " + 
+          (error ? JSON.stringify(error) : "")
+        );
+      }
+      
+    } catch (error) {
+      toast.error("Error al agregar soporte " + error);
+    }
   }
 
   render() {
-    const { supports } = this.state;
+    const { userData } = this.props;
+    const { supports, report } = this.state;
+    const isAdmin = userData != null && userData.isAdmin;
     return (
-      <div>
-        <button
-          type="button"
-          className="btn ofertapp-button-primary"
-          data-toggle="modal"
-          data-target="#modalOferta"
-        >
-          Agregar Soporte
-        </button>
-        <div
-          className="modal fade"
-          id="modalOferta"
-          tabIndex="-1"
-          role="dialog"
-          aria-labelledby="modalOfertaLabel"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">
-                  Agrega el soporte
-                </h5>
-                <button
-                  type="button"
-                  className="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                <div>
-                  <FileUpload
-                    label="Imagen de soporte"
-                    type="image"
-                    onChange={this.handleDataSelection}
-                  />
-                  <textarea
-                    name=""
-                    id=""
-                    cols="30"
-                    rows="10"
-                    onChange={this.handleTextChange}
-                  ></textarea>
-                  <button type="submit" onClick={() => this.handleSubmit()}>
-                    Send
-                  </button>
-                </div>
-              </div>
+      report ?
+        <div className="row text-center">
+          <button
+            type="button"
+            className="btn ofertapp-button-primary mb-2"
+            data-toggle="modal"
+            data-target= { !isAdmin ? "#modalAddSupport" : "#modalUpdateReport" }
+          >
+            { ! isAdmin ? "Agregar Soporte" : "Actualizar estado de reporte" }
+          </button>
+          <AddSupportDialog onSubmit = { (data, body) => this.handleSubmit(
+            data, body
+          ) }/>
+          <UpdateReportStatusForm 
+            report = {report}
+            onSuccess = { () => toast.success("Reporte actualizado") }
+            onError = { (error) => toast.error("Error al actualizar reporte " + error) }
+          />
+          <div className = "row mb-3">
+            <div className = "col-12">
+              <h5>
+                Detalles del reporte con ID: <br/> {this.props.params.id}
+              </h5>
+            </div>
+            <div className = "col-12 col-md-4">
+              <h5>Hecho por:</h5>
+              <UserLink
+                fontSize="24"
+                user={ report.user }
+              />
+            </div>
+            <div className = "col-12 col-md-4">
+              <h5>Hacia:</h5>
+              <UserLink
+                fontSize="24"
+                user={ report.publication.user }
+              />
+            </div>
+            <div className = "col-12 col-md-4">
+              <h5>En:</h5>
+              <h5>
+                {getDatetimeFormatted(
+                  report.createdAt
+                )}
+              </h5>
             </div>
           </div>
+          <h5 className="mb-3">
+            Soportes:
+          </h5>
+          {
+            supports.length > 0 ?
+              <div className="row">
+                {
+                  supports.map((support) => (
+                    <ReportSupport 
+                      key={support.id}
+                      support={support} 
+                    />    
+                  ))
+                }
+              </div>
+            : <p>No hay soportes para este reporte</p>
+            }
         </div>
-        <h3>Detalles del reporte con id {this.props.params.id}</h3>
-        {supports.map((support) => (
-          <div style={{ border: "2px solid red" }}>
-            <p>{support.data}</p>
-            <p>{support.body}</p>
-            <p>{support.createdAt}</p>
-          </div>
-        ))}
-      </div>
+        :
+        <div className="row text-center">
+          <h3
+            className="mb-3"
+          >
+            {"Cargando"}
+          </h3>
+        </div>
+
     );
   }
 }

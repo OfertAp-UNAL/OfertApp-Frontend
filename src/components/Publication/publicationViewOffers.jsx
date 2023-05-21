@@ -38,7 +38,7 @@ class PublicationViewOffers extends Component {
 
         // Useful vars
         let mainOfferAssigned = false;
-        const { publication, userLoggedIn : loggedIn } = this.props;
+        const { publication, userLoggedIn : loggedIn, userData } = this.props;
 
         return (
             <div className = "row align-middle text-center">
@@ -65,7 +65,7 @@ class PublicationViewOffers extends Component {
                     <p className = "ofertapp-label">No hay ofertas</p>
                 }
                 {
-                    loggedIn &&
+                    loggedIn && ! ( userData && userData.isAdmin ) &&
                     <div className='col-12'>
                         <button type="button" className="btn ofertapp-button-primary" data-toggle="modal" data-target="#modalOferta">
                             Crear oferta

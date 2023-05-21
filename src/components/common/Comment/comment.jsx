@@ -3,6 +3,8 @@ import UserLink from "../UserLink/userLink";
 import { getTimeLeft } from "./../../../utils/getTime";
 import "./comment.css";
 import { addReaction } from "../../../services/reactionService";
+import AdminDeleteButton from "../../Admins/deleteButton";
+import { toast } from "react-toastify";
 
 // user: object
 // base: boolean
@@ -37,20 +39,21 @@ class Comment extends Component {
   // Handle reaction change
   handleReactionChange = async (type) => {
     const { comment } = this.state;
+    const reaction = {
+        type : type,
+    }
+
     if (this.state.userReacted) {
         comment.reactionsCount[this.state.reactedType] -= 1;
 
         if( this.state.reactedType === type ) {
             this.setState({ userReacted : false, reactedType : "" });  
+            await addReaction(comment.id, reaction);
             return;
         }
     }
     comment.reactionsCount[type] += 1;
     this.setState({ comment, userReacted : true, reactedType : type });
-
-    const reaction = {
-        type : type,
-    } 
     await addReaction(comment.id, reaction);
   }
 
@@ -59,6 +62,7 @@ class Comment extends Component {
     const comment = this.state.comment;
     const user = this.state.comment ? this.state.comment.user : null;
     const { onClick, userLoggedIn : loggedIn } = this.props;
+    const { userData } = this.props;
 
     return (
       // Conditional class name
@@ -146,6 +150,21 @@ class Comment extends Component {
                             >
                             <strong>⚠&nbsp;{comment.reactionsCount.WARNING}</strong>
                         </div>
+                        {
+                            userData && userData.isAdmin &&
+                            <div className = "col-12 mb-2 text-center">
+                                <AdminDeleteButton
+                                    caption = "X"
+                                    type = "commentDelete"
+                                    id = {comment.id}
+                                    onSuccess = { () => {
+                                        toast.success("Comentario eliminado con éxito");
+                                        this.props.navigate("/homepage")
+                                    }}
+                                    onError = { (error) => toast.error(error) }
+                                />
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

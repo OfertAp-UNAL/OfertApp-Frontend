@@ -6,12 +6,14 @@ import NavBar from "./components/navBar";
 import NotFound from "./components/common/notFound";
 import PublicationView from "./components/Publication/publicationView";
 import Verify from "./components/VerificationPage/verificationPage";
+import DeliveryInfo from "./components/DeliveryInformation/deliveryInformation";
+import ConfirmProductDelivery from "./components/DeliveryInformation/confirmDelivery";
 
 import "react-toastify/dist/ReactToastify.css";
 
 import TransactionHistory from "./components/TransactionHistory/transactionHistory";
 import Statistics from "./components/Statistics/statistics";
-import RegisterForm from "./components/Registration/registrationForm";
+import UserInfoEdit from "./components/UserInfoEdit/userInfoEdit";
 import LoginForm from "./components/login/loginForm";
 import Logout from "./components/logout";
 
@@ -19,70 +21,102 @@ import MainPage from "./components/Main Page/mainPage";
 import AskResetPasswordForm from "./components/ResetPassword/askResetPasswordForm";
 import NewPasswordForm from "./components/ResetPassword/newPasswordForm";
 import CreatePublicationForm from "./components/Publication/createPublicationForm";
-import UpdateUserDataForm from "./components/common/updateUserData/updateUserRegistrationData";
 import FinancialTransactionsView from "./components/FinancialTransactions/account";
 
+import OfertAppTeam from "./components/OfertAppTeam/ofertapp-team";
 import "./App.css";
+
 import UserReportsHistory from "./components/ReportsComponent/userReportsHistory";
 import DetailedReport from "./components/ReportsComponent/detailedReport";
-import AddSupport from "./components/ReportsComponent/addSupport";
-class JointComponentWithNavbar extends Component {
-  render() {
-    return (
-      <React.Fragment>
-        <NavBar OnUpdateUserData={this.props.OnUpdateUserData} />
-        {this.props.children}
-      </React.Fragment>
-    );
-  }
-}
+
+import { getUserInfo } from "./services/userService";
 
 class App extends Component {
   state = {
     userData: null,
   };
 
+  // Prevent component from updating twice
+  shouldComponentUpdate(_, nextState) {
+    return nextState.userData !== this.state.userData;
+  }
+
+  // Get user data from backend
+  async getUserData() {
+    try {
+      const token = localStorage.getItem("token");
+      const responseData = await getUserInfo(token);
+
+      const { data, status } = responseData.data;
+      if (status === "success") {
+
+        this.setState({
+          userData: data
+        });
+
+      } else {
+        this.setState({
+          userData: null,
+        });
+
+        // Delete token for future actions
+        localStorage.removeItem("token");
+      }
+
+    } catch (e) {
+
+      // Delete token for future actions
+      localStorage.removeItem("token");
+
+      this.setState({
+        userData: null,
+      });
+    }
+  }
+
+  // Get user data at start and always a update happens
+  async componentDidMount() {
+    await this.getUserData();
+  }
+
   // Useful for keeping a global value with user data
-  updateUserData = (data) => {
-    this.setState({
-      userData: data,
-    });
-  };
+  updateUserData = () => {
+    // Get again user data from backend
+    this.getUserData();
+  }
 
   render() {
+    const userData = this.state.userData;
     return (
       <React.Fragment>
         <ToastContainer />
+        <NavBar userData={userData} />
         <main className="container">
           <Routes>
-            <Route path="/login" element={<LoginForm />} />
+            <Route path="/login"
+              element={
+                <LoginForm OnUpdateUserData={this.updateUserData} />
+              }
+            />
             <Route
               path="/askResetPassword"
               element={
-                <JointComponentWithNavbar
-                  children={<AskResetPasswordForm />}
-                  OnUpdateUserData={this.updateUserData}
-                />
+                <AskResetPasswordForm />
               }
             />
             <Route
               path="/createPublication"
               element={
-                <JointComponentWithNavbar
-                  children={
-                    <CreatePublicationForm userData={this.state.userData} />
-                  }
-                  OnUpdateUserData={this.updateUserData}
+                <CreatePublicationForm
+                  userData={userData}
                 />
               }
             />
-
             <Route
               path="/reports-history"
               element={
-                <JointComponentWithNavbar
-                  children={<UserReportsHistory />}
-                  OnUpdateUserData={this.updateUserData}
+                <UserReportsHistory
+                  userData={userData}
                 />
               }
             />
@@ -90,17 +124,13 @@ class App extends Component {
             <Route
               path="/reset-password/:token/:user/"
               element={
-                <JointComponentWithNavbar
-                  children={<NewPasswordForm />}
-                  OnUpdateUserData={this.updateUserData}
-                />
+                <NewPasswordForm />
               }
             />
             <Route
               path="/register"
               element={
-                <JointComponentWithNavbar
-                  children={<RegisterForm />}
+                <UserInfoEdit
                   OnUpdateUserData={this.updateUserData}
                 />
               }
@@ -108,111 +138,101 @@ class App extends Component {
             <Route
               path="/homepage"
               element={
-                <JointComponentWithNavbar
-                  children={<MainPage userPublications="false" />}
-                  OnUpdateUserData={this.updateUserData}
-                />
+                <MainPage userPublications="false" />
               }
               key={window.location.pathname}
             />
             <Route
               path="/my-publications"
               element={
-                <JointComponentWithNavbar
-                  children={<MainPage userPublications="true" />}
-                  OnUpdateUserData={this.updateUserData}
-                />
+                <MainPage userPublications="true" />
               }
               key={window.location.pathname}
             />
             <Route
               path="/transaction-history"
               element={
-                <JointComponentWithNavbar
-                  children={<TransactionHistory />}
-                  OnUpdateUserData={this.updateUserData}
-                />
+                <TransactionHistory />
               }
             />
             <Route
               path="/statistics"
               element={
-                <JointComponentWithNavbar
-                  children={<Statistics />}
-                  OnUpdateUserData={this.updateUserData}
-                />
+                <Statistics />
               }
             />
             <Route
               path="/profile"
               element={
-                <JointComponentWithNavbar
-                  children={<UpdateUserDataForm />}
-                  OnUpdateUserData={this.updateUserData}
+                <UserInfoEdit
+                  userData={userData}
                 />
               }
             />
             <Route
               path="/account"
               element={
-                <JointComponentWithNavbar
-                  children={
-                    <FinancialTransactionsView userData={this.state.userData} />
-                  }
-                  OnUpdateUserData={this.updateUserData}
+                <FinancialTransactionsView
+                  userData={userData}
                 />
               }
             />
             <Route
               path="/report/:id"
               element={
-                <JointComponentWithNavbar
-                  children={<DetailedReport />}
-                  OnUpdateUserData={this.updateUserData}
+                <DetailedReport
+                  userData={userData}
                 />
               }
             />a
+
             <Route
-              path="/report/:id/addSupport"
+              path="/publication/:id"
               element={
-                <JointComponentWithNavbar
-                  children={<AddSupport />}
-                  OnUpdateUserData={this.updateUserData}
+                <PublicationView
+                  userData={userData}
                 />
               }
             />
             <Route
-              path="/publication/:id"
+              path="/delivery/:id"
               element={
-                <JointComponentWithNavbar
-                  children={<PublicationView userData={this.state.userData} />}
-                  OnUpdateUserData={this.updateUserData}
+                <DeliveryInfo
+                  userData={userData}
+                />
+              }
+            />
+            <Route
+              path="/confirm/:id"
+              element={
+                <ConfirmProductDelivery
+                  userData={userData}
                 />
               }
             />
             <Route
               path="/verify/:token/:userid"
               element={
-                <JointComponentWithNavbar
-                  children={<Verify />}
-                  OnUpdateUserData={this.updateUserData}
-                />
+                <Verify />
               }
             />
             <Route
               path="/not-found"
               element={
-                <JointComponentWithNavbar
-                  children={<NotFound />}
-                  OnUpdateUserData={this.updateUserData}
-                />
+                <NotFound />
               }
             />
-            <Route path="/logout" element={<Logout />} />
+            <Route
+              path="/logout"
+              element={
+                <Logout OnUpdateUserData={this.updateUserData} />
+              }
+            />
             <Route path="/" element={<Navigate to="/homepage" replace />} />
             <Route path="*" element={<Navigate to="/not-found" replace />} />
           </Routes>
         </main>
+        <OfertAppTeam />
       </React.Fragment>
     );
   }

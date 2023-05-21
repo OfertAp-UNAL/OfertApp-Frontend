@@ -1,4 +1,4 @@
-const PriceRangeFilter = ({ valueMin, valueMax, onChangeMin, onChangeMax }) => {
+const PriceRangeFilter = ({ valueMin, valueMax, onChangeMin, onChangeMax, values }) => {
 
   return (
     <div>
@@ -7,7 +7,7 @@ const PriceRangeFilter = ({ valueMin, valueMax, onChangeMin, onChangeMax }) => {
         type="number"
         className="form-control my-3"
         min={valueMin}
-        defaultValue={valueMin}
+        value={values[0]}
         aria-placeholder="Digita un numero"
         onChange={e => onChangeMin(e.currentTarget.value)}
       />
@@ -17,7 +17,7 @@ const PriceRangeFilter = ({ valueMin, valueMax, onChangeMin, onChangeMax }) => {
         className="form-control my-3"
         aria-placeholder="Digita un numero"
         max={valueMax}
-        defaultValue={valueMax}
+        value={values[1]}
         onChange={e => onChangeMax(e.currentTarget.value)}
       />
     </div>

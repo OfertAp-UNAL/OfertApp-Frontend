@@ -44,6 +44,24 @@ export function deletePublication(publicationId) {
   return http.delete(publicationUrl(publicationId));
 }
 
+export function setDeliveryInformation(publicationId, data) {
+  const token = localStorage.getItem("token");
+  return http.post(apiEndpoint + "delivery/" + publicationId + "/", data, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+}
+
+export function confirmDelivery(publicationId) {
+  const token = localStorage.getItem("token");
+  return http.post(apiEndpoint + "confirm/" + publicationId + "/", {}, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+}
+
 export function addComment(publicationId, parentId, comment) {
   const token = localStorage.getItem("token");
   let route = apiUrl + "comments/" + publicationId + "/";
@@ -58,7 +76,6 @@ export function addComment(publicationId, parentId, comment) {
     },
   });
 }
-
 export function getCategories() {
   return http.get(apiUrl + "categories/");
 }

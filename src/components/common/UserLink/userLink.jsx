@@ -80,7 +80,7 @@ class UserLink extends Component {
                 "--fontSize": fontSize ? (fontSize * 0.75) + "px" : "24px"
               }
             }>
-              {user.reputation * 100}
+              { (user.reputation * 100).toFixed(2) + "%"}
             </span>
           </p>
         </OverlayTrigger>

@@ -151,7 +151,7 @@ class TransactionHistory extends Component {
                     Mis Transacciones
                 </h1>
                 {
-                    transactions &&
+                    transactions && transactions.length > 0 ?
                     <div>
                         <table className="ofertapp-table w-100 text-center">
                             <thead>
@@ -214,6 +214,10 @@ class TransactionHistory extends Component {
                             currentPage={this.state.currentPage}
                             onPageChange={this.handlePageChange}
                         />
+                    </div>
+                    :
+                    <div>
+                    <h5> No hay transacciones </h5>    
                     </div>
                 }
             </div>

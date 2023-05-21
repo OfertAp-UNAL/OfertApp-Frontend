@@ -1,15 +1,16 @@
 import http from "./httpService";
+import config from "../config";
+
+const apiEndpoint = config.apiUrl;
 
 export function getDepartments() {
   return http.get(
-    "https://www.datos.gov.co/resource/xdk5-pm3f.json?$select=departamento&$group=departamento"
+    apiEndpoint + "departments/"
   );
 }
 
 export function getMunicipalitiesByDepartment(departmentName) {
   return http.get(
-    "http://localhost:8000/api/v1/municipalities/department/" +
-      departmentName +
-      "/"
+    apiEndpoint + "municipalities/department/" + departmentName + "/"
   );
 }

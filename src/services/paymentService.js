@@ -6,9 +6,9 @@ import config from "../config";
 
 const requestURL = config.apiUrl;
 
-export function preparePayment(amount) {
+export function witdrawMoney(amount) {
     const token = localStorage.getItem("token");
-    return http.post(requestURL + "payments2/prepare/", { amount },
+    return http.post(requestURL + "withdrawals/", { amount },
         {
             headers: {
                 "Authorization": "Bearer " + token,
