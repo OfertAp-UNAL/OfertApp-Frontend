@@ -29,7 +29,7 @@ class UserInfoEdit extends Form {
       department: "",
       municipality: "",
       address: "",
-      paymentAccountType: "",
+      paymentAccountType: "CD",
       paymentAccountNumber: "",
       profilePicture: null,
     },
@@ -315,9 +315,14 @@ class UserInfoEdit extends Form {
       (m) => m["name"]
     );
 
+    // Getting current data values
+    const {
+      id, firstName, lastName, email, username, birthdate, phone, address,
+      paymentAccountType, paymentAccountNumber
+    } = this.state.data;
+
     // User data update
     const editing = this.props.userData != null;
-    const userData = this.props.userData || {};
 
     // Update validation schema
     this.schema = this.getSchema( editing );
@@ -333,39 +338,39 @@ class UserInfoEdit extends Form {
           <div className="col-12 col-md-6 ofertapp-registration-column">
             {this.renderInput(
               "id", "Tu Número de Cédula", "number",
-              editing, "", editing ? userData.id : ""
+              editing, "", id
             )}
             <div className="ofertapp-div-hline"></div>
             {this.renderInput(
               "firstName", "Tu(s) nombre(s)", "text",
-              false, "", editing ? userData.firstName : ""
+              false, "", firstName
             )}
             <div className="ofertapp-div-hline"></div>
             {this.renderInput(
               "lastName", "Tu(s) apellido(s)", "text",
-              false, "", editing ? userData.lastName : ""
+              false, "", lastName
             )}
             <div className="ofertapp-div-hline"></div>
             {this.renderInput(
               "username", "Nombre de usuario, recuerda que debe ser único", "text",
-              editing, "", editing ? userData.username : ""
+              editing, "", username
             )}
             <div className="ofertapp-div-hline"></div>
             {this.renderInput(
               "email", "Tu correo electrónico, recuerda que debe ser único", "email",
-              editing, "", editing ? userData.email : ""
+              editing, "", email
             )}
             <div className="ofertapp-div-hline"></div>
             {this.renderInput(
               "birthdate", "¿Cúando naciste?", "date", 
-              false, "", editing ? userData.birthdate : 
+              false, "", editing ? birthdate :
                 // Lets format the date to be compatible with the input
                 (new Date( Date.now() ).toISOString().split("T")[0])
               )}
             <div className="ofertapp-div-hline"></div>
             {this.renderInput(
               "phone", "Tu número de teléfono", "text",
-              editing, "", editing ? userData.phone : ""
+              editing, "", phone
             )}
             <div className="ofertapp-div-hline"></div>
             <h1 className = "ofertapp-inspirational-message">
@@ -405,14 +410,14 @@ class UserInfoEdit extends Form {
             <div className="ofertapp-div-hline"></div>
             {this.renderInput(
               "address", "Dirección", "text",
-              editing, "", editing ? userData.address : ""
+              editing, "", address
             )}
             <div className="ofertapp-div-hline"></div>
             <ComboBox
               label="Tipo de cuenta"
               options={paymentTypeOptions}
               value={
-                editing ? userData.accountType : this.state.data.paymentAccountType
+                paymentAccountType
               }
               onChange={(value) => {
                 this.handlePaymentTypeSelection(value);
@@ -421,7 +426,7 @@ class UserInfoEdit extends Form {
             <div className="ofertapp-div-hline"></div>
             {this.renderInput(
               "paymentAccountNumber", "Número de cuenta", "text",
-              editing, "", editing ? userData.accountId : ""
+              editing, "", paymentAccountNumber
             )}
             <div className="ofertapp-div-hline"></div>
             {
