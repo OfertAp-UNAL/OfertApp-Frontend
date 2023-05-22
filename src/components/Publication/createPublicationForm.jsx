@@ -251,7 +251,7 @@ class CreatePublicationForm extends Form {
             }
             
             {
-              this.renderButton("Registrarse")
+              this.renderButton("Publicalo!")
             }
           </div>
         </form>
