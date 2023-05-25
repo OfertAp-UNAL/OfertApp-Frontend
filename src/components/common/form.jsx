@@ -1,8 +1,9 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import Joi from "joi-browser";
 import Input from "./input";
 import { Link } from "react-router-dom";
 import Autosuggest from "react-autosuggest";
+import Info from "../common/info";
 import "../../App.css";
 
 class Form extends Component {
@@ -188,20 +189,30 @@ class Form extends Component {
     );
   }
 
-  renderInput(name, label, type = "text", readonly = false, placeholder = "", defaultValue = null) {
+  renderInput(
+    name, label, type = "text", readonly = false, 
+    placeholder = "", defaultValue = null, info = null
+  ) {
     const { data, errors } = this.state;
 
     return (
-      <Input
-        type={type}
-        name={name}
-        defaultValue={defaultValue || data[name] }
-        placeholder={placeholder}
-        label={label}
-        readOnly={readonly}
-        onChange={this.handleChange}
-        error={errors[name]}
-      />
+      <React.Fragment>
+        {
+          info &&
+          <Info text={info} />
+        }
+        <Input
+          type={type}
+          name={name}
+          defaultValue={defaultValue || data[name] }
+          placeholder={placeholder}
+          label={label}
+          readOnly={readonly}
+          onChange={this.handleChange}
+          error={errors[name]}
+        />
+      </React.Fragment>
+      
     );
   }
 

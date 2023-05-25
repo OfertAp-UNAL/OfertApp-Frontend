@@ -1,11 +1,8 @@
 import { Component } from "react";
-import config from "./../../config";
 import { getDatetimeFormatted } from "../../utils/getTime";
 import UserLink from "../common/UserLink/userLink";
 
 import "./reportsComponent.css"
-
-const { mediaUrl } = config;
 
 class ReportSupport extends Component {
     render() {
@@ -33,13 +30,13 @@ class ReportSupport extends Component {
                         {
                             support.type === "IMAGE" ?
                                 <img
-                                    src={ mediaUrl + support.data }
+                                    src={ support.data }
                                     alt={ "Soporte de reporte" }
                                     className="report-support-data"
                                 />
                             :
                                 <video
-                                    src={ mediaUrl + support.data }
+                                    src={ support.data }
                                     controls
                                     className="report-support-data"
                                 />

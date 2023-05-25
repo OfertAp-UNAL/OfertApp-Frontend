@@ -338,7 +338,8 @@ class UserInfoEdit extends Form {
           <div className="col-12 col-md-6 ofertapp-registration-column">
             {this.renderInput(
               "id", "Tu Número de Cédula", "number",
-              editing, "", id
+              editing, "", id, 
+              "OBLIGATORIO: Buscamos garantizar que nuestros usuarios sean personas reales, por lo que necesitamos tu número de cédula para verificar tu identidad"
             )}
             <div className="ofertapp-div-hline"></div>
             {this.renderInput(

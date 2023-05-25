@@ -3,15 +3,11 @@ import { Link } from "react-router-dom";
 import logo from "../images/OfertappGrande.png";
 import { getNotifications, markAsRead } from "./../services/notificationService";
 import withRouter from "./../services/withRouter";
-import config from "../config";
 import Notification from "./common/Notification/notification";
 import BuyMembership from "./BuyVIP/buyMembership";
 
 import "../App.css";
 import "./navBar.css";
-
-
-const { mediaUrl } = config;
 
 class NavBar extends Component {
 
@@ -195,7 +191,7 @@ class NavBar extends Component {
                         <img
                           className="img-responsive ofertapp-navbar-profile-picture"
                           alt = "Avatar"
-                          src = {mediaUrl + user.profilePicture}
+                          src = {user.profilePicture}
                         />
                       </div>
                       

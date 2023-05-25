@@ -1,10 +1,7 @@
-import config from "../../config";
 import { getTimeLeft } from "./../../utils/getTime";
 import withRouter from "../../services/withRouter";
 import UserLink from "./../common/UserLink/userLink";
 import "./mainPage.css";
-
-const { mediaUrl } = config;
 
 function PublicationListView({ publication }) {
   const { id, title, minOffer, supports, endDate, user } = publication;
@@ -33,7 +30,7 @@ function PublicationListView({ publication }) {
                 // Image
                 <img
                   className="ofertapp-pub-card-support-media"
-                  src={mediaUrl + supports[0].data}
+                  src={supports[0].data}
                   alt="Publication support"
                 />
               ) : (
@@ -41,14 +38,14 @@ function PublicationListView({ publication }) {
                 <video
                   className="ofertapp-pub-card-support-media"
                   controls
-                  src={mediaUrl + supports[0].data}
+                  src={supports[0].data}
                 />
               )
             ) : (
               // No supports to show, show a default image
               <img
                 className="ofertapp-pub-card-support-media"
-                src={mediaUrl + "/defaultProfile.png"}
+                src={"https://cdn.filestackcontent.com/pLDF5BZTP6ASwiobbC8W"}
                 alt="Publication support"
               />
             )}

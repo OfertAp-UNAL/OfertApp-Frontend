@@ -1,10 +1,7 @@
 import { Component } from "react";
-import config from "../../../config";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import "./userLink.css";
-
-const { mediaUrl } = config;
 
 // user: object
 // base: boolean
@@ -23,7 +20,7 @@ class UserLink extends Component {
             <div className = "row ofertapp-user-info-profile">
               <div className = "col-12 text-center">
                 <img className = "ofertapp-user-info-profile-image"
-                  src = {mediaUrl + user.profilePicture } alt = "Avatar"
+                  src = {user.profilePicture } alt = "Avatar"
                 />
               </div>
               <div className = "col-12">

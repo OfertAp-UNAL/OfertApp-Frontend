@@ -1,8 +1,5 @@
 import React from 'react';
-import config from '../../../config';
 import "./fileUpload.css";
-
-const { mediaUrl } = config;
 
 const FileUpload = ({ label, type, value, onChange}) => {   
     return (
@@ -23,7 +20,7 @@ const FileUpload = ({ label, type, value, onChange}) => {
             <img 
                 id = "profile-preview" className = "profilePreview" 
                 alt = "profile"
-                src = {mediaUrl + "/media/defaultProfile.png"} 
+                src = {"https://cdn.filestackcontent.com/pLDF5BZTP6ASwiobbC8W"} 
             />
         </React.Fragment>
     );

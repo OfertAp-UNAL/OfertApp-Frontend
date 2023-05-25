@@ -58,6 +58,7 @@ class BuyMembership extends Component {
                                         <li>Puedes asignar cualquier tiempo de subasta para tus publicaciones</li>
                                         <li>Tu membresía durará un mes y podrás aumentar la relevancia de hasta 5 publicaciones</li>
                                         <li>Podrás renovar tu membresía siempre que lo desees</li>
+                                        <li>COSTO: COP $ 10.000</li>
                                     </ul>
                                 </div>
                                 <div className = "col-12">
