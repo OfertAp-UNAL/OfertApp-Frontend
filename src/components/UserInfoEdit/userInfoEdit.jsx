@@ -242,8 +242,7 @@ class UserInfoEdit extends Form {
     }
   }
 
-  handleSubmit = (e, editing) => {
-    e.preventDefault();
+  handleSubmit = (editing) => {
 
     const errors = this.validate();
     this.setState({ errors: errors || {} });
@@ -470,7 +469,7 @@ class UserInfoEdit extends Form {
               <CustomButton
                 caption={editing ? "Actualizar" : "Registrarse"}
                 disabled={this.customValidate(editing)}
-                onClick={(e) => this.handleSubmit(e, editing)}
+                onClick={() => this.handleSubmit(editing)}
                 type="primary"
               />
             }
