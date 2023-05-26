@@ -9,6 +9,11 @@
     margin: auto !important;
 }
 
+.ofertapp-button-primary:hover {
+    background-color: #009c51 !important;
+    color: #fff !important;
+}
+
 .ofertapp-button-report {
     background-color: red !important;
     color: #fff !important;

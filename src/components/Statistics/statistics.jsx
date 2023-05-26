@@ -8,6 +8,7 @@ import LinePlot from './histogram';
 import ComboBox from '../common/comboBox';
 import CustomButton from '../common/Button/button';
 import generateRandomColor from "../../utils/randomColor";
+import { getDatetimeFormatted } from "../../utils/getTime";
 import "./statistics.css";
 
 class Statistics extends Component {
@@ -123,7 +124,9 @@ class Statistics extends Component {
         const { salesAndPurchases, reactions, offers } = data;
         const { financialGroupingBy } = data;
 
-        const financialLabels = salesAndPurchases.map( (record) => record[financialGroupingBy]);
+        const financialLabels = salesAndPurchases.map( 
+            (record) => getDatetimeFormatted(record[financialGroupingBy])
+        );
         
         const salesData = salesAndPurchases.map( (record) => record.sales );
         const purchasesData = salesAndPurchases.map( (record) => record.purchases );

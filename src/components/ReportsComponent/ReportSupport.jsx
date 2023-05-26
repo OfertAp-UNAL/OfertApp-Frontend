@@ -1,11 +1,9 @@
 import { Component } from "react";
-import config from "./../../config";
 import { getDatetimeFormatted } from "../../utils/getTime";
 import UserLink from "../common/UserLink/userLink";
+import ShowFile from "../common/ShowFile/showFile";
 
 import "./reportsComponent.css"
-
-const { mediaUrl } = config;
 
 class ReportSupport extends Component {
     render() {
@@ -30,16 +28,23 @@ class ReportSupport extends Component {
                         </div>
                     </div>
                     <div className="col-12 col-md-4">
+                        <ShowFile
+                            caption={"Report Support"}
+                            data={ support.data }
+                            contentType={ support.type }
+                            width="12vw"
+                            height="12vw"
+                        />
                         {
                             support.type === "IMAGE" ?
                                 <img
-                                    src={ mediaUrl + support.data }
+                                    src={ support.data }
                                     alt={ "Soporte de reporte" }
                                     className="report-support-data"
                                 />
                             :
                                 <video
-                                    src={ mediaUrl + support.data }
+                                    src={ support.data }
                                     controls
                                     className="report-support-data"
                                 />

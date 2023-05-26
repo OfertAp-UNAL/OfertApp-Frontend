@@ -1,10 +1,8 @@
-import config from "../../config";
 import { getTimeLeft } from "./../../utils/getTime";
 import withRouter from "../../services/withRouter";
 import UserLink from "./../common/UserLink/userLink";
+import ShowFile from "../common/ShowFile/showFile";
 import "./mainPage.css";
-
-const { mediaUrl } = config;
 
 function PublicationListView({ publication }) {
   const { id, title, minOffer, supports, endDate, user } = publication;
@@ -27,31 +25,14 @@ function PublicationListView({ publication }) {
       <div className="card-body">
         <div className="row">
           <div className="col-12 col-sm-4 ofertapp-pub-card-support">
-            {supports && supports.length > 0 ? (
-              // There are supports to show, lets show any of them
-              supports[0].type === "IMAGE" ? (
-                // Image
-                <img
-                  className="ofertapp-pub-card-support-media"
-                  src={mediaUrl + supports[0].data}
-                  alt="Publication support"
-                />
-              ) : (
-                // Video
-                <video
-                  className="ofertapp-pub-card-support-media"
-                  controls
-                  src={mediaUrl + supports[0].data}
-                />
-              )
-            ) : (
-              // No supports to show, show a default image
-              <img
-                className="ofertapp-pub-card-support-media"
-                src={mediaUrl + "/defaultProfile.png"}
-                alt="Publication support"
-              />
-            )}
+            <ShowFile
+              caption = {"Publication Support"}
+              data = {(supports && supports.length > 0) ? 
+                supports[0].data : "https://cdn.filestackcontent.com/pLDF5BZTP6ASwiobbC8W" }
+              contentType = {(supports && supports.length > 0) ? 
+                supports[0].type : "IMAGE" }
+              width = "100%"
+            />
           </div>
           <div className="col-12 col-sm-8">
             <div className="row">

@@ -3,6 +3,7 @@ import Joi from "joi-browser";
 import withRouter from "../../services/withRouter";
 import logo from "../../images/OfertappGrande.png";
 import { resetPassword } from "../../services/resetPasswordService";
+import { toast } from "react-toastify";
 import "../../App.css";
 
 class newPasswordForm extends Form {
@@ -15,15 +16,50 @@ class newPasswordForm extends Form {
   };
 
   schema = {
-    password: Joi.string().required().label("Contraseña"),
-    confirmPassword: Joi.string().required().label("Confirmar Contraseña"),
+    password: Joi.string().regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/ 
+    ).required().label("Contraseña").options({
+      language: {
+        string: {
+          regex: {
+            base: "La contraseña debe tener al menos 8 caracteres, una mayúscula, " + 
+              "una minúscula y un número"
+          }
+        }
+      }
+    }),
+    confirmPassword: Joi.string().required().valid(Joi.ref("password"))
+      .label("Confirmar Contraseña"),
   };
 
   doSubmit = async () => {
     const { token, user } = this.props.params;
-    const { password } = this.state.data;
-    await resetPassword(token, user, password);
-    this.props.navigate("/login");
+    const { password, confirmPassword } = this.state.data;
+
+    try{
+      const { data : response } = await resetPassword(token, user, password);
+
+      // Dirty check around here, joi is a little bit more tricky than expected..
+      if(password !== confirmPassword){
+        toast.error("Las contraseñas no coinciden");
+        return;
+      }
+      const { status } = response;
+      if(status === "success"){
+        toast.success("Contraseña cambiada con éxito");
+
+        this.props.navigate("/login");
+      } else {
+        toast.error("No se pudo cambiar la contraseña");
+      }
+      
+    }
+    catch(ex){
+      console.log(ex);
+      toast.error("No se pudo cambiar la contraseña");
+    }
+    
+    
   };
 
   handleSubmit = (e) => {

@@ -20,7 +20,7 @@ import Logout from "./components/logout";
 import MainPage from "./components/Main Page/mainPage";
 import AskResetPasswordForm from "./components/ResetPassword/askResetPasswordForm";
 import NewPasswordForm from "./components/ResetPassword/newPasswordForm";
-import CreatePublicationForm from "./components/Publication/createPublicationForm";
+import CreatePublicationForm from "./components/Publication/Creation/createPublicationForm";
 import FinancialTransactionsView from "./components/FinancialTransactions/account";
 
 import OfertAppTeam from "./components/OfertAppTeam/ofertapp-team";
@@ -90,7 +90,9 @@ class App extends Component {
     return (
       <React.Fragment>
         <ToastContainer />
-        <NavBar userData={userData} />
+        <NavBar
+          userData={userData}
+        />
         <main className="container">
           <Routes>
             <Route path="/login"
@@ -166,6 +168,7 @@ class App extends Component {
               element={
                 <UserInfoEdit
                   userData={userData}
+                  OnUpdateUserData={this.updateUserData}
                 />
               }
             />
