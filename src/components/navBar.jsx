@@ -65,68 +65,6 @@ class NavBar extends Component {
                     Inicio
                   </Link>
                 </li>
-<<<<<<< HEAD
-                <li className="nav-item ofertapp-item">
-                  <Link className="nav-link text-center" to="/transaction-history">
-                    Mis Transacciones
-                  </Link>
-                </li>
-                <li className="nav-item ofertapp-item">
-                  <Link className="nav-link text-center" to="/statistics">
-                    Mis Estadísticas
-                  </Link>
-                </li>
-                <li className="nav-item ofertapp-item">
-                  <Link className="nav-link text-center" to="/my-publications">
-                    Mis Subastas
-                  </Link>
-                </li>
-                <li className="nav-item ofertapp-item">
-                  <Link className="nav-link text-center" to="/createPublication">
-                    Crear Publicación
-                  </Link>
-                </li>
-                <li className="nav-item ofertapp-item">
-                  <Link className="nav-link text-center" to="/account">
-                    Mi Saldo
-                  </Link>
-                </li>
-                <li className="nav-item flex-row text-center dropdown">
-                <a 
-                  className="nav-link dropdown-toggle" 
-                  href="/profile"
-                  id="notificationDropdown" 
-                  alt="Notifications"
-                  role="button" 
-                  data-bs-toggle="dropdown" 
-                  aria-expanded="false"
-                >
-                  <i className="fas fa-bell" alt="Notifications">
-                    
-                  </i>
-                </a>
-                <ul
-                  className="dropdown-menu notification-holder"
-                  aria-labelledby="notificationDropdown"
-                >
-                  <div style = {{"textAlign": "center"}}>
-                    Notificaciones
-                  </div>
-                  {
-                  this.state.notifications.length > 0 ? 
-                  <div>
-                    
-                  {
-                    this.state.notifications.map( notification => (
-                      <Notification notification={notification}/>
-                    ))
-                  }
-                  </div>
-                  :
-                  <p className = "ofertapp-label">No hay notificaciones</p>
-                  }
-                </ul>
-=======
                 {
                   userIsLoggedIn &&
                   <React.Fragment>
@@ -287,7 +225,6 @@ class NavBar extends Component {
                   </ul>
                   </React.Fragment>
                 }
->>>>>>> 8897b6aa8f74ffab05adce865d02a650a57bff3d
                 </li>
               </ul>
             </div>
