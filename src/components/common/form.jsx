@@ -3,13 +3,14 @@ import Joi from "joi-browser";
 import Input from "./input";
 import { Link } from "react-router-dom";
 import Autosuggest from "react-autosuggest";
-import Info from "../common/info";
+import Info from "./info";
+import DisplayErrors from "./Errors/displayErrors";
 import "../../App.css";
 
 class Form extends Component {
   state = {
     data: {},
-    errors: {},
+    errors: {}
   };
 
   validate = () => {
@@ -18,6 +19,8 @@ class Form extends Component {
     if (!error) return null;
     const errors = {};
     for (let item of error.details) errors[item.path[0]] = item.message;
+
+    console.log(errors);
     return errors;
   };
 
@@ -62,7 +65,7 @@ class Form extends Component {
     this.handleData(event);
   };
 
-  renderAutosuggest(name, label, options, onSelect) {
+  renderAutosuggest(name, label, options, onSelect, info) {
     const { data } = this.state;
 
     const inputProps = {
@@ -78,7 +81,7 @@ class Form extends Component {
     return (
       <div>
         <label className="form-label" htmlFor={name}>
-          {label}
+          {label} { info ? <Info text={info} /> : "" }
         </label>
         <Autosuggest
           id={name}
@@ -184,7 +187,7 @@ class Form extends Component {
             });
           }}
         />
-        I accept the terms and conditions
+        Acepto los términos y condiciones
       </label>
     );
   }
@@ -197,16 +200,13 @@ class Form extends Component {
 
     return (
       <React.Fragment>
-        {
-          info &&
-          <Info text={info} />
-        }
         <Input
           type={type}
           name={name}
           defaultValue={defaultValue || data[name] }
           placeholder={placeholder}
           label={label}
+          info={info}
           readOnly={readonly}
           onChange={this.handleChange}
           error={errors[name]}
@@ -220,17 +220,7 @@ class Form extends Component {
   generateErrorsDiv() {
     // Show all validation errors
     return (
-      <div>
-        {
-          this.state.errors && Object.keys(this.state.errors).map((key) => {
-            return (
-              <div key={key}>
-                {this.state.errors[key]}
-              </div>
-            );
-          }
-        )}
-      </div>  
+      <DisplayErrors errors={this.state.generalErrors} />
     );
   }
 }

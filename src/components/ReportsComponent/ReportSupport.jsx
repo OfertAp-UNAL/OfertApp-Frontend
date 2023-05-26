@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { getDatetimeFormatted } from "../../utils/getTime";
 import UserLink from "../common/UserLink/userLink";
+import ShowFile from "../common/ShowFile/showFile";
 
 import "./reportsComponent.css"
 
@@ -27,6 +28,13 @@ class ReportSupport extends Component {
                         </div>
                     </div>
                     <div className="col-12 col-md-4">
+                        <ShowFile
+                            caption={"Report Support"}
+                            data={ support.data }
+                            contentType={ support.type }
+                            width="12vw"
+                            height="12vw"
+                        />
                         {
                             support.type === "IMAGE" ?
                                 <img

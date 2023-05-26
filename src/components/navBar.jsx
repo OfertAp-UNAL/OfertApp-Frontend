@@ -24,6 +24,9 @@ class NavBar extends Component {
           notifications: data
         });
         return;
+      } else {
+        console.log("Error: ", response);
+        
       }
     } catch( e ){
       console.log("Error: ", e);

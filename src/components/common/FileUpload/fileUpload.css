@@ -1,8 +1,23 @@
-.profilePreview {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 1px solid #ddd;
+.ofertapp-file-upload {
+    background-color: #00bf631f;
+}
+
+.ofertapp-file-upload::file-selector-button {
+    background-color: #00BF63;
+    color: #fff;
+    border-style: none;
+    cursor: pointer;
+}
+
+.ofertapp-upload-div {
+    border-color: #000;
+    border-radius: 20px;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.ofertapp-file-upload::file-selector-button:hover {
+    background-color: #009c51;
 }
 
 .label-style {

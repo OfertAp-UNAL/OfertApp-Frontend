@@ -231,21 +231,47 @@
 }
 
 .report-button {
-    border-radius: 7px;
-    background-color: red;
-    color: white;
-    padding: 5px 10px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .report-button:hover {
-    background-color: darkred;
-  }
-  
-  .report-button:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px white, 0 0 0 4px darkred;
-  }
+  border-radius: 7px;
+  background-color: red;
+  color: white;
+  padding: 5px 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.report-button:hover {
+  background-color: darkred;
+}
+
+.report-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px white, 0 0 0 4px darkred;
+}
+
+.ofertapp-support-creation-carousel {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #00000036;
+  border-radius: 10px;
+}
+
+.ofertapp-carousel-indicators {
+  background-color: #fff;
+  bottom: -2.5rem !important;
+}
+
+.ofertapp-carousel-indicators li {
+  background-color: #00bf63 !important;
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+
+.ofertapp-carousel-indicators li.active {
+  background-color: #fff !important;
+  border-style: solid;
+  border-color: #00bf63 !important;
+}

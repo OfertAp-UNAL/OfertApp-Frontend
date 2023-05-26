@@ -1,13 +1,14 @@
 import Joi from "joi-browser";
-import withRouter from "../../services/withRouter";
-import Form from "../common/form";
-import FileUpload from "./../common/FileUpload/fileUpload";
-import { createPublication, getCategories } from "../../services/publicationService";
+import withRouter from "../../../services/withRouter";
+import Form from "../../common/form";
+import { createPublication, getCategories } from "../../../services/publicationService";
 import { toast } from "react-toastify";
-import ComboBox from "../common/comboBox";
-import CheckBox from "../common/checkBox";
+import ComboBox from "../../common/comboBox";
+import CheckBox from "../../common/checkBox";
+import SupportsUploadCarousel from "./supportsUploadCarousel";
+import Info from "../../common/info";
 
-import "./publicationView.css";
+import "./../publicationView.css";
 
 class CreatePublicationForm extends Form {
   state = {
@@ -17,8 +18,8 @@ class CreatePublicationForm extends Form {
       productDescription: "",
       startingPrice: "",
       auctionDuration: "",
-      evidenceFile: "",
-      evidenceDescription: "",
+      evidenceFiles: {},
+      evidenceDescriptions: {},
       boostProduct: false,
     },
     errors: {},
@@ -45,8 +46,6 @@ class CreatePublicationForm extends Form {
           defaultAuctionDuration
         });
     }
-
-    
   }
 
   schema = {
@@ -55,58 +54,73 @@ class CreatePublicationForm extends Form {
     productDescription: Joi.string()
       .required()
       .label("Descripción del producto"),
-    startingPrice: Joi.number().required().label("Precio inicial"),
-    auctionDuration: Joi.date().label("Tiempo de subasta"),
-    evidenceFile: Joi.any().required().label("Archivo de evidencia"),
-    evidenceDescription: Joi.string()
-      .allow("")
-      .label("Descripción de la evidencia"),
+    startingPrice: Joi.number().required().label("Precio inicial").greater(0),
+    auctionDuration: Joi.date().label("Tiempo de subasta").greater("now"),
+    evidenceFiles: Joi.object().pattern(
+      /.*/, Joi.required() 
+    ).required().label("Evidencia").min(1),
+    evidenceDescriptions: Joi.object().pattern(
+      /.*/, Joi.string().required().allow("")
+    ).required().label("Descripción de la evidencia"),
     boostProduct: Joi.boolean().label("Boosteable"),
   };
 
   genServiceData = ( userIsVIP ) => {
     const { 
-      productDescription, startingPrice, evidenceFile, evidenceDescription,
+      productDescription, startingPrice, evidenceFiles, evidenceDescriptions,
       category, auctionDuration, boostProduct, title
      } = this.state.data;
 
     // Find category ID
     const categoryId = category
 
+    // Generate form data info
+    const formData = new FormData();
+
     // Modify name fields that already exist to make them match with what the backend expects
-    let requestData = {
-      title : title,
-      description : productDescription,
-      minOffer : startingPrice,
-      supportsFiles : evidenceFile,
-      supportsDescriptions : evidenceDescription,
-      category : categoryId,
-      supportsTypes: "IMAGE"
-    };
+    formData.append("title", title);
+    formData.append("description", productDescription);
+    formData.append("minOffer", startingPrice);
+    formData.append("category", categoryId);
+
+    for( const id in evidenceFiles ){
+      const file = evidenceFiles[ id ];
+      const description = evidenceDescriptions[ id ];
+
+      // Check if file is empty
+      if( file !== null )
+        formData.append("supportsFiles", file);
+
+      // Descriptions are not mandatory actually
+      if( description !== "" )
+        formData.append("supportsDescriptions", description);
+      else
+        formData.append("supportsDescriptions", "");
+    }
 
     if( auctionDuration !== "" && userIsVIP ){
       // User can chage endDate only if he is VIP
-      requestData.endDate = new Date(auctionDuration).toISOString();
+      formData.append("endDate", new Date(auctionDuration).toISOString());
     }
 
     if( boostProduct && userIsVIP ){
       // Double checking that user is not trying to cheat :D
-      requestData.priority = true;
+      formData.append("priority", true);
     }
 
-    return requestData;
+    return formData;
   };
 
   doSubmit = async ( isVIP ) => {
     const publicationData = this.genServiceData( isVIP );
     try {
       const { data: result } = await createPublication(publicationData);
-      const { status, errors } = result;
+      const { status, error, data } = result;
       if (status === "success") {
         toast.success("Publicación realizada con éxito");
-        this.props.navigate("/my-publications");
+        this.props.navigate("/publication/" + data.id );
       } else {
-        toast.error("No se pudo crear la publicación : " + errors ? JSON.stringify(errors) : "");
+        toast.error("No se pudo crear la publicación : " + error ? JSON.stringify(error) : "");
       }
     } catch (ex) {
       toast.error("No se pudo realizar la publicación");
@@ -122,19 +136,33 @@ class CreatePublicationForm extends Form {
     this.doSubmit( isVIP );
   };
 
-  handleEvidenceImageSelection = async (file) => {
+  handleEvidenceFileSelection = (id, file) => {
     const { data } = this.state;
-    data["evidenceFile"] = file;
+    data.evidenceFiles[ id ] = file;
+
+    if( file === null )
+      delete data.evidenceFiles[ id ];
+
     this.setState({ data });
   };
 
-  handleBoosteableChange = async (checked) => {
+  handleEvidenceDescriptionChange = (id, description) => {
+    const { data } = this.state;
+    data.evidenceDescriptions[ id ] = description;
+
+    if( description === null)
+      delete data.evidenceDescriptions[ id ];
+    
+    this.setState({ data });
+  };
+
+  handleBoosteableChange = (checked) => {
     const { data } = this.state;
     data["boostProduct"] = checked;
     this.setState({ data });
   };
 
-  handleCategorySelection = async (category) => {
+  handleCategorySelection = (category) => {
     const { data } = this.state;
     data["category"] = category;
     this.setState({ data });
@@ -143,6 +171,8 @@ class CreatePublicationForm extends Form {
   render() {
     const { userData } = this.props;
     const { categories, defaultAuctionDuration } = this.state;
+
+    console.log( this.state.data.evidenceFiles );
 
     // Check if user has VIP State
     // Don't worry, backend will verify this as well
@@ -165,7 +195,11 @@ class CreatePublicationForm extends Form {
             <h1 className = "ofertapp-inspirational-message">
               !Ponle un título a tu publicación!
             </h1>
-            {this.renderInput("title", "Recuerda ser claro, será lo primero que vean tus posibles compradores")}
+            {this.renderInput(
+              "title", "Recuerda ser claro, será lo primero que vean tus posibles compradores",
+              "text", false, "", "",
+              "OBLIGATORIO: Éste título aparecerá en la mayoría de las listas donde tu publicación aparecerá"
+            )}
             <div className="ofertapp-div-hline"></div>
             
             <h1 className = "ofertapp-inspirational-message">
@@ -185,6 +219,10 @@ class CreatePublicationForm extends Form {
                   });
                 })() }
                 onChange={ this.handleCategorySelection }
+                info = {
+                  "OBLIGATORIO: Las categorías son definidas por nosotros y permiten " +
+                  "ordenar los productos de una mejor manera"
+                }
               />
             }
             <div className="ofertapp-div-hline"></div>
@@ -193,7 +231,11 @@ class CreatePublicationForm extends Form {
               Describe tu producto
             </h1>
             {this.renderInput("productDescription",
-              "Extiéndete todo lo que necesites, proporciona todos los detalles relevantes que sea necesario conocer")}
+              "Extiéndete todo lo que necesites, proporciona " + 
+              "todos los detalles relevantes que sea necesario conocer",
+              "textarea", false, "", "", 
+              "OBLIGATORIO: Los usaurios podrán ver ésta información antes de ofertar"
+              )}
             <div className="ofertapp-div-hline"></div>
 
             <h1 className = "ofertapp-inspirational-message">
@@ -201,10 +243,11 @@ class CreatePublicationForm extends Form {
             </h1>
             {this.renderInput("startingPrice", 
               "Recuerda que éste debería ser el valor mínimo que, consideras, vale tu producto (COP $)", 
-              "number")}
+              "number", false, "", "",
+              "OBLIGATORIO: Venderás tu producto a un precio mayor, recuerda que descontaremos el" +
+              " 10% de comisión por venta"
+            )}
             <div className="ofertapp-div-hline"></div>
-          </div>
-          <div className="col-12 col-md-6 ofertapp-creation-column">
 
             <h1 className = "ofertapp-inspirational-message">
               Tiempo de subasta
@@ -212,31 +255,39 @@ class CreatePublicationForm extends Form {
             {this.renderInput(
               "auctionDuration",
               "Si eres usuario VIP, puedes cambiar éste tiempo", "date",
-              !isVIP, "", defaultAuctionDuration
+              !isVIP, "", defaultAuctionDuration,
+              "OBLIGATORIO: Si eres usuario VIP podrás cambiar éste tiempo! "
             )}
             <div className="ofertapp-div-hline"></div>
+            
+          </div>
+          <div className="col-12 col-md-6 ofertapp-creation-column">
 
             <h1 className = "ofertapp-inspirational-message">
               Publica algunas evidencias que certifiquen la calidad de tu producto
+              <p><Info text={
+                "OBLIGATORIO: Publica al menos un soporte para tu producto, es importante " +
+                "para nosotros que tus posibles compradores tengan confianza en tu producto"
+              } 
+              /></p>
+              <p class="text-muted" style={{
+                fontSize: "12px"
+              }}>
+              Recuerda que si no adjuntas un archivo junto a una descripción ésta simpelemente
+              será ignorada y no aparecerá en tu soporte final
+              </p>
+              
             </h1>
-
-            <FileUpload
-              label = {"Puedes adjuntar imágenes y videos, no olvides que tus usuarios querrán estar seguros de la calidad de tu producto ofertado," +
-                " ¡Dales todo el soporte que consideres necesario!"}
-              type="image"
-              onChange={this.handleEvidenceImageSelection}
-            />
-            {this.renderInput(
-              "evidenceDescription",
-              "Describe tu evidencia para hacerlo aún más claro"
-            )}
-
+            
             <div className="ofertapp-div-hline"></div>
-
+            <SupportsUploadCarousel 
+              onDescriptionChange = {this.handleEvidenceDescriptionChange}
+              onEvidenceFileChange = {this.handleEvidenceFileSelection}
+            />
+            <div className="ofertapp-div-hline"></div>
             <h1 className = "ofertapp-inspirational-message">
               ¡Recuerda verificarlo todo antes de enviar!
             </h1>
-
             
             {pubIsBoosteable && 
               <div>
@@ -249,9 +300,11 @@ class CreatePublicationForm extends Form {
                 <div className="ofertapp-div-hline"></div>
               </div>
             }
-            
             {
               this.renderButton("Publicalo!")
+            }
+            {
+              this.generateErrorsDiv()
             }
           </div>
         </form>

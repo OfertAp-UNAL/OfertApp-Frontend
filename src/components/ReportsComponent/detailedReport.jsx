@@ -35,7 +35,7 @@ class DetailedReport extends Component {
     }
   }
 
-  async handleSubmit( data, body ) {
+  async handleSubmit( data, body ) {  
     const formData = new FormData();
     formData.append("data", data);
     formData.append("body", body);

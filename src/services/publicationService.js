@@ -21,14 +21,10 @@ export function getPublication(publicationId, token) {
   return http.get(publicationUrl(publicationId), { headers });
 }
 
-export function createPublication(publication) {
+export function createPublication(publicationData) {
   const token = localStorage.getItem("token");
-  const formData = new FormData();
-  Object.entries(publication).forEach(([key, value]) =>
-    formData.append(key, value)
-  );
 
-  return http.post(apiEndpoint, formData, {
+  return http.post(apiEndpoint, publicationData, {
     headers: {
       Authorization: "Bearer " + token,
       "Content-Type": "multipart/form-data",

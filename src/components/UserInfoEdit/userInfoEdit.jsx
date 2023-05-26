@@ -217,8 +217,9 @@ class UserInfoEdit extends Form {
     if( user.password !== "" )
       formData.append("password", user.password);
 
-    if (user.profilePicture != null)
+    if (user.profilePicture != null){
       formData.append("profilePicture", user.profilePicture);
+    }
 
     // Now perform our request
     try{
@@ -226,6 +227,10 @@ class UserInfoEdit extends Form {
       const{ status, error } = response.data;
       if(status === "success" ){
         toast.success("Usuario actualizado exitosamente");
+
+        // Finally update general user data
+        await this.props.OnUpdateUserData();
+        
         this.props.navigate("/homepage");
       } else {
         toast.error("Error registrando usuario, verifique los campos digitados: " + 
@@ -339,39 +344,50 @@ class UserInfoEdit extends Form {
             {this.renderInput(
               "id", "Tu Número de Cédula", "number",
               editing, "", id, 
-              "OBLIGATORIO: Buscamos garantizar que nuestros usuarios sean personas reales, por lo que necesitamos tu número de cédula para verificar tu identidad"
+              "OBLIGATORIO: Buscamos garantizar que nuestros usuarios sean personas reales, " +
+              "por lo que necesitamos tu número de cédula para verificar tu identidad"
             )}
             <div className="ofertapp-div-hline"></div>
             {this.renderInput(
               "firstName", "Tu(s) nombre(s)", "text",
-              false, "", firstName
+              false, "", firstName,
+              "OBLIGATORIO: Escribe los nombres en tu documento de identidad"
             )}
             <div className="ofertapp-div-hline"></div>
             {this.renderInput(
               "lastName", "Tu(s) apellido(s)", "text",
-              false, "", lastName
+              false, "", lastName,
+              "OBLIGATORIO: Escribe los apellidos en tu documento de identidad"
             )}
             <div className="ofertapp-div-hline"></div>
             {this.renderInput(
               "username", "Nombre de usuario, recuerda que debe ser único", "text",
-              editing, "", username
+              editing, "", username,
+              "OBLIGATORIO: Éste nombre de usuario aparecerá en la mayoría de acciones" +
+              "que realices en OfertApp, por lo que debe ser único y fácil de recordar"
             )}
             <div className="ofertapp-div-hline"></div>
             {this.renderInput(
               "email", "Tu correo electrónico, recuerda que debe ser único", "email",
-              editing, "", email
+              editing, "", email,
+              "OBLIGATORIO: Te enviaremos un correo de confirmación al email que digites" +
+              ". También podrías recibir mas notificiaciones de OfertApp en este correo"
             )}
             <div className="ofertapp-div-hline"></div>
             {this.renderInput(
               "birthdate", "¿Cúando naciste?", "date", 
               false, "", editing ? birthdate :
                 // Lets format the date to be compatible with the input
-                (new Date( Date.now() ).toISOString().split("T")[0])
-              )}
+                (new Date( Date.now() ).toISOString().split("T")[0]),
+              "OBLIGATORIO: Necesitamos saber tu fecha de nacimiento para poder " +
+              "ofrecerte una mejor experiencia en OfertApp y verificar que eres mayor de edad"
+              )
+            }
             <div className="ofertapp-div-hline"></div>
             {this.renderInput(
               "phone", "Tu número de teléfono", "text",
-              editing, "", phone
+              editing, "", phone, 
+              "OBLIGATORIO: Necesitamos tu número de teléfono para poder confirmar tu identidad"
             )}
             <div className="ofertapp-div-hline"></div>
             <h1 className = "ofertapp-inspirational-message">
@@ -379,13 +395,17 @@ class UserInfoEdit extends Form {
             </h1>
             <div className="ofertapp-div-hline"></div>
             {this.renderInput(
-              "password", "Contraseña", "password"
+              "password", "Contraseña", "password", false, "", null,
+              (editing ? "OPCIONAL" : "OBLIGATORIO") + ": Tu contraseña debe tener al menos 8 caracteres, " +
+              "una letra mayúscula, una letra minúscula y un número"
             )}
             <div className="ofertapp-div-hline"></div>
             {this.renderInput(
               "confirmPassword",
               "Confirmar Contraseña",
-              "password"
+              "password", false, "", null,
+              (editing) ? "Si deseas cambiar tu contraseña, recuerda que debe coincidir con la anterior" :
+              "OBLIGATORIO: Debe coincidir con la contraseña anterior"
             )}
             <div className="ofertapp-div-hline"></div>
           </div>
@@ -393,25 +413,32 @@ class UserInfoEdit extends Form {
             <FileUpload 
               label = "Imagen de perfil" type = "image"
               onChange = {this.handleProfileImageSelection}
+              info = {"OPCIONAL: Puedes subir una imagen de perfil para que los demás usuarios " +
+              "te reconozcan más fácilmente"}
             />
             <div className="ofertapp-div-hline"></div>
             {this.renderAutosuggest(
               "department",
               "Departamento",
               departments,
-              this.handleDepartmentSelection
+              this.handleDepartmentSelection,
+              "OBLIGATORIO: Necesitamos saber en qué departamento vives para poder " +
+              "ofrecerte una mejor experiencia en OfertApp"
             )}
             <div className="ofertapp-div-hline"></div>
             {this.renderAutosuggest(
               "municipality",
               "Municipio",
               municipalitiesNames,
-              this.handleMunicipalitySelection
+              this.handleMunicipalitySelection,
+              "OBLIGATORIO: El municipio del departamento donde vives"
             )}
             <div className="ofertapp-div-hline"></div>
             {this.renderInput(
               "address", "Dirección", "text",
-              editing, "", address
+              editing, "", address,
+              "OPCIONAL: Tu dirección será relevante para revisar cualquier tipo de " +
+              "transacción que realices en OfertApp"
             )}
             <div className="ofertapp-div-hline"></div>
             <ComboBox
@@ -423,11 +450,17 @@ class UserInfoEdit extends Form {
               onChange={(value) => {
                 this.handlePaymentTypeSelection(value);
               }}
+              info = {
+                "OBLIGATORIO: Necesitamos saber el tipo de cuenta bancaria que tienes para poder " +
+                "verificar tu identidad cuando realizas transacciones en OfertApp"
+              }
             />
             <div className="ofertapp-div-hline"></div>
             {this.renderInput(
               "paymentAccountNumber", "Número de cuenta", "text",
-              editing, "", paymentAccountNumber
+              editing, "", paymentAccountNumber,
+              "OBLIGATORIO: Necesitamos saber el número de tu cuenta bancaria para poder " +
+              "verificar tu identidad cuando realizas transacciones en OfertApp"
             )}
             <div className="ofertapp-div-hline"></div>
             {
