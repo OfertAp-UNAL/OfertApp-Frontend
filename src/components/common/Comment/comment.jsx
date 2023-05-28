@@ -83,7 +83,7 @@ class Comment extends Component {
                                         className = "ofertapp-comment-contents"
                                         style = {{
                                             "maxWidth": "80%",
-                                            "borderBottom": "1px solid #000"
+                                            "borderBottom": "1px solid var(--ofertapp-border-color)"
                                         }}
                                     >{
                                         comment.parent.title

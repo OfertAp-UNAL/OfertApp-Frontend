@@ -240,6 +240,7 @@ class Statistics extends Component {
                             ]}
                             value = "day"
                             onChange = {(value) => {this.handleComboBoxChange("financialGroupingBy", value)}}
+                            info = "OPCIONAL: Agrupa tus ventas y compras por día, semana, mes o año."
                         />
                         <br />
                         <ComboBox
@@ -250,6 +251,7 @@ class Statistics extends Component {
                             ]}
                             value = "money"
                             onChange={(value) => {this.handleComboBoxChange("financialviewBy", value)}}
+                            info = "OPCIONAL: Ver tus ventas y compras por monto o cantidad."
                         />
                     </div>
                     <div className='col-12 col-sm-9 text-center' style={{"height":"300px"}}>
@@ -271,6 +273,7 @@ class Statistics extends Component {
                             ]}
                             value = "day"
                             onChange = {(value) => {this.handleComboBoxChange("reactionsGroupingBy", value)}}
+                            info = "OPCIONAL: Ver las reacciones a tus comentarios por día, semana, mes o año."
                         />
                     </div>
                     <div className='col-12 col-sm-9 text-center' style={{"height":"300px"}}>
@@ -290,6 +293,8 @@ class Statistics extends Component {
                             ]}
                             value = "money"
                             onChange = {(value) => {this.handleComboBoxChange("offersViewBy", value)}}
+                            info = {"OPCIONAL: Ver las ofertas a tus publicaciones por monto o cantidad." +
+                                " El monto es el monto máximo ofrecido por alguien a tu oferta."}
                         />
                         <br/>
                         <ComboBox
@@ -301,6 +306,7 @@ class Statistics extends Component {
                             ]}
                             value = "money"
                             onChange = {(value) => {this.handleComboBoxChange("offersLast", value)}}
+                            info = "OPCIONAL: Ver tus últimas 5, 10 o 20 publicaciones."
                         />
                     </div>
                     <div className='col-12 col-sm-9 text-center' style={{"height":"300px"}}>

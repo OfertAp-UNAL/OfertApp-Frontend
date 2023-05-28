@@ -1,4 +1,3 @@
-//import Joi from "joi-browser";
 import withRouter from "../../services/withRouter";
 import { Component } from "react";
 import { getPublication } from "../../services/publicationService";
@@ -10,8 +9,10 @@ import PublicationViewPrice from "./publicationViewPrice";
 import PublicationViewOffers from "./publicationViewOffers";
 import PublicationViewComments from "./publicationViewComments";
 import AdminDeleteButton from "../Admins/deleteButton";
+import Info from "../common/info";
 
 import "./publicationView.css";
+import "./../../App.css"
 
 import { toast } from "react-toastify";
 
@@ -105,9 +106,9 @@ class PublicationView extends Component {
           role="dialog"
         >
           <div className="modal-dialog" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">
+            <div className="modal-content general-div">
+              <div className="modal-header general-div">
+                <h5 className="modal-title general-text" id="exampleModalLabel">
                   Reportar Subasta
                 </h5>
                 <button
@@ -119,11 +120,12 @@ class PublicationView extends Component {
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div className="modal-body">
-                <h5>Seleccione una o varias infracciones para reportar</h5>
-                <ul className="report-list">
+              <div className="modal-body general-div">
+                <h5 className="general-text">Seleccione una o varias infracciones para reportar</h5>
+                <ul className="report-list general-text">
                   <li className="report-list__item">
                     <label htmlFor="DF">Producto No Entregado</label>
+                    <Info text="El producto no ha sido entregado en el tiempo estipulado" />
                     <input
                       type="radio"
                       name="report-type"
@@ -133,6 +135,7 @@ class PublicationView extends Component {
                   </li>
                   <li className="report-list__item">
                     <label htmlFor="SF">Fraude</label>
+                    <Info text="Sospechas que éste producto es un fraude" />
                     <input
                       type="radio"
                       name="report-type"
@@ -142,6 +145,7 @@ class PublicationView extends Component {
                   </li>
                   <li className="report-list__item">
                     <label htmlFor="MA">Publicidad Engañosa</label>
+                    <Info text="Consideras que lo ofrecido no es real" />
                     <input
                       type="radio"
                       name="report-type"
@@ -152,6 +156,7 @@ class PublicationView extends Component {
 
                   <li className="report-list__item">
                     <label htmlFor="MA">Fallo de Calidad</label>
+                    <Info text="El producto no cumplió con los criterios de calidad prometidos" />
                     <input
                       type="radio"
                       name="report-type"
@@ -162,6 +167,7 @@ class PublicationView extends Component {
 
                   <li className="report-list__item">
                     <label htmlFor="DL">No me gustó el producto</label>
+                    <Info text="El producto no cumple con tus estandares" />
                     <input
                       type="radio"
                       name="report-type"
@@ -173,6 +179,7 @@ class PublicationView extends Component {
                 </ul>
                 <hr />
                 <textarea
+                  className="general-text general-div"
                   name="comments"
                   id="comments"
                   cols="30"
@@ -182,7 +189,11 @@ class PublicationView extends Component {
                   onChange={this.handleReportBodyChange}
                 ></textarea>
 
-                <button className="report-button" onClick={this.submitReport}>
+                <button 
+                  className="report-button" 
+                  data-dismiss="modal" 
+                  onClick={this.submitReport}
+                >
                   Reportar
                 </button>
               </div>
@@ -201,7 +212,7 @@ class PublicationView extends Component {
               }}
               onError={(error) => toast.error(error)}
             />
-            <div className="row">
+            <div className="row general-text">
               <div className="col-12 col-md-4">
                 Tipo de entrega: {
                   publication.deliveryType ? (

@@ -71,7 +71,7 @@ class PublicationViewComments extends Component {
     const userData = this.props.userData;
     
     return (
-      <div className="row align-middle">
+      <div className="row align-middle general-text">
         <h3 className="ofertapp-label">Comentarios</h3>
         <div
           className="ofertapp-overflow ofertapp-comments-block"

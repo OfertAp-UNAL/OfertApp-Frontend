@@ -1,7 +1,7 @@
 .ofertapp-table {
     font-size: 48px;
     font-weight: bold;
-    color: #000;
+    color: var(--ofertapp-general-text-color);
 }
 
 .ofertapp-table-header {
@@ -17,20 +17,20 @@
 }
 
 .ofertapp-table-row {
-    background-color: #fff;
-    color: #000;
+    background-color: var(--ofertapp-general-background-color);
+    color: var(--ofertapp-general-text-color);
     font-size: 16px;
     font-family: 'Inter';
     font-style: "normal";
     font-weight: 400;
     border-radius: 10px;
-    border-color: #000;
+    border-color: var(--ofertapp-border-color);
     border-style: solid;
     border-width: 1px;
 }
 
 .ofertapp-table-row:hover {
-    background-color: #00000050;
+    background-color: var(--ofertapp-alternative-background-color);
 }
 
 /* 

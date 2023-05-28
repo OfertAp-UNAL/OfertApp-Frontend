@@ -35,7 +35,10 @@ class DeliveryInfo extends Form {
                 this.props.navigate("/publication/" + id);
                 return;
             } else {
-                toast.error("Error al editar información de envío " + error);
+                this.setState(
+                    { serverErrors: error  }
+                )
+                toast.error("Error al editar información de envío" );
             }
 
         } catch (error) {
@@ -59,6 +62,8 @@ class DeliveryInfo extends Form {
                             { name: "SV", label: "Servientrega" },
                             { name: "PS", label: "ProSegur" },
                         ]}
+                        info = { "Selecciona el tipo de envío, recuerda que Servientrega permite transaccciones " +
+                            "de hasta $10.000.000"}
                     />
 
                     {this.renderInput("deliveryId", "ID de envío")}

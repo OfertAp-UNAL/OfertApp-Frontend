@@ -1,7 +1,7 @@
 .ofertapp-page-title {
   font-size: 48px;
   font-weight: bold;
-  color: rgba(0, 0, 0, 0.466);
+  color: var(--ofertapp-page-title-text-color);
 
   padding-bottom: 20px;
   padding-left: 40px;
@@ -10,7 +10,7 @@
 
   text-align: left;
   border-bottom-style: solid;
-  border-bottom-color: #000000;
+  border-bottom-color: var(--ofertapp-border-color);
   font-family: "Inter";
   font-style: "normal";
 }
@@ -43,7 +43,7 @@
 .ofertapp-base-subtitle {
   font-size: 36px;
   font-weight: bold;
-  color: #000000;
+  color: var(--ofertapp-general-text-color);
 
   margin-top: 10px;
   margin-bottom: 10px;
@@ -154,7 +154,7 @@
   border-radius: 10px;
   align-self: center !important;
   border-color: #00bf63;
-  color: #000000;
+  color: var(--ofertapp-general-text-color);
 
   margin-top: 50px;
   padding-top: 15px;

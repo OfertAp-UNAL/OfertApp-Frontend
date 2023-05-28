@@ -184,9 +184,8 @@ class UserInfoEdit extends Form {
         
         this.props.navigate("/homepage");
       } else {
-        toast.error("Error registrando usuario, verifique los campos digitados: " + 
-          JSON.stringify( error || "Error desconocido") 
-        );
+        this.setState({ serverErrors: error })
+        toast.error("Error registrando usuario, verifique los campos digitados");
       }
     } catch( e ) {
       toast.error("Error registrando usuario, verifique los campos digitados");
@@ -233,9 +232,8 @@ class UserInfoEdit extends Form {
         
         this.props.navigate("/homepage");
       } else {
-        toast.error("Error registrando usuario, verifique los campos digitados: " + 
-          JSON.stringify( error || "Error desconocido") 
-        );
+        this.setState({ serverErrors: error })
+        toast.error("Error registrando usuario, verifique los campos digitados");
       }
     } catch( e ) {
       toast.error("Error registrando usuario, verifique los campos digitados");

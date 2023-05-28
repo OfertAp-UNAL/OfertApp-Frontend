@@ -1,6 +1,7 @@
 import { Component } from "react";
 import FileUpload from "../common/FileUpload/fileUpload";
 import CustomButton from "./../common/Button/button";
+import Info from "../common/info";
 
 class AddSupportDialog extends Component {
 
@@ -49,15 +50,23 @@ class AddSupportDialog extends Component {
                             label="Imagen de soporte"
                             type="image"
                             onChange={this.handleDataSelection}
+                            info = {
+                                "OBLIGATORIO: Por favor sube una imagen que sea significativa para tu soporte, " +
+                                "por ejemplo, recibos de envío, facturas, etc."
+                            }
                             />
                         </div>
+                        <br/>
                         <div className="col-12">
+                            <Info
+                                info="OPCIONAL: Por favor describe tu soporte"
+                            />
                             <textarea
-                            name=""
-                            id=""
-                            cols="30"
-                            rows="10"
-                            onChange={this.handleTextChange}
+                                name=""
+                                id=""
+                                cols="30"
+                                rows="10"
+                                onChange={this.handleTextChange}
                             ></textarea>
                         </div>
                         <div className="col-12">

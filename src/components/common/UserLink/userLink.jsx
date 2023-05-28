@@ -51,7 +51,8 @@ class UserLink extends Component {
     const user = this.props.user;
     const base = this.props.base;
     const fontSize = this.props.fontSize ? parseInt(this.props.fontSize) : null;
-    const fontColor = this.props.fontColor ? this.props.fontColor : "#000";
+    const fontColor = this.props.fontColor ? 
+      this.props.fontColor : "var(--ofertapp-general-text-color)";
 
     return (
       // Conditional class name

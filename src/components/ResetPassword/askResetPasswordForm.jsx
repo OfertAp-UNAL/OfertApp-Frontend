@@ -15,19 +15,20 @@ class askResetPasswordForm extends Form {
   };
 
   schema = {
-    user: Joi.string().required().label("Correo"),
+    user: Joi.string().email().required().label("Correo"),
   };
 
   doSubmit = async () => {
     try{
       const { user } = this.state.data;
       const { data: response } = await sendResetPasswordEmail(user);
-      const { status } = response;
+      const { status, error } = response;
       if(status === "success"){
         toast.success("Correo enviado con éxito, revisa tu bandeja de entrada");
 
         this.props.navigate("/login");
       } else {
+        this.setState({ serverErrors: error });
         toast.error("No se pudo enviar el correo");
       }
     }
@@ -56,7 +57,10 @@ class askResetPasswordForm extends Form {
               <div className="offset-1 col-10">
                 <h5 className="login-title ps-2">Recuperación de</h5>
                 <h5 className="login-title ps-2 pb-3">contraseña</h5>
-                {this.renderInput("user", "Tu correo:")}
+                {this.renderInput("user", "Tu correo:", "email", false, "", "", 
+                  "OBLIGATORIO: Asegúrate de haberte registrado con éste correo electrónico"
+                )}
+                <br />
                 <div className="row justify-content-center">
                   {this.renderButton("Enviar")}
                 </div>

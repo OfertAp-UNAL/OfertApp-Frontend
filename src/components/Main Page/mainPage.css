@@ -1,7 +1,7 @@
 .ofertapp-page-title {
     font-size: 48px;
     font-weight: bold;
-    color: rgba(0, 0, 0, 0.466);
+    color: var(--ofertapp-page-title-text-color) !important;
 
     padding-bottom: 20px;
     padding-left: 40px;
@@ -10,7 +10,7 @@
 
     text-align: left;
     border-bottom-style: solid;
-    border-bottom-color: #000000;
+    border-bottom-color: var(--offertapp-div-lines-color) !important;
     font-family: 'Inter';
     font-style: "normal";
 }

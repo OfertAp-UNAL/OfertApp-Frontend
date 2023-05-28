@@ -4,12 +4,14 @@ import { toast } from "react-toastify";
 import CustomButton from "./../common/Button/button";
 import WithRouter from "../../services/withRouter";
 import Input from "./../common/input";
+import DisplayErrors from "../common/Errors/displayErrors";
 
-const minAmount = 1000;
+const minAmount = 3000;
 class WithdrawAccountView extends Component {
 
     state = {
-        amount: 0
+        amount: 0,
+        errors : {},
     }
 
     updateAmount( amount ) {    
@@ -27,7 +29,9 @@ class WithdrawAccountView extends Component {
             toast.success( "Retiro realizado con éxito!" );
             this.props.navigate( "/transaction-history" );
         } else {
-            toast.error( error );
+            this.setState({
+                errors : error
+            })
         }
     }
 
@@ -43,6 +47,7 @@ class WithdrawAccountView extends Component {
                         name="amount" 
                         type="number" 
                         onChange={ (e) => this.updateAmount( e.target.value ) }
+                        info = { `El monto mínimo para retirar es de COP $${minAmount}` }
                     />
                 </div>
                 {
@@ -53,6 +58,9 @@ class WithdrawAccountView extends Component {
                             onClick = { () => this.performWithdraw() }
                             disabled = { this.state.inProcess }
                         />
+                }
+                {
+                    <DisplayErrors errors = { this.state.errors } />
                 }
             </div>
         )

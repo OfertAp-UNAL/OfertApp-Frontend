@@ -44,12 +44,13 @@ class newPasswordForm extends Form {
         toast.error("Las contraseñas no coinciden");
         return;
       }
-      const { status } = response;
+      const { status, error } = response;
       if(status === "success"){
         toast.success("Contraseña cambiada con éxito");
 
         this.props.navigate("/login");
       } else {
+        this.setState({ serverErrors: error });
         toast.error("No se pudo cambiar la contraseña");
       }
       
@@ -81,11 +82,18 @@ class newPasswordForm extends Form {
               <div className="offset-1 col-10">
                 <h5 className="login-title ps-2">Recuperación de</h5>
                 <h5 className="login-title ps-2 pb-3">contraseña</h5>
-                {this.renderInput("password", "Contraseña", "password")}
+                {this.renderInput(
+                  "password", 
+                  "Contraseña", 
+                  "password", false, "", "",
+                  "OBLIGATORIO: La contraseña debe tener al menos 8 caracteres, una mayúscula, " +
+                  "una minúscula y un número"
+                )}
                 {this.renderInput(
                   "confirmPassword",
                   "Confirmar Contraseña",
-                  "password"
+                  "password", false, "", "",
+                  "OBLIGATORIO: Las contraseñas proveídas deben coincidir"
                 )}
                 <div className="row justify-content-center">
                   {this.renderButton("Enviar")}

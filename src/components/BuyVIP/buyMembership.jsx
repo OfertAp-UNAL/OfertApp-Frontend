@@ -2,9 +2,10 @@ import { Component } from 'react';
 import CustomButton from '../common/Button/button';
 import { buyMembership } from '../../services/userService';
 import { toast } from 'react-toastify';
+import "./../../App.css";
 
 class BuyMembership extends Component {
-    state = {  }
+    state = { }
 
     async handleSubmit() {
         try {
@@ -34,7 +35,7 @@ class BuyMembership extends Component {
             >
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
-                        <div className="modal-header">
+                        <div className="modal-header general-div general-text">
                             <h5 className="modal-title" id="exampleModalLabel">
                                 Compra tu membresía!
                             </h5>
@@ -47,7 +48,7 @@ class BuyMembership extends Component {
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div className="modal-body">
+                        <div className="modal-body general-div general-text">
                             <div className = "row">
                                 <div className = "col-12 mb-3">
                                     <p>
@@ -63,6 +64,7 @@ class BuyMembership extends Component {
                                 </div>
                                 <div className = "col-12">
                                     <CustomButton
+                                        data-dismiss="modal"
                                         caption = "Comprar membresía"
                                         type = "primary"
                                         onClick = { this.handleSubmit }

@@ -6,14 +6,16 @@ import { CardPayment, initMercadoPago } from "@mercadopago/sdk-react";
 import WithRouter from "../../services/withRouter";
 import Input from "./../common/input";
 import CustomButton from "../common/Button/button";
+import DisplayErrors from "./../common/Errors/displayErrors";
 
-const minAmount = 1000;
+const minAmount = 3000;
 
 class RechargeAccountView extends Component {
 
     state = {
         amount: 0,
         isReady: false,
+        errors: {}
     }
 
     async componentDidMount() {
@@ -65,7 +67,9 @@ class RechargeAccountView extends Component {
                             // Redirect to transactions
                             this.props.navigate( "/transaction-history" );
                         } else {
-                            toast.error( error );
+                            this.setState({
+                                errors : error
+                            });
                             reject();
                         }
                     } catch( e ) {
@@ -147,6 +151,7 @@ class RechargeAccountView extends Component {
                         type="number" 
                         onChange={ (e) => this.updateAmount( e.target.value )}
                         disabled = { this.state.inProcess }
+                        info = { `El monto mínimo para recargar es de COP $${minAmount}` }
                     />
                     {
                         amount >= minAmount && !isReady &&
@@ -176,6 +181,10 @@ class RechargeAccountView extends Component {
                                 customization = {customization}
                             />
                         </div>
+                }
+                {
+                    this.state.errors &&
+                    <DisplayErrors errors = { this.state.errors } />
                 }
             </div>
         )
