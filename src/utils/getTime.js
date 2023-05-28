@@ -43,7 +43,7 @@ const getDatesDifference = (date1, date2, allowPast = true) => {
     if (hoursLeft > 0) return `${hoursLeft} hora${hoursLeft > 1 ? "s" : ""}`;
     if (minutesLeft > 0) return `${minutesLeft} minuto${minutesLeft > 1 ? "s" : ""}`;
     if (secondsLeft > 0) return `${secondsLeft} segundo${secondsLeft > 1 ? "s" : ""}`;
-
+    return "un momento"
 }
 
 const getExpirationFormatted = (date) => {
@@ -67,12 +67,29 @@ const getDatetimeFormatted = (date) => {
 const getTimeLeft = (date, allowPast = true) => {
     const miliseconds = typeof (date) == "string" ? Date.parse(date) : date;
     const currentMilis = Date.now();
+
     return getDatesDifference(currentMilis, miliseconds, allowPast);
+}
+
+const getAnyTimePassed = (date) => {
+    console.log("tiempo ", date)
+    // Render for any past, present or future date
+    const miliseconds = typeof (date) == "string" ? Date.parse(date) : date;
+    const currentMilis = Date.now();
+    console.log(miliseconds)
+    console.log(currentMilis)
+
+    if (miliseconds > currentMilis)
+        // Target is in the future
+        return `Tiempo faltante: ${getDatesDifference(currentMilis, miliseconds, false)}`;
+    else
+        return `Hace ${getDatesDifference(miliseconds, currentMilis, false)}`;
 }
 
 export {
     getDatesDifference,
     getExpirationFormatted,
     getDatetimeFormatted,
-    getTimeLeft
+    getTimeLeft,
+    getAnyTimePassed
 }

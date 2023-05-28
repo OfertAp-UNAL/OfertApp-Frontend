@@ -23,6 +23,7 @@ class PublicationViewOffers extends Component {
         const newOffer = {
             ...offerData,
             user : userData,
+            createdAt: new Date().toISOString()
         }
 
         // Add offer to visualization list

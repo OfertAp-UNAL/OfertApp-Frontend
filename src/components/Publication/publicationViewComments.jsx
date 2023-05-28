@@ -52,7 +52,8 @@ class PublicationViewComments extends Component {
         user : userData,
         reactionsCount : {
           LIKE: 0, DISLIKE: 0, WARNING: 0
-        }
+        },
+        createdAt: new Date().toISOString()
       }
       
       // Add comment to visualization list

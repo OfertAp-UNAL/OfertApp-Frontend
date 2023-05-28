@@ -1,6 +1,6 @@
 import { Component } from "react";
 import UserLink from "../UserLink/userLink";
-import { getTimeLeft } from "./../../../utils/getTime";
+import { getAnyTimePassed } from "./../../../utils/getTime";
 import "./comment.css";
 import { addReaction } from "../../../services/reactionService";
 import AdminDeleteButton from "../../Admins/deleteButton";
@@ -57,7 +57,6 @@ class Comment extends Component {
     await addReaction(comment.id, reaction);
   }
 
-
   render() {
     const comment = this.state.comment;
     const user = this.state.comment ? this.state.comment.user : null;
@@ -113,7 +112,7 @@ class Comment extends Component {
                         </div>
                         <div className = "col-12">
                             <p className = "ofertapp-comment-time">
-                                Hace {getTimeLeft(comment.createdAt, true)}
+                                {getAnyTimePassed(comment.createdAt)}
                             </p>
                         </div>
                     </div>

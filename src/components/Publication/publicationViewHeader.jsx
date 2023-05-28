@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import UserLink from './../common/UserLink/userLink';
-import { getTimeLeft } from './../../utils/getTime';
+import { getAnyTimePassed } from './../../utils/getTime';
 import './publicationView.css';
 
 class PublicationViewHeader extends Component {
@@ -31,7 +31,7 @@ class PublicationViewHeader extends Component {
                         style = {{
                             "fontSize": "1.5em",
                         }}>
-                        {"Expira en: " + getTimeLeft( publication.endDate )}
+                        {getAnyTimePassed( publication.endDate )}
                     </h3>
                 </div>
             </div>

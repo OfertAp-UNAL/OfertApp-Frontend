@@ -1,6 +1,6 @@
 import { Component } from "react";
 import UserLink from "../UserLink/userLink";
-import { getTimeLeft } from "./../../../utils/getTime";
+import { getAnyTimePassed } from "./../../../utils/getTime";
 import "./offer.css";
 
 // user: object
@@ -48,7 +48,7 @@ class Offer extends Component {
                 </div>
                 <div className = "col-12 text-center">
                     <p className = "ofertapp-offer-time">
-                        Hace {getTimeLeft(offer.createdAt, true)}
+                        {getAnyTimePassed(offer.createdAt)}
                     </p>
                 </div>
             </div>
