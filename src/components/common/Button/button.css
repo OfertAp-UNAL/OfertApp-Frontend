@@ -31,6 +31,6 @@
     display: none !important;
 }
 
-.ofertapp-registration-column .ofertapp-button-primary:hover + .register-loading{
+.ofertapp-registration-column .ofertapp-button-primary:focus + .register-loading{
     display: inline-block !important;
 }

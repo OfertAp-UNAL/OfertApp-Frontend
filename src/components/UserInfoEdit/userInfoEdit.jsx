@@ -187,9 +187,11 @@ class UserInfoEdit extends Form {
         toast.error("Error registrando usuario, verifique los campos digitados: " + 
           JSON.stringify( error || "Error desconocido") 
         );
+        document.activeElement.blur();
       }
     } catch( e ) {
       toast.error("Error registrando usuario, verifique los campos digitados");
+      document.activeElement.blur();
     }
     
   }

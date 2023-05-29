@@ -46,7 +46,7 @@ class FileUpload extends Component {
                             const fileName = e.target.value;
                             this.setState({ 
                                 fileName : fileName,
-                                value : value 
+                                value : value
                             });
 
                             // We should only notify listenners with an actual file..
@@ -60,7 +60,6 @@ class FileUpload extends Component {
                         contentType={"AUTO"}
                         data={value}
                         fileName={fileName}
-                        width={"70%"}
                         height={"180px"}
                     />
                 </div>
