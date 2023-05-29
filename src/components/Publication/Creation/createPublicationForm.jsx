@@ -92,7 +92,7 @@ class CreatePublicationForm extends Form {
         formData.append("supportsFiles", file);
 
       // Descriptions are not mandatory actually
-      if( description !== "" )
+      if( description != null && description !== "" )
         formData.append("supportsDescriptions", description);
       else
         formData.append("supportsDescriptions", "");
@@ -120,7 +120,10 @@ class CreatePublicationForm extends Form {
         toast.success("Publicación realizada con éxito");
         this.props.navigate("/publication/" + data.id );
       } else {
-        toast.error("No se pudo crear la publicación : " + error ? JSON.stringify(error) : "");
+        this.setState({
+          serverErrors : error
+        });
+        toast.error("No se pudo crear la publicación");
       }
     } catch (ex) {
       toast.error("No se pudo realizar la publicación");
@@ -172,8 +175,6 @@ class CreatePublicationForm extends Form {
     const { userData } = this.props;
     const { categories, defaultAuctionDuration } = this.state;
 
-    console.log( this.state.data.evidenceFiles );
-
     // Check if user has VIP State
     // Don't worry, backend will verify this as well
     let isVIP = false, vipPubCount = 0;
@@ -193,7 +194,7 @@ class CreatePublicationForm extends Form {
         <form onSubmit={ (e) => {this.handleSubmit( e, isVIP )} } className="row text-center">
           <div className="col-12 col-md-6 ofertapp-creation-column">
             <h1 className = "ofertapp-inspirational-message">
-              !Ponle un título a tu publicación!
+              ¡Ponle un título a tu publicación!
             </h1>
             {this.renderInput(
               "title", "Recuerda ser claro, será lo primero que vean tus posibles compradores",
@@ -270,7 +271,7 @@ class CreatePublicationForm extends Form {
                 "para nosotros que tus posibles compradores tengan confianza en tu producto"
               } 
               /></p>
-              <p class="text-muted" style={{
+              <p className="text-muted" style={{
                 fontSize: "12px"
               }}>
               Recuerda que si no adjuntas un archivo junto a una descripción ésta simpelemente

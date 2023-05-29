@@ -10,7 +10,10 @@ import "../../App.css";
 class Form extends Component {
   state = {
     data: {},
-    errors: {}
+    errors: {},
+
+    // Errors gotten by server's response
+    serverErrors: {}
   };
 
   validate = () => {
@@ -19,8 +22,6 @@ class Form extends Component {
     if (!error) return null;
     const errors = {};
     for (let item of error.details) errors[item.path[0]] = item.message;
-
-    console.log(errors);
     return errors;
   };
 
@@ -80,7 +81,7 @@ class Form extends Component {
 
     return (
       <div>
-        <label className="form-label" htmlFor={name}>
+        <label className="form-label general-text" htmlFor={name}>
           {label} { info ? <Info text={info} /> : "" }
         </label>
         <Autosuggest
@@ -174,11 +175,9 @@ class Form extends Component {
     );
   }
 
-  handleCheckboxChange = (event) => {};
-
   renderTermsConditionsCheckbox() {
     return (
-      <label>
+      <div>
         <input
           type="checkbox"
           onChange={() => {
@@ -187,8 +186,13 @@ class Form extends Component {
             });
           }}
         />
-        Acepto los términos y condiciones
-      </label>
+        <label className="general-text">
+          <a target="_blank" href="[OfertApp] Políticas.pdf">
+            Acepto los términos y condiciones de OfertApp
+          </a>
+        </label>  
+      </div>
+      
     );
   }
 
@@ -220,7 +224,7 @@ class Form extends Component {
   generateErrorsDiv() {
     // Show all validation errors
     return (
-      <DisplayErrors errors={this.state.generalErrors} />
+      <DisplayErrors errors={this.state.serverErrors} />
     );
   }
 }

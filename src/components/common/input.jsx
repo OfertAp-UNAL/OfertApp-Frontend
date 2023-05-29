@@ -2,8 +2,8 @@ import Info from "./info";
 
 const Input = ({ name, label, error, info, ...rest }) => {
   return (
-    <div className="group-form">
-      <label htmlFor={name}>
+    <div className="group-form general-text">
+      <label htmlFor={name} className="general-text">
         {label} { info ? <Info text={info} /> : ""}
       </label>
       <input

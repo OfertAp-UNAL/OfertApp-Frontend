@@ -218,6 +218,8 @@ class MainPage extends Component {
             <SearchBox 
               label = "Contiene en su titulo" onChange={this.handleTitleChange}
               value={titleQuery}
+              info={"OPCIONAL: Filtra las publicaciones por su título, buscaremos todos los" + 
+                " títulos que contengan la cadena de texto ingresada en cualquier parte"}
             />
           </div>
           <div className="ofertapp-pub-filter-divider">
@@ -227,18 +229,23 @@ class MainPage extends Component {
               valueMax={Number.MAX_VALUE}
               onChangeMin={this.handleMinPriceChange}
               onChangeMax={this.handleMaxPriceChange}
+              info={"OPCIONAL: Filtra las publicaciones por su precio, buscaremos todas las" +
+                " publicaciones que tengan un precio entre los valores ingresados"}
             />
           </div>
           <div className="ofertapp-pub-filter-divider">
             <CheckBox name="available" label="Solo publicaciones disponibles" 
               onChange={this.handleAvailableChange}
               value={available}
+              info={"OPCIONAL: Filtra las publicaciones por su disponibilidad, buscaremos todas las" + 
+                " publicaciones en las que puedas ofertar"}
             />
           </div>
           <div className="ofertapp-pub-filter-divider">
             <ComboBox name="orderby" label="Ordenar por" options={this.orderbyFields} 
               onChange={this.handleOrderByChange} 
               currentValue={orderBy}
+              info={"OPCIONAL: Ordena las publicaciones por el campo seleccionado"}
             />
           </div>
           <div className="ofertapp-pub-filter-divider">
@@ -246,6 +253,7 @@ class MainPage extends Component {
               value={defaultLimit} label = "Límite de publicaciones" 
               onChange={this.handleLimitChange}
               currentValue={limit}
+              info={"OPCIONAL: Limita la cantidad de publicaciones a mostrar"}
             />
           </div>
           <div className="ofertapp-pub-filter-divider">

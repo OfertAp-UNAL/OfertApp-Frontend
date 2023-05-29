@@ -2,6 +2,7 @@ import { Component } from 'react';
 import SupportData from './createPublicationSupport';
 import CustomButton from "./../../common/Button/button";
 import './../publicationView.css';
+import "./../../../App.css";
 
 // Up to 5 supports to back up the publication
 const supportsLimit = 5;
@@ -63,7 +64,7 @@ class SupportsUploadCarousel extends Component {
         return (
             <div className = "row text-center ofertapp-support-creation-carousel">
                 <div id="pubSupportCarousel" className = "col-12 carousel slide align-middle" data-ride="carousel">
-                    <ul className="carousel-indicators ofertapp-carousel-indicators"
+                    <ul className="carousel-indicators ofertapp-carousel-indicators general-div"
                     >
                         {
                             Object.keys( supports ).map( id => (

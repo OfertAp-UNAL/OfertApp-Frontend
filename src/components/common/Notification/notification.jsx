@@ -1,6 +1,6 @@
 import { Component } from "react";
 import "./notification.css";
-import { getTimeLeft } from "./../../../utils/getTime";
+import { getAnyTimePassed } from "./../../../utils/getTime";
 
 class Notification extends Component {
 
@@ -25,7 +25,7 @@ class Notification extends Component {
                   {notification.description}
                 </div>
                 <div className="col-3" style = {{"display": "flex", "justifyContent": "flex-end", "alignItems": "flex-end", "fontSize": "small"}}>
-                Hace {getTimeLeft(notification.createdAt, true)}
+                {getAnyTimePassed(notification.createdAt, true)}
                 </div>
               </div>
             </div>

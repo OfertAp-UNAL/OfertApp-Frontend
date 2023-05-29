@@ -14,7 +14,7 @@ class Info extends Component {
             >
                 <span>
                     <i 
-                        className="fas fa-info-circle"
+                        className="fas fa-info-circle general-text"
                     ></i>
                 </span>
             </OverlayTrigger>

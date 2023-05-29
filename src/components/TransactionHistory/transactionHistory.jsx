@@ -59,14 +59,16 @@ class TransactionHistory extends Component {
             <div>
                 <p
                     style = {{
-                        color: balanceChange > 0 ? "green" : balanceChange < 0 ? "red" : "black",
+                        color: balanceChange > 0 ? "green" : 
+                            balanceChange < 0 ? "red" : "var(--ofertapp-general-text-color)",
                     }}
                 >
                     Balance: {" COP $ " + ((balanceChange > 0 ? "+" : "") + balanceChange.toLocaleString())}
                 </p>
                 <p
                     style = {{
-                        color: frozenChange > 0 ? "blue" : frozenChange < 0 ? "orange" : "black",
+                        color: frozenChange > 0 ? "blue" : 
+                            frozenChange < 0 ? "orange" : "--ofertapp-general-text-color",
                     }}
                 >
                     Congelado: {" COP $ " + ((frozenChange > 0 ? "+" : "") + frozenChange.toLocaleString())}

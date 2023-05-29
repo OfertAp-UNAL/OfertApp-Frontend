@@ -6,14 +6,17 @@ axios.interceptors.response.use(null, (error) => {
     error.response &&
     error.response.status >= 400 &&
     error.response.status < 500;
+
   if (!expectedError) {
     toast.error("An unexpected error occurrred.");
   }
 
-  return {
-    data: error,
-    status: "error",
-  };
+  return Promise.resolve({
+    data: {
+      error: error,
+      status: "error"
+    }
+  });
 });
 
 const exportable = {

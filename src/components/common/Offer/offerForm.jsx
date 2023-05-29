@@ -2,9 +2,10 @@ import Form from "../form";
 import Joi from "joi-browser";
 import withRouter from "../../../services/withRouter";
 import { addOffer } from "../../../services/offerService";
+import { toast } from "react-toastify";
+import DisplayErrors from "../Errors/displayErrors";
 import "../../../App.css";
 import "./offer.css";
-import { toast } from "react-toastify";
 
 class OfferForm extends Form {
   state = {
@@ -12,6 +13,7 @@ class OfferForm extends Form {
       amount: 0
     },
     errors: {},
+    serverErrors: {},
   };
 
   schema = {
@@ -22,8 +24,9 @@ class OfferForm extends Form {
     const { data } = this.state;
     const { publication } = this.props;
 
-    const info = (await addOffer(publication.id, data)).data;
-    if (info.status === "success") {
+    const { data: info } = await addOffer(publication.id, data);
+    const { status, error } = info;
+    if (status === "success") {
         toast.success(
             "Oferta realizada"
         );
@@ -32,7 +35,9 @@ class OfferForm extends Form {
         const { OnOfferAdd } = this.props;
         OnOfferAdd( info.data );
     }else {
-        toast.error(JSON.stringify(info.error));
+        this.setState({
+            serverErrors : error
+        })
     }
 
     // Finally close openned modal
@@ -61,6 +66,7 @@ class OfferForm extends Form {
                     {this.renderButton("Postular oferta")}
                 </div>
             </form>
+            <DisplayErrors errors={this.state.serverErrors} />
         </div>
     );
   }

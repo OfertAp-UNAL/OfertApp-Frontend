@@ -84,7 +84,7 @@
 .form-control {
   border-radius: 50px !important;
   border-style: solid !important;
-  border-color: black !important;
+  border-color: var(--ofertapp-border-color) !important;
 }
 
 .btn-form {
@@ -99,7 +99,7 @@
 }
 
 .ofertapp-page-link {
-  background-color: #fff !important;
+  background-color: var(--ofertapp-general-background-color) !important;
   color: #00bf63 !important;
 }
 
@@ -132,4 +132,20 @@
   background-size: 6%;
   background-position: right center;
   background-repeat: no-repeat;
+}
+
+.general-text {
+  color: var(--ofertapp-general-text-color) !important;
+}
+
+.general-div-hover:hover {
+  background-color: var(--ofertapp-inverse-background-color) !important;
+}
+
+.general-text-hover:hover {
+  color: var(--ofertapp-inverse-text-color) !important;
+}
+
+.general-div {
+  background-color: var(--ofertapp-general-background-color) !important;
 }

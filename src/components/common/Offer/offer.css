@@ -1,5 +1,5 @@
 .ofertapp-offer-base {
-    background-color: #fff;
+    background-color: var(--ofertapp-general-background-color);
     border-radius: 10px;
     padding-left: 50px !important;
     padding-right: 50px !important;
@@ -16,15 +16,16 @@
 .ofertapp-offer-container {
     margin-bottom: 10px;
     border-style: solid;
-    border-color: #000;
-    background-color: #fff;
+    border-color: var(--ofertapp-border-color);
+    background-color: var(--ofertapp-general-background-color);
     border-radius: 10px;
+
 }
 
 .ofertapp-offer-text {
     font-size: 20px;
     line-height: 39px;
-    color: #000;
+    color: var(--ofertapp-general-text-color);
     margin-bottom: 10px;
     text-align: center;
     font-family: 'Inter';
@@ -36,7 +37,7 @@
 .ofertapp-offer-price {
     font-size: 20px;
     line-height: 39px;
-    color: #000;
+    color: var(--ofertapp-general-text-color);
     margin-bottom: 10px;
     text-align: center;
     font-family: 'Inter';
@@ -48,7 +49,7 @@
 .ofertapp-offer-time {
     font-size: 20px;
     line-height: 29px;
-    color: rgba(0, 0, 0, 0.6);
+    color: var(--ofertapp-general-text-color);
     text-align: right;
     font-family: 'Inter';
     font-style: "normal";

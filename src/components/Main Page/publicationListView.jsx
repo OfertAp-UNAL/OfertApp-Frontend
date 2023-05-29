@@ -1,4 +1,4 @@
-import { getTimeLeft } from "./../../utils/getTime";
+import { getAnyTimePassed } from "./../../utils/getTime";
 import withRouter from "../../services/withRouter";
 import UserLink from "./../common/UserLink/userLink";
 import ShowFile from "../common/ShowFile/showFile";
@@ -44,7 +44,7 @@ function PublicationListView({ publication }) {
                   .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
               </div>
               <div className="col-12 col-sm-6 ofertapp-pub-card-info">
-                Tiempo faltante: {getTimeLeft(endDate)}
+                {getAnyTimePassed(endDate)}
               </div>
             </div>
           </div>

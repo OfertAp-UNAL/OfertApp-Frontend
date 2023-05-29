@@ -52,7 +52,8 @@ class PublicationViewComments extends Component {
         user : userData,
         reactionsCount : {
           LIKE: 0, DISLIKE: 0, WARNING: 0
-        }
+        },
+        createdAt: new Date().toISOString()
       }
       
       // Add comment to visualization list
@@ -71,7 +72,7 @@ class PublicationViewComments extends Component {
     const userData = this.props.userData;
     
     return (
-      <div className="row align-middle">
+      <div className="row align-middle general-text">
         <h3 className="ofertapp-label">Comentarios</h3>
         <div
           className="ofertapp-overflow ofertapp-comments-block"

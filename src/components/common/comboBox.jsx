@@ -5,7 +5,7 @@ import "./../../App.css";
 const ComboBox = ({ label, options, onChange, currentValue, info}) => {
     return (
         <React.Fragment>
-            <h5 className="group-form">
+            <h5 className="group-form general-text">
                 {label} { info ? <Info text={info} /> : "" }
             </h5>
             <select

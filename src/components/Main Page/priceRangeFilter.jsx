@@ -1,8 +1,11 @@
-const PriceRangeFilter = ({ valueMin, valueMax, onChangeMin, onChangeMax, values }) => {
+import Info from "../common/info";
+
+const PriceRangeFilter = ({ valueMin, valueMax, onChangeMin, onChangeMax, values, info }) => {
 
   return (
     <div>
-      <h4>Su precio está entre: </h4>
+      <h4 className="general-text">Su precio está entre: </h4>
+      {info && <Info text={info} />}
       <input
         type="number"
         className="form-control my-3"
@@ -11,7 +14,7 @@ const PriceRangeFilter = ({ valueMin, valueMax, onChangeMin, onChangeMax, values
         aria-placeholder="Digita un numero"
         onChange={e => onChangeMin(e.currentTarget.value)}
       />
-      <h4>y: </h4>
+      <h4 className="general-text">y: </h4>
       <input
         type="number"
         className="form-control my-3"

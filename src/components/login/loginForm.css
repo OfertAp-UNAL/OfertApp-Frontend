@@ -42,7 +42,7 @@ input {
 
 .login-title {
   font-weight: bolder;
-  color: #595757;
+  color: var(--ofertapp-page-title-text-color);
   font-size: 3rem;
   margin-top: auto;
 }
@@ -73,4 +73,9 @@ input {
 
 .login-button {
   width: 100% !important;
+  background-color: #00bf63;
+}
+
+.login-button:hover {
+  background-color: #009c51 !important;
 }

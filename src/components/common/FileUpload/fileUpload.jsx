@@ -19,13 +19,13 @@ class FileUpload extends Component {
         const { value, fileName } = this.state;
         return (
             <div className = "row text-center">
-                <h5 className='label-style'>
+                <h5 className='label-style general-text'>
                     {label} { info ? <Info text={info} /> : "" }
                 </h5>
                 <div className = "file-upload-wrapper mb-3 text-center">
                     <input 
                         type = "file"  
-                        className = "text-center ofertapp-file-upload"
+                        className = "text-center ofertapp-file-upload general-text"
                         accept = {acceptedTypes}
                         onChange={e => {
                             const fileValue = e.target.files[0];

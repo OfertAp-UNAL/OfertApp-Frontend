@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import { ToastContainer } from "react-toastify";
 import { Routes, Route, Navigate } from "react-router-dom";
 
@@ -31,20 +31,77 @@ import DetailedReport from "./components/ReportsComponent/detailedReport";
 
 import { getUserInfo } from "./services/userService";
 
+// Configure theme colors
+const themeColors = {
+  light: {
+    "--ofertapp-general-text-color": "#000",
+    "--ofertapp-inverse-text-color": "#fff",
+    "--ofertapp-general-background-color": "#fff",
+    "--ofertapp-inverse-background-color": "#000",
+    "--ofertapp-alternative-background-color": "#f2f2f2",
+    "--ofertapp-controls-background-color": "#00bf63",
+    "--ofertapp-page-title-text-color": "#737373",
+    "--offertapp-div-lines-color": "#000",
+    "--ofertapp-border-color": "#000",
+    "--ofertapp-credits-background-color": "#d9d9d9"
+  },
+  dark: {
+    "--ofertapp-general-text-color": "#fff",
+    "--ofertapp-inverse-text-color": "#000",
+    "--ofertapp-general-background-color": "#0d0d0d",
+    "--ofertapp-inverse-background-color": "#fff",
+    "--ofertapp-alternative-background-color": "#737373",
+    "--ofertapp-controls-background-color": "#00bf63",
+    "--ofertapp-page-title-text-color": "#e6e6e6",
+    "--offertapp-div-lines-color": "#fff",
+    "--ofertapp-border-color": "#fff",
+    "--ofertapp-credits-background-color": "#d9d9d9"
+  }
+};
+
 class App extends Component {
   state = {
     userData: null,
+
+    // Actually a useless state, but helps with rendering all components
+    // with the correct theme
+    theme: "light"
   };
 
   // Prevent component from updating twice
   shouldComponentUpdate(_, nextState) {
-    return nextState.userData !== this.state.userData;
+    return (nextState.userData !== this.state.userData || nextState.theme !== this.state.theme);
+  }
+
+  // Update components theme
+  updateTheme = (newTheme) => {
+    if (["light", "dark"].includes(newTheme) === true) {
+      // Update theme colors
+      Object.entries(themeColors[newTheme]).forEach(([key, value]) => {
+        document.documentElement.style.setProperty(key, value);
+      });
+
+      // Save theme
+      localStorage.setItem("theme", newTheme);
+
+      // Update state
+      this.setState({
+        theme: newTheme
+      });
+    }
   }
 
   // Get user data from backend
   async getUserData() {
     try {
       const token = localStorage.getItem("token");
+      if (token === null) {
+        this.setState({
+          userData: null,
+        });
+        return;
+      }
+
       const responseData = await getUserInfo(token);
 
       const { data, status } = responseData.data;
@@ -77,6 +134,15 @@ class App extends Component {
   // Get user data at start and always a update happens
   async componentDidMount() {
     await this.getUserData();
+
+    // Get saved theme
+    const theme = localStorage.getItem("theme");
+    if (!theme) {
+      console.log("No theme saved")
+      localStorage.setItem("theme", "light");
+    } else {
+      this.updateTheme(theme);
+    }
   }
 
   // Useful for keeping a global value with user data
@@ -86,18 +152,25 @@ class App extends Component {
   }
 
   render() {
-    const userData = this.state.userData;
+    const { userData, theme } = this.state;
     return (
-      <React.Fragment>
+      <div style={{
+        backgroundColor: "var(--ofertapp-general-background-color)",
+      }}>
         <ToastContainer />
         <NavBar
           userData={userData}
+          theme={theme}
+          updateTheme={this.updateTheme}
         />
         <main className="container">
           <Routes>
             <Route path="/login"
               element={
-                <LoginForm OnUpdateUserData={this.updateUserData} />
+                <LoginForm
+                  OnUpdateUserData={this.updateUserData}
+                  theme={theme}
+                />
               }
             />
             <Route
@@ -236,7 +309,7 @@ class App extends Component {
           </Routes>
         </main>
         <OfertAppTeam />
-      </React.Fragment>
+      </div>
     );
   }
 }

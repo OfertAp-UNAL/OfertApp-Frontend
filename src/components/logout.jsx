@@ -8,8 +8,8 @@ class Logout extends Component {
     async componentDidMount() {
         try {
             const token = localStorage.getItem("token");
-            const responseData = await logout(token);
-            const { status } = responseData.data;
+            const { data: responseData } = await logout(token);
+            const { status } = responseData;
             if (status === "success") {
                 localStorage.removeItem("token");
                 

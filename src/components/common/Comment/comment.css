@@ -10,8 +10,7 @@
     border-style: solid;
     border-color: #000;
     border-radius: 20px;
-    background-color: #fff;
-
+    background-color: var(--ofertapp-general-background-color);
     margin-right: 10px !important;
 }
 
@@ -24,16 +23,16 @@
     border-color: #000;
     border-radius: 20px;
     background-color: #fff;
+    color: #000;
 
     font-size: 14px !important;
-
     overflow-wrap: break-word !important;
 }
 
 .ofertapp-comment-text {
     font-size: 14px;
     line-height: 39px;
-    color: #000;
+    color: var(--ofertapp-general-text-color);
     margin-bottom: 2px;
     text-align: left;
     font-family: 'Inter';
@@ -49,7 +48,7 @@
 .ofertapp-comment-time {
     font-size: 13px;
     line-height: 29px;
-    color: rgba(0, 0, 0, 0.6);
+    color: var(--ofertapp-border-color);
     text-align: right;
     font-family: 'Inter';
     font-style: "normal";

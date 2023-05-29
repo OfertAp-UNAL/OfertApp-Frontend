@@ -12,7 +12,7 @@ class PublicationViewMedia extends Component {
         let carouselActiveAssigned = false;
 
         return (
-            <div className = "row text-center">
+            <div className = "row text-center general-text">
                 <h3 className = "ofertapp-label">Multimedia</h3>
                 <div className = "col-12 ofertapp-media-container">
                     { publication.supports.length > 0 ?
@@ -37,7 +37,9 @@ class PublicationViewMedia extends Component {
                                             caption = {"Publication support #" + support.id}
                                         />
                                     <div>
-                                        <p className="ofertapp-description">{support.description}</p>
+                                        <p className="ofertapp-description general-text">
+                                            {support.description}
+                                        </p>
                                     </div>
                                 </div>
                                 ))

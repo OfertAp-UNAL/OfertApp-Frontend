@@ -10,7 +10,9 @@ class PublicationViewPrice extends Component {
                 <div className = "ofertapp-min-offer">
                     COP $ {publication.minOffer.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
                 </div>
-                <p>*Recuerda que las ofertas de posibles compradores serán todas mayores o iguales a éste precio</p>
+                <p className = "general-text">
+                    *Recuerda que las ofertas de posibles compradores serán todas mayores o iguales a éste precio
+                </p>
             </div>
         )
     }

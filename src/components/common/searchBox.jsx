@@ -1,9 +1,11 @@
 import React from "react";
+import Info from "./info";
 
-const SearchBox = ({ onChange, label, value }) => {
+const SearchBox = ({ onChange, label, value, info }) => {
   return (
     <React.Fragment>
-    <h4>{label}</h4>
+    <h4 className="general-text">{label}</h4>
+    {info && <Info text={info} />}
     <input
       type="text"
       name="query"

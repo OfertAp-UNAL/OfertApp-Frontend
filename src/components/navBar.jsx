@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import logo from "../images/OfertappGrande.png";
+import logoDM from "../images/OfertappGrandeDM.png";
 import { getNotifications, markAsRead } from "./../services/notificationService";
 import withRouter from "./../services/withRouter";
 import Notification from "./common/Notification/notification";
 import BuyMembership from "./BuyVIP/buyMembership";
+import ChangeTheme from "./changeTheme";
+import CustomButton from "./common/Button/button";
 
 import "../App.css";
 import "./navBar.css";
@@ -17,8 +20,8 @@ class NavBar extends Component {
 
   async componentDidMount() {
     try{
-      const response = await getNotifications();
-      const { status, data } = response.data;
+      const { data: response } = await getNotifications();
+      const { status, data } = response;
       if( status === "success" ){
         this.setState({
           notifications: data
@@ -43,11 +46,25 @@ class NavBar extends Component {
       <div>
         <nav className="navbar navbar-expand-lg static-top" >
           <div className="container">
-            <Link className="navbar-brand" to="/homepage">
-              <img className="navbar-logo" src={logo} alt="OfertApp Logo" />
-            </Link>
+              <div className = "row">
+                <div className = "col-3">
+                  <ChangeTheme 
+                    theme={this.props.theme}
+                    updateTheme={this.props.updateTheme}
+                  />
+                </div>
+                <div className = "col-9">
+                  <Link className="navbar-brand" to="/homepage">
+                    <img className="navbar-logo" src={
+                          this.props.theme === "light" ? logo : logoDM
+                        } alt="OfertApp Logo"
+                      style={{"cursor": "pointer"}}
+                    />
+                  </Link>
+                </div>
+              </div>
             <button
-              className="navbar-toggler me-3"
+              className="navbar-toggler me-3 "
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navbarNav"
@@ -55,7 +72,7 @@ class NavBar extends Component {
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <span className="navbar-toggler-icon" />
+              <span className="navbar-toggler-icon general-text" />
             </button>
             <div className="collapse navbar-collapse show ofertapp-collapse" id="navbarNav">
               <ul className="navbar-nav ms-auto align-middle text-center">
@@ -172,54 +189,63 @@ class NavBar extends Component {
                 )}>
                 {
                   !userIsLoggedIn ?
-                  <button className="green-button" type="button" onClick={
-                    () => {
-                      this.props.navigate("/login")
-                    }
-                  }>
-                    Iniciar sesión
-                  </button>
+                    <CustomButton
+                      caption="Iniciar Sesión"
+                      type="primary"
+                      width="250px"
+                      onClick={
+                        () => {
+                          this.props.navigate("/login")
+                        }
+                      }
+                    />
                   :
                   <React.Fragment>
-                  <a 
-                    className="nav-link dropdown-toggle" 
-                    href="/profile"
-                    id="navbarDropdown" 
-                    role="button" 
-                    data-bs-toggle="dropdown" 
-                    aria-expanded="false"
-                  >
-                    <div className="row align-middle">
-                      <div className="col-12 col-sm-6 text-center">
-                        <img
-                          className="img-responsive ofertapp-navbar-profile-picture"
-                          alt = "Avatar"
-                          src = {user.profilePicture}
-                        />
+                    <a 
+                      className="nav-link dropdown-toggle" 
+                      href="/profile"
+                      id="navbarDropdown" 
+                      role="button" 
+                      data-bs-toggle="dropdown" 
+                      aria-expanded="false"
+                    >
+                      <div className="row align-middle">
+                        <div className="col-12 col-sm-6 text-center">
+                          <img
+                            className="img-responsive ofertapp-navbar-profile-picture"
+                            alt = "Avatar"
+                            src = {user.profilePicture}
+                          />
+                        </div>
+                        
+                        <div className="col-12 col-sm-6 text-center">
+                          <p className="ofertapp-navbar-profile-name">
+                            {user.username}
+                          </p>
+                        </div>
                       </div>
-                      
-                      <div className="col-12 col-sm-6 text-center">
-                        <p className="ofertapp-navbar-profile-name">
-                          {user.username}
-                        </p>
-                      </div>
-                    </div>
-                  </a>
+                    </a>
                   <ul
-                    className="dropdown-menu"
+                    className="dropdown-menu general-div"
                     aria-labelledby="navbarDropdown"
                   >
                     <li>
-                      <hr className="dropdown-divider"/>
+                      <hr className="dropdown-divider general-text"/>
+                    </li>
+                    <li className="general-div-hover">
+                      <a className="dropdown-item general-text general-text-hover general-div-hover" 
+                        href="/profile">
+                        Mi perfil
+                      </a>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="/profile">Mi perfil</a>
+                      <hr className="dropdown-divider general-text"/>
                     </li>
                     <li>
-                      <hr className="dropdown-divider"/>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/logout">Cerrar sesión</a>
+                      <a className="dropdown-item general-text general-text-hover general-div-hover" 
+                        href="/logout">
+                        Cerrar sesión
+                      </a>
                     </li>
                   </ul>
                   </React.Fragment>
@@ -227,8 +253,10 @@ class NavBar extends Component {
                 </li>
               </ul>
             </div>
+            
           </div>
         </nav>
+        
         <BuyMembership />
       </div>
     );

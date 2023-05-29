@@ -1,9 +1,12 @@
 import React from "react";
+import Info from "./info";
+import "./../../App.css";
 
-const NumberBox = ({ name, onChange, label, currentValue }) => {
+const NumberBox = ({ name, onChange, label, currentValue, info }) => {
   return (
     <React.Fragment>
-    <h4>{label}</h4>
+    <h4 className="general-text">{label}</h4>
+    {info && <Info text={info} />}
     <input
       min="0"
       max={Number.MAX_SAFE_INTEGER}
