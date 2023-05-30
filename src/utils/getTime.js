@@ -72,12 +72,9 @@ const getTimeLeft = (date, allowPast = true) => {
 }
 
 const getAnyTimePassed = (date) => {
-    console.log("tiempo ", date)
     // Render for any past, present or future date
     const miliseconds = typeof (date) == "string" ? Date.parse(date) : date;
     const currentMilis = Date.now();
-    console.log(miliseconds)
-    console.log(currentMilis)
 
     if (miliseconds > currentMilis)
         // Target is in the future

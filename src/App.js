@@ -138,7 +138,6 @@ class App extends Component {
     // Get saved theme
     const theme = localStorage.getItem("theme");
     if (!theme) {
-      console.log("No theme saved")
       localStorage.setItem("theme", "light");
     } else {
       this.updateTheme(theme);

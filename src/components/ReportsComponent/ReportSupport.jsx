@@ -35,20 +35,6 @@ class ReportSupport extends Component {
                             width="12vw"
                             height="12vw"
                         />
-                        {
-                            support.type === "IMAGE" ?
-                                <img
-                                    src={ support.data }
-                                    alt={ "Soporte de reporte" }
-                                    className="report-support-data"
-                                />
-                            :
-                                <video
-                                    src={ support.data }
-                                    controls
-                                    className="report-support-data"
-                                />
-                        }
                     </div>
                 </div>
             </div>
