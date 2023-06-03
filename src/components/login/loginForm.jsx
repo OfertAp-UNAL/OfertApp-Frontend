@@ -41,9 +41,11 @@ class LoginForm extends Form {
       } else {
         this.setState({ serverErrors: error });
         toast.error("Usuario o contraseña incorrectos");
+        document.activeElement.blur();
       }
     } catch (e) {
       toast.error("Usuario o contraseña incorrectos");
+      document.activeElement.blur();
     }
   };
 
@@ -84,6 +86,7 @@ class LoginForm extends Form {
                 <br/>
                 <div className="row justify-content-center">
                   {this.renderButton("¡Listo!")}
+                  <div class="spinner-border text-success register-loading"></div>
                 </div>
                 <div className = "text-center">
                   <Link id="reset-password-login" to="/askResetPassword">

@@ -140,18 +140,21 @@ class MainPage extends Component {
         this.setState({ 
           publications: data
         });
+        document.activeElement.blur();
         return;
       } else {
         this.setState({ 
           publications: []
         });
       }
+      document.activeElement.blur();
 
     } catch (e) {
       console.log("Error: ", e);
       this.setState({
         publications: []
       });
+      document.activeElement.blur();
     }
   }
 
@@ -261,6 +264,7 @@ class MainPage extends Component {
                 this.handleSubmit()
               }} 
             />
+            <div class="spinner-border text-success register-loading"></div>
           </div>
           <div className="ofertapp-pub-filter-divider">
             <CustomButton caption="Reiniciar" type="primary" onClick={() => {

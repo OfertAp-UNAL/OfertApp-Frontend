@@ -79,3 +79,16 @@ input {
 .login-button:hover {
   background-color: #009c51 !important;
 }
+
+.justify-content-center .login-button:focus + .register-loading{
+  display: inline-block !important;
+}
+
+.justify-content-center .register-loading{
+  --bs-spinner-width: 2rem !important;
+  --bs-spinner-height: 2rem !important;
+  min-width: 1rem !important;
+  position: relative;
+  margin-left: 20px;
+  display: none !important;
+}

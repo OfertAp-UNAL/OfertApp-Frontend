@@ -9,7 +9,8 @@ class ShowFile extends Component {
         const style = {
             width: width || "35vw",
             height: height || "80%",
-            margin: "auto"
+            margin: "auto",
+            objectFit: "contain"
         }
 
         if( contentType === "AUTO") {
