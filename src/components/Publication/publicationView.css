@@ -275,3 +275,15 @@
   border-style: solid;
   border-color: #00bf63 !important;
 }
+
+.ofertapp-creation-column .login-button:focus + .register-loading{
+  display: inline-block !important;
+}
+
+.register-loading{
+  --bs-spinner-width: 1rem !important;
+  --bs-spinner-height: 1rem !important;
+  position: relative;
+  margin-left: 20px;
+  display: none !important;
+}
