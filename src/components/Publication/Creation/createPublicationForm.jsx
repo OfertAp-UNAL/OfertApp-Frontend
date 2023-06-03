@@ -304,6 +304,7 @@ class CreatePublicationForm extends Form {
             {
               this.renderButton("Publicalo!")
             }
+            <div class="spinner-border text-success register-loading"></div>
             {
               this.generateErrorsDiv()
             }

@@ -34,3 +34,7 @@
 .ofertapp-registration-column .ofertapp-button-primary:focus + .register-loading{
     display: inline-block !important;
 }
+
+.ofertapp-pub-filter-divider .ofertapp-button-primary:focus + .register-loading{
+    display: inline-block !important;
+}
