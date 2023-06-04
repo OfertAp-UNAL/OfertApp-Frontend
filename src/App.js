@@ -23,6 +23,8 @@ import NewPasswordForm from "./components/ResetPassword/newPasswordForm";
 import CreatePublicationForm from "./components/Publication/Creation/createPublicationForm";
 import FinancialTransactionsView from "./components/FinancialTransactions/account";
 
+import FrequentlyAskedQuestions from "./components/FrequentlyAskedQuestions/frequentlyAskedQuestions";
+
 import OfertAppTeam from "./components/OfertAppTeam/ofertapp-team";
 import "./App.css";
 
@@ -295,6 +297,12 @@ class App extends Component {
               path="/not-found"
               element={
                 <NotFound />
+              }
+            />
+            <Route
+              path="/common-questions"
+              element={
+                <FrequentlyAskedQuestions />
               }
             />
             <Route

@@ -81,6 +81,11 @@ class NavBar extends Component {
                     Inicio
                   </Link>
                 </li>
+                <li className="nav-item ofertapp-item text-center general-text">
+                  <Link className="nav-link text-center general-text" to="/common-questions">
+                    ?
+                  </Link>
+                </li>
                 {
                   userIsLoggedIn &&
                   <React.Fragment>
@@ -133,7 +138,6 @@ class NavBar extends Component {
                         >
                           👑
                         </button>
-                        
                       </li>
                     </React.Fragment>
                     }

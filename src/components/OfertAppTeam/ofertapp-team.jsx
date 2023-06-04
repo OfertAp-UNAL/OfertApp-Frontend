@@ -46,10 +46,7 @@ class OfertAppTeam extends Component {
                             <p className = "ofertapp-item">
                                 <MemberDescription
                                     memberName = "Daniel Echeverri Jimenez"
-                                    MemberDescription = {"Como estudiante de ingeniería de sistemas con un enfoque en seguridad de la información, he adquirido experiencia en el desarrollo de proyectos y aplicaciones utilizando lenguajes como Python, C# y Django." +
-                                    "En el ámbito del desarrollo de proyectos, he trabajado en diversas iniciativas donde he aplicado mis conocimientos en Python y C#. He desarrollado soluciones web, utilizando Python y C# para implementar funcionalidades seguras. Durante este proceso, he trabajado con frameworks y bibliotecas relevantes, aprovechando las capacidades de Python y C# para crear soluciones eficientes y escalables." +
-                                    "Además, he utilizado Django, un framework de desarrollo web en Python, para crear aplicaciones. He desarrollado sistemas que manejan y protegen información sensible, implementando prácticas de seguridad recomendadas, como autenticación de usuarios, control de acceso y cifrado de datos. Asimismo, he trabajado en la integración de API's y bases de datos, garantizando la seguridad y confidencialidad de los datos de los usuarios." +
-                                    "Mi experiencia en el desarrollo de proyectos y aplicaciones en estos lenguajes me ha permitido adquirir habilidades en el diseño, implementación y mantenimiento de soluciones de software seguras. Estoy motivado por seguir aprendiendo y mejorando mis habilidades en seguridad de la información, con el objetivo de contribuir de manera efectiva a la protección de datos y sistemas en el ámbito de la ingeniería de sistemas."}
+                                    MemberDescription = {"Estudiante de ingenieria de sistemas, busco especializarme en frontend. Tengo experiencia en html, css, bootstrap, javascript y React"}
                                     memberImage = "https://avatars.githubusercontent.com/u/72324267?v=4"
                                     memberGithub = "https://github.com/decheverriunal"
                                 />
