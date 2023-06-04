@@ -22,3 +22,15 @@
     border-radius: 10px;
     margin-bottom: 10px;
 }
+
+.register-loading{
+    --bs-spinner-width: 1rem !important;
+    --bs-spinner-height: 1rem !important;
+    position: relative;
+    margin-left: 20px;
+    display: none !important;
+}
+
+.ofertapp-registration-column .ofertapp-button-primary:focus + .register-loading{
+    display: inline-block !important;
+}

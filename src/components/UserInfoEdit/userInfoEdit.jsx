@@ -186,9 +186,11 @@ class UserInfoEdit extends Form {
       } else {
         this.setState({ serverErrors: error })
         toast.error("Error registrando usuario, verifique los campos digitados");
+        document.activeElement.blur();
       }
     } catch( e ) {
       toast.error("Error registrando usuario, verifique los campos digitados");
+      document.activeElement.blur();
     }
     
   }
@@ -234,9 +236,11 @@ class UserInfoEdit extends Form {
       } else {
         this.setState({ serverErrors: error })
         toast.error("Error registrando usuario, verifique los campos digitados");
+        document.activeElement.blur();
       }
     } catch( e ) {
       toast.error("Error registrando usuario, verifique los campos digitados");
+      document.activeElement.blur();
     }
   }
 
@@ -471,6 +475,7 @@ class UserInfoEdit extends Form {
                 type="primary"
               />
             }
+            <div class="spinner-border text-success register-loading"></div>
             <div className="ofertapp-div-hline"></div>
           </div>
         </form>
