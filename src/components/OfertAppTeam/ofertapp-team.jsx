@@ -110,7 +110,13 @@ class OfertAppTeam extends Component {
                             to = "https://github.com/OfertAp-UNAL/OfertApp-Frontend"
                         >
                             Síguenos en GitHub    
-                        </Link>
+                        </Link> <br/>
+                        📜
+                        <a target="_blank" href="[OfertApp] Políticas.pdf">
+                            Nuestras Políticas
+                        </a>
+                        <br/><br/>
+                        2023 © OfertApp
                     </div>
                     
                 </div>
