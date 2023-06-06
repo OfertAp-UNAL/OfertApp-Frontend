@@ -49,15 +49,17 @@
   margin: 0;
   border: 5px solid #ccc;
   border-top: none;
+
 }
 
 .suggestion-list li {
   padding: 0.5rem;
   cursor: pointer;
+  color: var(--ofertapp-general-text-color);
 }
 
 .suggestion-list li:hover {
-  background-color: #bdbdbd;
+  background-color: var(--ofertapp-alternative-background-color);
 }
 
 .form-div {
@@ -65,9 +67,9 @@
   max-height: 3000px;
   border-width: 0px 10px 0px 10px;
   border-image: repeating-linear-gradient(90deg,
-      rgba(0, 0, 0, 0.5) 0%,
-      rgba(0, 0, 0, 0.05) 2%,
-      rgba(0, 0, 0, 0.5) 4%);
+      var(--ofertapp-inverse-background-color-degraded) 0%,
+      var(--ofertapp-inverse-background-color-degraded2) 2%,
+      var(--ofertapp-inverse-background-color-degraded) 4%);
   border-image-slice: 9;
   border-style: solid;
   position: relative;

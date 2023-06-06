@@ -475,7 +475,7 @@ class UserInfoEdit extends Form {
                 type="primary"
               />
             }
-            <div class="spinner-border text-success register-loading"></div>
+            <div className="spinner-border text-success register-loading"></div>
             <div className="ofertapp-div-hline"></div>
           </div>
         </form>

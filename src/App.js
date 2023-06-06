@@ -38,8 +38,10 @@ const themeColors = {
   light: {
     "--ofertapp-general-text-color": "#000",
     "--ofertapp-inverse-text-color": "#fff",
-    "--ofertapp-general-background-color": "#fff",
+    "--ofertapp-general-background-color": "#F5F1F1",
     "--ofertapp-inverse-background-color": "#000",
+    "--ofertapp-inverse-background-color-degraded": "rgba(0, 0, 0, 0.5)",
+    "--ofertapp-inverse-background-color-degraded2": "rgba(0, 0, 0, 0.05)",
     "--ofertapp-alternative-background-color": "#f2f2f2",
     "--ofertapp-controls-background-color": "#00bf63",
     "--ofertapp-page-title-text-color": "#737373",
@@ -52,6 +54,8 @@ const themeColors = {
     "--ofertapp-inverse-text-color": "#000",
     "--ofertapp-general-background-color": "#0d0d0d",
     "--ofertapp-inverse-background-color": "#fff",
+    "--ofertapp-inverse-background-color-degraded": "rgba(255, 255, 255, 0.5)",
+    "--ofertapp-inverse-background-color-degraded2": "rgba(255, 255, 255, 0.05)",
     "--ofertapp-alternative-background-color": "#737373",
     "--ofertapp-controls-background-color": "#00bf63",
     "--ofertapp-page-title-text-color": "#e6e6e6",
@@ -177,7 +181,9 @@ class App extends Component {
             <Route
               path="/askResetPassword"
               element={
-                <AskResetPasswordForm />
+                <AskResetPasswordForm
+                  theme={theme}
+                />
               }
             />
             <Route
@@ -200,7 +206,9 @@ class App extends Component {
             <Route
               path="/reset-password/:token/:user/"
               element={
-                <NewPasswordForm />
+                <NewPasswordForm
+                  theme={theme}
+                />
               }
             />
             <Route

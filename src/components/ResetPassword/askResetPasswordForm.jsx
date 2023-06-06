@@ -2,6 +2,7 @@ import Form from "../common/form";
 import Joi from "joi-browser";
 import withRouter from "../../services/withRouter";
 import logo from "../../images/OfertappGrande.png";
+import logoDM from "../../images/OfertappGrandeDM.png";
 import { sendResetPasswordEmail } from "../../services/resetPasswordService";
 import { toast } from "react-toastify";
 import "../../App.css";
@@ -53,7 +54,9 @@ class askResetPasswordForm extends Form {
         <div className="container">
           <div className="form-div">
             <div className="row align-middle">
-              <img className="login-logo pb-2" src={logo} alt="Nope" />
+              <img className="login-logo pb-2" 
+                src={this.props.theme === "light" ? logo : logoDM } alt="Nope" 
+              />
               <div className="offset-1 col-10">
                 <h5 className="login-title ps-2">Recuperación de</h5>
                 <h5 className="login-title ps-2 pb-3">contraseña</h5>

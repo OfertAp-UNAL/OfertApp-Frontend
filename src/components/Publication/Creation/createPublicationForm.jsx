@@ -179,8 +179,8 @@ class CreatePublicationForm extends Form {
     // Don't worry, backend will verify this as well
     let isVIP = false, vipPubCount = 0;
     if (userData) {
-      isVIP = userData.isVIP;
-      vipPubCount = userData.vipPublicationsCount;
+      isVIP = userData.vipState;
+      vipPubCount = userData.vipPubCount;
     }
 
     // Check if this publication can be boosteable

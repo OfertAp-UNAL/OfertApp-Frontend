@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import "./ofertapp-team.css"
 
 class MemberDescription extends Component {
     state = {};
@@ -68,8 +69,8 @@ class MemberDescription extends Component {
                     props
                 )}
             >
-                <p>
-                { memberName }
+                <p className='ofertapp-item'>
+                    { memberName }
                 </p>
                 
             </OverlayTrigger>

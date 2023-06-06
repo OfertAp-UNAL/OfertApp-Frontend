@@ -1,6 +1,8 @@
 .navbar-expand-lg {
     background-color: var(--ofertapp-general-background-color);
-    border-image: repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.05) 10%);
+    border-image: repeating-linear-gradient(180deg,
+            var(--ofertapp-inverse-background-color-degraded) 0%,
+            var(--ofertapp-inverse-background-color-degraded2) 10%);
     border-left-style: none;
     border-right-style: none;
     border-image-slice: 9;
