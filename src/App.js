@@ -40,10 +40,11 @@ const themeColors = {
     "--ofertapp-inverse-text-color": "#fff",
     "--ofertapp-general-background-color": "#F5F1F1",
     "--ofertapp-inverse-background-color": "#000",
+    "--ofertapp-background-image": "url(CoolBackground.jpg)",
     "--ofertapp-inverse-background-color-degraded": "rgba(0, 0, 0, 0.5)",
     "--ofertapp-inverse-background-color-degraded2": "rgba(0, 0, 0, 0.05)",
     "--ofertapp-alternative-background-color": "#f2f2f2",
-    "--ofertapp-controls-background-color": "#00bf63",
+    "--ofertapp-controls-background-color": "#017C41",
     "--ofertapp-page-title-text-color": "#737373",
     "--offertapp-div-lines-color": "#000",
     "--ofertapp-border-color": "#000",
@@ -54,10 +55,11 @@ const themeColors = {
     "--ofertapp-inverse-text-color": "#000",
     "--ofertapp-general-background-color": "#0d0d0d",
     "--ofertapp-inverse-background-color": "#fff",
+    "--ofertapp-background-image": "url(CoolBackgroundDark.jpg)",
     "--ofertapp-inverse-background-color-degraded": "rgba(255, 255, 255, 0.5)",
     "--ofertapp-inverse-background-color-degraded2": "rgba(255, 255, 255, 0.05)",
     "--ofertapp-alternative-background-color": "#737373",
-    "--ofertapp-controls-background-color": "#00bf63",
+    "--ofertapp-controls-background-color": "#017C41",
     "--ofertapp-page-title-text-color": "#e6e6e6",
     "--offertapp-div-lines-color": "#fff",
     "--ofertapp-border-color": "#fff",
@@ -160,6 +162,7 @@ class App extends Component {
     const { userData, theme } = this.state;
     return (
       <div style={{
+        backgroundImage: "var(--ofertapp-background-image)",
         backgroundColor: "var(--ofertapp-general-background-color)",
       }}>
         <ToastContainer />
@@ -168,7 +171,12 @@ class App extends Component {
           theme={theme}
           updateTheme={this.updateTheme}
         />
-        <main className="container">
+        <main
+          className="container"
+          style={{
+            backgroundColor: "var(--ofertapp-general-background-color)",
+          }}
+        >
           <Routes>
             <Route path="/login"
               element={

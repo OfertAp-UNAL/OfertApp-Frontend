@@ -16,7 +16,7 @@
 }
 
 .ofertapp-publication-card {
-    background-color: #00BF63 !important;
+    background-color: #017C41 !important;
     color: #fff;
     border-radius: 10px;
     text-align: center;
@@ -59,13 +59,13 @@
 .ofertapp-pub-filter-divider {
     border-bottom-style: solid;
     border-bottom-width: 1px;
-    border-bottom-color: #00BF63;
+    border-bottom-color: #017C41;
     padding: 10px;
     margin: 10px;
 }
 
 .ofertapp-no-publications {
-    color: #00BF63;
+    color: #017C41;
     font-size: 24px;
     font-family: 'Inter';
     font-style: "normal";

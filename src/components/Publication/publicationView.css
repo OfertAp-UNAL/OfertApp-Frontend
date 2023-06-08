@@ -22,7 +22,7 @@
 }
 
 .ofertapp-inspirational-message {
-  color: #00bf63;
+  color: #017C41;
   font-size: 25px;
 
   font-family: "Inter";
@@ -32,7 +32,7 @@
 }
 
 .ofertapp-div-hline {
-  border-bottom-color: #00bf63;
+  border-bottom-color: #017C41;
   border-bottom-width: 1px;
   border-bottom-style: solid;
 
@@ -54,7 +54,7 @@
   text-align: center;
 
   border-style: solid;
-  border-color: #00bf63;
+  border-color: #017C41;
   font-family: "Inter";
   font-style: "normal";
 }
@@ -64,7 +64,7 @@
   font-weight: 600;
   font-size: 32px;
   line-height: 39px;
-  color: #00bf63;
+  color: #017C41;
   margin-bottom: 10px;
   text-align: center;
   font-family: "Inter";
@@ -73,7 +73,7 @@
 
 .ofertapp-bottomline {
   border-bottom-style: solid;
-  border-bottom-color: #00bf63;
+  border-bottom-color: #017C41;
   padding-bottom: 20px;
 
   margin-bottom: 20px;
@@ -95,7 +95,7 @@
   align-items: center;
   margin-bottom: 10px;
   border-style: solid;
-  border-color: #00bf63;
+  border-color: #017C41;
   border-radius: 10px;
   padding: 10px;
 }
@@ -112,7 +112,7 @@
 
 .ofertapp-item .ofertapp-description {
   border-left-style: solid;
-  border-left-color: #00bf63;
+  border-left-color: #017C41;
   margin-top: 20px;
 
   font-family: "Inter";
@@ -122,7 +122,7 @@
 
 .ofertapp-carousel-navigator {
   vertical-align: middle;
-  background-color: #00bf63 !important;
+  background-color: #017C41 !important;
   margin: auto;
   height: 20%;
 }
@@ -139,7 +139,7 @@
   font-family: "Inter";
   font-style: "normal";
 
-  border-left: #00bf63;
+  border-left: #017C41;
   border-left-style: solid;
   border-left-width: 5px;
 
@@ -153,7 +153,7 @@
   border-style: solid;
   border-radius: 10px;
   align-self: center !important;
-  border-color: #00bf63;
+  border-color: #017C41;
   color: var(--ofertapp-general-text-color);
 
   margin-top: 50px;
@@ -168,7 +168,7 @@
   border-style: solid;
   border-radius: 10px;
   align-self: center !important;
-  border-color: #00bf63;
+  border-color: #017C41;
   color: #000000;
 
   padding-top: 15px;
@@ -183,7 +183,7 @@
 }
 
 .ofertapp-comments-block {
-  background-color: #00bf63;
+  background-color: #017C41;
   border-radius: 20px;
 }
 
@@ -263,7 +263,7 @@
 }
 
 .ofertapp-carousel-indicators li {
-  background-color: #00bf63 !important;
+  background-color: #017C41 !important;
   border-radius: 50%;
   width: 1rem;
   height: 1rem;
@@ -273,5 +273,5 @@
 .ofertapp-carousel-indicators li.active {
   background-color: #fff !important;
   border-style: solid;
-  border-color: #00bf63 !important;
+  border-color: #017C41 !important;
 }

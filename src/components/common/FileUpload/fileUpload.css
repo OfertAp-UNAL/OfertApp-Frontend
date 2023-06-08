@@ -3,7 +3,7 @@
 }
 
 .ofertapp-file-upload::file-selector-button {
-    background-color: #00BF63;
+    background-color: #017C41;
     color: #fff;
     border-style: none;
     cursor: pointer;
@@ -17,7 +17,7 @@
 }
 
 .ofertapp-file-upload::file-selector-button:hover {
-    background-color: #009c51;
+    background-color: #017C41;
 }
 
 .label-style {

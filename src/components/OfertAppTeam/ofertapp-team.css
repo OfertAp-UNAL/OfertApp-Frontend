@@ -55,7 +55,7 @@
 }
 
 .ofertapp-member-card {
-    background-color: #00BF63;
+    background-color: #017C41;
     padding-left: 10px !important;
     padding-right: 0px !important;
     border-radius: 10px;
@@ -73,7 +73,7 @@
 .ofertapp-member-tooltip>.tooltip-inner {
     border-style: solid;
     border-color: var(--ofertapp-border-color);
-    background-color: #00BF63;
+    background-color: #017C41;
     border-radius: 10px;
 
     padding-right: 20px !important;

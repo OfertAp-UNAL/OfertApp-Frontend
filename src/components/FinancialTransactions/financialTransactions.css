@@ -30,7 +30,7 @@
 .ofertapp-tab-choice {
     font-size: 24px;
     font-weight: bold;
-    background-color: #00BF63;
+    background-color: #017C41;
     color: #FFFFFF;
 
     padding-left: 40px;
@@ -50,5 +50,5 @@
 
 .ofertapp-tab-choice.active {
     background-color: var(--ofertapp-general-background-color);
-    color: #00BF63;
+    color: #017C41;
 }

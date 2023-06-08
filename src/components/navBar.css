@@ -32,7 +32,7 @@
 }
 
 .nav-item.ofertapp-item:hover {
-    background-color: #00BF63 !important;
+    background-color: #017C41 !important;
     color: var(--ofertapp-inverse-text-color) !important;
 }
 
@@ -53,7 +53,7 @@
 }
 
 .green-button {
-    background-color: #00BF63;
+    background-color: #017C41;
     font-family: 'Inter';
     font-weight: bold;
     font-size: large;
@@ -70,7 +70,7 @@
     border-radius: 50%;
     border-style: solid;
     border-width: 4px;
-    border-color: #00BF63;
+    border-color: #017C41;
     margin: auto !important;
     padding: 0;
 }
@@ -87,7 +87,7 @@
     font-family: 'Inter';
     font-weight: bold;
     font-size: large;
-    color: #00BF63;
+    color: #017C41;
     margin-top: 20%;
 }
 
@@ -100,4 +100,8 @@
     overflow-x: hidden;
     position: relative;
     left: -400px !important;
+}
+
+.ofertapp-toggler.navbar-toggler {
+    border-color: var(--ofertapp-general-text-color) !important;
 }

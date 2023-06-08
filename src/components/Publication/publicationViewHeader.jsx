@@ -21,7 +21,7 @@ class PublicationViewHeader extends Component {
                 <div className = "row align-middle">
                     <div className = "col-12 col-md-6 ofertapp-label">
                         <span className = "badge ofertapp-status-badge" style = {
-                            {"--color" : publication.available ? "#00BF63" : "#dc3545"}
+                            {"--color" : publication.available ? "#017C41" : "#dc3545"}
                         }>
                             {publication.available ? "Abierta" : "Cerrada"}
                         </span>

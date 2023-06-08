@@ -1,5 +1,5 @@
 .ofertapp-button-primary {
-    background-color: #00BF63 !important;
+    background-color: #017C41 !important;
     color: #fff !important;
     font-size: 16px !important;
     font-weight: 600 !important;
@@ -10,8 +10,7 @@
 }
 
 .ofertapp-button-primary:hover {
-    background-color: #009c51 !important;
-    color: #fff !important;
+    background-color: #014A27 !important;
 }
 
 .ofertapp-button-report {
@@ -23,7 +22,7 @@
     margin-bottom: 10px;
 }
 
-.register-loading{
+.register-loading {
     --bs-spinner-width: 1rem !important;
     --bs-spinner-height: 1rem !important;
     position: relative;
@@ -31,6 +30,6 @@
     display: none !important;
 }
 
-.ofertapp-registration-column .ofertapp-button-primary:focus + .register-loading{
+.ofertapp-registration-column .ofertapp-button-primary:focus+.register-loading {
     display: inline-block !important;
 }

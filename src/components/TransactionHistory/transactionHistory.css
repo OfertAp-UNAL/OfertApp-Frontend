@@ -7,7 +7,7 @@
 .ofertapp-table-header {
     font-size: 24px;
     font-weight: bold;
-    background-color: #00BF63;
+    background-color: #017C41;
     color: #fff;
     border-style: solid;
     text-align: center;
@@ -39,7 +39,7 @@
 .ofertapp-transaction-info-tooltip>.tooltip-inner {
     border-style: solid;
     border-color: #000;
-    background-color: #00BF63;
+    background-color: #017C41;
     border-radius: 10px;
 
     padding-right: 20px !important;

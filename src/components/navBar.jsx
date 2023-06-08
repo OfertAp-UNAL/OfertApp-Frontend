@@ -64,7 +64,7 @@ class NavBar extends Component {
                 </div>
               </div>
             <button
-              className="navbar-toggler me-3 "
+              className="navbar-toggler me-3 ofertapp-toggler"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navbarNav"
@@ -72,7 +72,12 @@ class NavBar extends Component {
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <span className="navbar-toggler-icon general-text" />
+              <span
+                className="navbar-toggler-icon"
+                style={{
+                  backgroundImage: `url(${this.props.theme === "light" ? "https://img.icons8.com/ios-filled/50/000000/menu--v1.png" : "https://img.icons8.com/ios-filled/50/ffffff/menu--v1.png"})`
+                }}
+              />
             </button>
             <div className="collapse navbar-collapse show ofertapp-collapse" id="navbarNav">
               <ul className="navbar-nav ms-auto align-middle text-center">

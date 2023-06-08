@@ -88,7 +88,7 @@ class UserReportsHistory extends Component {
             </div>
           :
             <div>
-              <h2>
+              <h2 className="general-text">
                 No hay reportes
               </h2>
             </div>

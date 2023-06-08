@@ -130,7 +130,7 @@ class RechargeAccountView extends Component {
                     style : {
                         theme: "dark",
                         customVariables: {
-                            baseColor: "#00BF63"
+                            baseColor: "#017C41"
                         },
                     }
                 }

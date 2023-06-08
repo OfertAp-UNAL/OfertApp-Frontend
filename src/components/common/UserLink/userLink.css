@@ -45,7 +45,7 @@
 .ofertapp-user-info-tooltip>.tooltip-inner {
     border-style: solid;
     border-color: #000;
-    background-color: #00BF63;
+    background-color: #017C41;
     border-radius: 10px;
 
     overflow-wrap: break-word !important;
@@ -87,7 +87,7 @@
     background-color: #000;
     color: #fff;
     border-style: solid;
-    border-color: #00BF63;
+    border-color: #017C41;
     text-align: center;
     z-index: 1;
     margin: auto;

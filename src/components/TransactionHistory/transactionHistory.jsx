@@ -91,7 +91,9 @@ class TransactionHistory extends Component {
                     <QuickPaymentInfo payment = {transaction.payment} /> :
                     type === "admin" ? 
                     <QuickAdminInfo admin = {transaction.admin} /> : 
-                    <p>No hay datos adicionales</p>
+                    <h2 className="general-text">
+                        No hay datos adicionales
+                    </h2>
                 }
             </Tooltip>
         )
@@ -219,7 +221,9 @@ class TransactionHistory extends Component {
                     </div>
                     :
                     <div>
-                    <h5> No hay transacciones </h5>    
+                        <h2 className="general-text">
+                            No hay transacciones
+                        </h2>
                     </div>
                 }
             </div>

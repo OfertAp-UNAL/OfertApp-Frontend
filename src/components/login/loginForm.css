@@ -73,9 +73,9 @@ input {
 
 .login-button {
   width: 100% !important;
-  background-color: #00bf63;
+  background-color: #017C41;
 }
 
 .login-button:hover {
-  background-color: #009c51 !important;
+  background-color: #017C41 !important;
 }
