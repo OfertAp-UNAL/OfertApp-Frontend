@@ -12,7 +12,6 @@ import AdminDeleteButton from "../Admins/deleteButton";
 import Info from "../common/info";
 
 import "./publicationView.css";
-import "./../../App.css"
 
 import { toast } from "react-toastify";
 

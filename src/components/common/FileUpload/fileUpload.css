@@ -1,5 +1,9 @@
 .ofertapp-file-upload {
     background-color: var(--ofertapp-general-background-color);
+    border-radius: 10px;
+    border-color: #017C41;
+    border-style: solid;
+    border-width: 1px;
 }
 
 .ofertapp-file-upload::file-selector-button {
