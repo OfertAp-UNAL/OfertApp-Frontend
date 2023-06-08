@@ -27,7 +27,7 @@ class Logout extends Component {
 
     render() {
         return (
-            <div>
+            <div className = "general-text">
                 <h1>Cerrando sesión...</h1>
             </div>
         );

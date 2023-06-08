@@ -31,7 +31,7 @@ class VerificationPage extends Component {
 
     render() { 
         return ( 
-            <div className = "text-center">
+            <div className = "text-center general-text">
                 <h1>¡Gracias por registrarte en OfertApp!</h1>
                 <p>Por favor presiona el siguiente botón para verificar tu cuenta</p>
                 <CustomButton 

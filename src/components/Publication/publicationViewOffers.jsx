@@ -87,6 +87,7 @@ class PublicationViewOffers extends Component {
                                         </button>
                                     </div>
                                     <div className="modal-body">
+                                    
                                         <OfferForm 
                                             publication={publication}
                                             OnOfferAdd = {this.handleOfferAdd}

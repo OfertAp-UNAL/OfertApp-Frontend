@@ -31,7 +31,7 @@ class ConfirmProductDelivery extends Component {
 
     render() { 
         return ( 
-            <div className = "text-center">
+            <div className = "text-center general-text">
                 <h1>¡Nos alegramos de que tu transacción haya sido exitosa!</h1>
                 <p>Por favor confirma en el botón a continuación si has recibido tu producto correctamente</p>
                 <p>

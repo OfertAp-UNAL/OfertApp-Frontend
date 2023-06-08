@@ -63,7 +63,17 @@ class OfferForm extends Form {
                     {this.renderInput("amount","Cantidad a ofertar")}
                 </div>
                 <div className="row align-right pt-3">
-                    {this.renderButton("Postular oferta")}
+                    <button
+                        type="button"
+                        className="btn ofertapp-button-primary"
+                        data-toggle="modal"
+                        disabled={this.validate() !== null}
+                        onClick = {(e) => {
+                          this.handleSubmit(e);
+                        }}
+                    >
+                        Postular Oferta
+                    </button>
                 </div>
             </form>
             <DisplayErrors errors={this.state.serverErrors} />

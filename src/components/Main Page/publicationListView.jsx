@@ -5,7 +5,7 @@ import ShowFile from "../common/ShowFile/showFile";
 import "./mainPage.css";
 
 function PublicationListView({ publication }) {
-  const { id, title, minOffer, supports, endDate, user } = publication;
+  const { id, title, currentPrice, supports, endDate, user } = publication;
   return (
     <div
       key={id}
@@ -39,7 +39,7 @@ function PublicationListView({ publication }) {
               <div className="col-12 ofertapp-pub-card-info-title">{title}</div>
               <div className="col-12 col-sm-6 ofertapp-pub-card-info">
                 Precio actual: COP ${" "}
-                {minOffer
+                {currentPrice
                   .toString()
                   .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
               </div>

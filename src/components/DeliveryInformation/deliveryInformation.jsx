@@ -49,7 +49,7 @@ class DeliveryInfo extends Form {
 
     render() { 
         return ( 
-            <div className = "text-center">
+            <div className = "text-center general-text">
                 <h1>¡Felicidades por tu venta!</h1>
                 <p>Por favor escribe a continuación la información de envío del producto</p>
                 <div className = "col-12 offset-md-3 col-md-6">
