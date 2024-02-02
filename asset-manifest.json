@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/OfertApp-Frontend/static/css/main.f9664b51.css",
-    "main.js": "/OfertApp-Frontend/static/js/main.84642528.js",
+    "main.js": "/OfertApp-Frontend/static/js/main.ffb4393d.js",
     "service-worker.js": "/OfertApp-Frontend/service-worker.js",
     "static/media/Edgar.jpg": "/OfertApp-Frontend/static/media/Edgar.75fb5f4f60c9e6031fe5.jpg",
     "static/media/changeTheme.png": "/OfertApp-Frontend/static/media/changeTheme.46de8e19b30d1bd97ef4.png",
@@ -10,10 +10,10 @@
     "static/media/errorIcon.png": "/OfertApp-Frontend/static/media/errorIcon.2fce6214b7c60c745aa6.png",
     "index.html": "/OfertApp-Frontend/index.html",
     "main.f9664b51.css.map": "/OfertApp-Frontend/static/css/main.f9664b51.css.map",
-    "main.84642528.js.map": "/OfertApp-Frontend/static/js/main.84642528.js.map"
+    "main.ffb4393d.js.map": "/OfertApp-Frontend/static/js/main.ffb4393d.js.map"
   },
   "entrypoints": [
     "static/css/main.f9664b51.css",
-    "static/js/main.84642528.js"
+    "static/js/main.ffb4393d.js"
   ]
 }
