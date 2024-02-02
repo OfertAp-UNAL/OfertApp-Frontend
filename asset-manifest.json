@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.2bf1bbbb.css",
-    "main.js": "/static/js/main.c3f5c1b3.js",
-    "service-worker.js": "/service-worker.js",
-    "static/media/Edgar.jpg": "/static/media/Edgar.75fb5f4f60c9e6031fe5.jpg",
-    "static/media/changeTheme.png": "/static/media/changeTheme.46de8e19b30d1bd97ef4.png",
-    "static/media/OfertappGrande.png": "/static/media/OfertappGrande.53f5f7ee784b7a92895c.png",
-    "static/media/OfertappGrandeDM.png": "/static/media/OfertappGrandeDM.4539daf67453fecb98a9.png",
-    "static/media/errorIcon.png": "/static/media/errorIcon.2fce6214b7c60c745aa6.png",
-    "index.html": "/index.html",
-    "main.2bf1bbbb.css.map": "/static/css/main.2bf1bbbb.css.map",
-    "main.c3f5c1b3.js.map": "/static/js/main.c3f5c1b3.js.map"
+    "main.css": "/OfertApp-Frontend/static/css/main.f9664b51.css",
+    "main.js": "/OfertApp-Frontend/static/js/main.84642528.js",
+    "service-worker.js": "/OfertApp-Frontend/service-worker.js",
+    "static/media/Edgar.jpg": "/OfertApp-Frontend/static/media/Edgar.75fb5f4f60c9e6031fe5.jpg",
+    "static/media/changeTheme.png": "/OfertApp-Frontend/static/media/changeTheme.46de8e19b30d1bd97ef4.png",
+    "static/media/OfertappGrande.png": "/OfertApp-Frontend/static/media/OfertappGrande.53f5f7ee784b7a92895c.png",
+    "static/media/OfertappGrandeDM.png": "/OfertApp-Frontend/static/media/OfertappGrandeDM.4539daf67453fecb98a9.png",
+    "static/media/errorIcon.png": "/OfertApp-Frontend/static/media/errorIcon.2fce6214b7c60c745aa6.png",
+    "index.html": "/OfertApp-Frontend/index.html",
+    "main.f9664b51.css.map": "/OfertApp-Frontend/static/css/main.f9664b51.css.map",
+    "main.84642528.js.map": "/OfertApp-Frontend/static/js/main.84642528.js.map"
   },
   "entrypoints": [
-    "static/css/main.2bf1bbbb.css",
-    "static/js/main.c3f5c1b3.js"
+    "static/css/main.f9664b51.css",
+    "static/js/main.84642528.js"
   ]
 }
